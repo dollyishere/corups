@@ -5,9 +5,9 @@ package dao;
  * @author ljy
  * @since 2024-04-08
  * **/
-public class adminDAO {
+public class AdminDAO {
 
-	public adminDAO() {
+	public AdminDAO() {
 		
 	} // adminDAO() END
 
