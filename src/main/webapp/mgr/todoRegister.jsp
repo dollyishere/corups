@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +16,13 @@
 
 </head>
 <body>
-<form action="TodoRegisterServlet" method="post">
+<form action="todoRegisterServlet" method="post">
 	<table border="1">
 		<caption><b>스터디 이름</b></caption>
-		<caption>할 일 이름</caption>
+		<caption>챕터 이름</caption>
 		<tbody>
 			<tr>
-				<th>챕터</th>
+				<th>이름</th>
 				<td><input type="text" name="name"></td>
 			</tr>
 			<tr>

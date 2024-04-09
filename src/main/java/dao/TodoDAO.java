@@ -134,12 +134,13 @@ public class TodoDAO extends MySQLConnector{
 		  
 		try {
 			
-			String query = "INSERT INTO todo (name, detail, update_date, start_date, end_date) VALUES (?, ?, now(), ?, ?)";
+			String query = "INSERT INTO todo (name, chapter_no, detail, created_date, update_date, start_date, end_date) VALUES (?, ?, ?, now(), now(), ?, ?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, todo.getName());
-	        pstmt.setString(2, todo.getDetail());
-	        pstmt.setDate(3, todo.getStartDate());
-	        pstmt.setDate(4, todo.getEndDate());     
+			pstmt.setInt(2, todo.getChapterNo());
+	        pstmt.setString(3, todo.getDetail());
+	        pstmt.setDate(4, todo.getStartDate());
+	        pstmt.setDate(5, todo.getEndDate());     
 	        pstmt.executeUpdate();
 			
 			return true;

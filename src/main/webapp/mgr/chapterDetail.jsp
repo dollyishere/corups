@@ -10,6 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>챕터 상세 페이지 - 스터디 방장</title>
+ 	<script type="text/javascript">
+	 function gotoTodoRegister() {
+	        document.location = "${contextPath}/todoRegisterServlet";
+	}
+	 </script>
 </head>
 <body>
 	<h2 align="center">
@@ -21,7 +26,7 @@
 				<tr>
 					<div style="display: inline-block;">
 						<h3 align="center">	chapter.name${chapter.name} </h3>
-						<input type="button" value="chapter 추가" onclick="gotoChpaterRegister()">
+						<input type="button" value="chapter 추가">
 					</div>
 				</tr>
 
@@ -40,17 +45,13 @@
 					</tr>
 				</thead>
 
-				<tody> <c:choose>
-					<%-- if() 부분 --%>
-					<c:when test="${todoCount ==0}">
+				<tody> 
 						<tr>
-							<td align="center" colspan="4">todo가 없습니다.</td>
-							<input type="button" name="insertTodo" value="할일추가"
-								onclick="location.hrdf='<c:url value="/study/todoRegisterServlet"/>'" />
+							<td align="center" colspan="4">
+							<input type="button" name="insertTodo" value="할일추가" onclick="gotoTodoRegister()" />
+							</td>
 						</tr>
-					</c:when>
-
-					<c:otherwise>
+												
 						<%-- else 부분 --%>
 						<c:forEach var="todo" items="${todoList}" varStatus="status">
 							<tr>
@@ -81,9 +82,9 @@
 
 							</tr>
 						</c:forEach>
-					</c:otherwise>
+					
 
-				</c:choose> </tody>
+					</tody>
 
 				<tfoot>
 					<!-- 페이지 번호 -->
