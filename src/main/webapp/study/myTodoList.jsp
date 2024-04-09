@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+
+<!-- TodoListServlet -> statusTodoArray, todoArray -->
+<script type="text/javascript">
+    function gotoDetail(todo_no) {
+        document.location = "${contextPath}/todoDetailServlet?todo_no=" + todo_no;
+    }
+    
+    window.addEventListener('popstate', function(event) {
+        location.reload();
+    });
+    
+</script>
+
+		
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +24,7 @@
 </head>
 <body>
 
-	<form action="TodoSearchServlet" method="post">
+	<form action="todoSearchServlet" method="post">
     <select name="status" id="status">
         <option value="완료">완료</option>
         <option value="진행중">진행중</option>
@@ -18,20 +33,48 @@
     </select>
     <input type="text" id="searchKeyword" name="keyword" placeholder="검색어를 입력하세요">
     <input type="submit" value="검색">
+    </form>
     <br>
+    
     <table border="1px">
-	    <tr>
-		    <td>
-		    내 할일1
-		    </td>
-		    <td>
-		    설명 : 단어 100개 외우기<br>
-		    상태 : 진행중<br>
-		    기간 : 2024.04.05 - 2024.04.18<br>
-<!-- 		    스터디 : 스터디1<br> -->
-<!-- 		    챕터 : 챕터1<br> -->
-		    </td>
-	    </tr>
+    	<tbody>
+    		<c:choose>
+    		<c:when test="${empty todoArray}">
+    			<tr><td>할 일이 없습니다.</td></tr>
+    		</c:when>
+    		<c:otherwise>
+	    	<!-- todo -->
+	    	<c:forEach var="todo" items="${todoArray}">
+			    <tr>
+				    <td>
+				    <button type="button" onclick="gotoDetail(${todo.no})">
+				    	${todo.name}
+				    </button>
+				    </td>
+				    <td>
+				    설명 : ${todo.detail}<br>
+					상태 : 
+				    <c:forEach var="statusItem" items="${statusTodoArray}">
+					    <c:choose>
+					        <c:when test="${todo.no eq statusItem.todoNo}">
+					            <c:if test="${statusItem.status eq 'D'}">완료</c:if>
+					            <c:if test="${statusItem.status eq 'P'}">진행중</c:if>
+					            <c:if test="${statusItem.status eq 'H'}">보류</c:if>
+					            <c:if test="${statusItem.status eq 'C'}">취소</c:if>
+					        </c:when>
+					    </c:choose>
+					</c:forEach>
+					<br>
+					
+				    기간 : ${todo.startDate} ~ ${todo.endDate}<br>
+					<!-- 스터디 : 스터디1<br> -->
+					<!-- 챕터 : 챕터1<br> -->
+				    </td>
+			    </tr>
+		    </c:forEach>
+    		</c:otherwise>
+		    </c:choose>
+	    </tbody>
 	    
 	    <tfoot>
 		
@@ -41,7 +84,7 @@
 			</tr>
 		</tfoot>
     </table>
-</form>
+
 
 </body>
 </html>

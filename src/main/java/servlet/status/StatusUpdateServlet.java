@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author nsr
  * @since 2024-04-08
  **/
-@WebServlet("/status/StatusUpdateServlet")
+@WebServlet("/status/statusUpdateServlet")
 public class StatusUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

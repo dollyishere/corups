@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	
+	<!-- todo -->
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,28 +14,69 @@
         text-align: center;
     }
 </style>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#updateBtn").click(function(e) {
+                e.preventDefault();
 
+                var name = $("#name").val();
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                var content = $("#content").val();
+                var todoNo = $("#todoNo").val();
+                
+                $.ajax({
+                    url: "todoUpdateServlet",
+                    type: "POST",
+                    async: true,
+                    data: { 
+                    	name: name,
+                    	startDate: startDate,
+                    	endDate: endDate,
+                    	content: content,
+                    	todoNo: todoNo
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success) {
+                        	window.history.back();
+                        } else {
+                            alert(response.errorMessage);
+                        }
+                    },
+                    error: function() {
+                        alert("Error occurred while processing data");
+                    }
+                });
+            });
+        });
+    </script>
+<script>
+	function gotoBefore(){
+		 window.history.back();
+	}
+</script>
 
 </head>
-<body>
-<form action="TodoRegisterServlet" method="post">
+<body>    
 	<table border="1">
 		<caption><b>스터디 이름</b></caption>
-		<caption>할 일 이름</caption>
+		<caption>챕터 이름</caption>
 		<tbody>
 			<tr>
-				<th>챕터</th>
-				<td><input type="text" name="name"></td>
+				<th>할 일</th>
+				<td><input type="text" id="name" name="name" value="${todo.name}"></td>
 			</tr>
 			<tr>
 				<th>시작</th>
-				<td><input type="date" name="startDate"></td>
+				<td><input type="date" id="startDate" name="startDate" value="${todo.startDate}"></td>
 			<tr>
 				<th>마감</th>
-				<td><input type="date" name="endDate"></td>
+				<td><input type="date" id="endDate" name="endDate" value="${todo.endDate}"></td>
 			<tr>
 				<th>내용</th>
-				<td><textarea id="content" name="content" rows="4" cols="50"></textarea></td>
+				<td><textarea id="content" id="content" name="content" value="${todo.detail}" rows="4" cols="50">${todo.detail}</textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="file" id="file" name="file"></td>
@@ -41,8 +85,9 @@
 		<tfoot>
 			<tr >
 				<td colspan="2">
-				<input type="submit" value="수정">
-				<input type="button" value="취소">
+				<input type="hidden" id="todoNo" name="todoNo" value="${todo.no}">
+				<input type="button" id="updateBtn" value="수정">
+				<input type="button" value="취소" onclick="gotoBefore()">
 				</td>
 			</tr>
 		</tfoot>
