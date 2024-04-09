@@ -54,6 +54,6 @@ public class LoginServlet extends HttpServlet {
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
-	} // POST() END
+	} // doPOST() END
 
 }

@@ -20,7 +20,7 @@ public class MemberDetailServlet extends HttpServlet {
     public MemberDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    } // 생성자 END
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +28,7 @@ public class MemberDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	} // doGET() END
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +36,6 @@ public class MemberDetailServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
+	} // doPOST() END
 
 }

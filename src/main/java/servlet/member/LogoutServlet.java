@@ -27,7 +27,7 @@ public class LogoutServlet extends HttpServlet {
 
     /** GET 요청 **/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	} // GET() END
+	} // doGET() END
 
 	/** POST 요청: 로그아웃 요청 실행 **/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +41,6 @@ public class LogoutServlet extends HttpServlet {
 		// 로그아웃 성공할 시 index.jsp로
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
-	} // POST() END
+	} // doPOST() END
 
 }

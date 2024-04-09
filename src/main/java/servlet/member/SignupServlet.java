@@ -37,7 +37,7 @@ public class SignupServlet extends HttpServlet {
        
     public SignupServlet() {
         super();
-    }
+    } // 생성자 END
 
     /**
 	 * GET 요청 수행(회원가입 페이지로 이동)
@@ -45,14 +45,14 @@ public class SignupServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mem/signup.jsp");
  		requestDispatcher.forward(request, response);
-	} // GET() END
+	}  // doGET() END
 
 	/**
 	 * POST 요청 수행(회원가입 수행)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
-	} // POST() END
+	} // doPOST() END
 	
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 request.setCharacterEncoding("utf-8");
@@ -190,5 +190,5 @@ public class SignupServlet extends HttpServlet {
 	     }
 	     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
     	 requestDispatcher.forward(request, response);
-	}
+	} // doPOST() END
 }
