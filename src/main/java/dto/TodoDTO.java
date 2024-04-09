@@ -10,6 +10,7 @@ import java.sql.Date;
 public class TodoDTO {
 	private int no;
 	private int chapterNo;
+	private int studyNo;
 	private String name;
 	private String detail;
 	private Date createdDate;
@@ -17,6 +18,9 @@ public class TodoDTO {
 	private Date startDate;
 	private Date endDate;
 
+	public TodoDTO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getNo() {
 		return no;
@@ -82,15 +86,19 @@ public class TodoDTO {
 		this.endDate = endDate;
 	}
 
-	public TodoDTO() {
-		// TODO Auto-generated constructor stub
+	public int getStudyNo() {
+		return studyNo;
 	}
-	
+
+	public void setStudyNo(int studyNo) {
+		this.studyNo = studyNo;
+	}
+
 	@Override
 	public String toString() {
-		return "TodoDTO [no=" + no + ", chapterNo=" + chapterNo + ", name=" + name + ", detail=" + detail
-				+ ", createdDate=" + createdDate + ", updateDate=" + updateDate + ", startDate=" + startDate
-				+ ", endDate=" + endDate + "]";
+		return "TodoDTO [no=" + no + ", chapterNo=" + chapterNo + ", studyNo=" + studyNo + ", name=" + name
+				+ ", detail=" + detail + ", createdDate=" + createdDate + ", updateDate=" + updateDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
 	}
 
 }

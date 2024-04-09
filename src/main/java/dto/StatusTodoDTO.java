@@ -6,41 +6,42 @@ package dto;
  * @since 2024-04-08
  **/
 public class StatusTodoDTO {
-	private String	member_id;
-	private int	todo_no;
-	private int	status_no;
+	private String	memberId;
+	private int	todoNo;
+	private String	status;
 
 	public StatusTodoDTO() {
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public int getTodo_no() {
-		return todo_no;
+	public int getTodoNo() {
+		return todoNo;
 	}
 
-	public void setTodo_no(int todo_no) {
-		this.todo_no = todo_no;
+	public void setTodoNo(int todoNo) {
+		this.todoNo = todoNo;
 	}
 
-	public int getStatus_no() {
-		return status_no;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setStatus_no(int status_no) {
-		this.status_no = status_no;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
-		return "StatusTodoDTO [member_id=" + member_id + ", todo_no=" + todo_no + ", status_no=" + status_no + "]";
+		return "StatusTodoDTO [memberId=" + memberId + ", todoNo=" + todoNo + ", status=" + status + "]";
 	}
+
 
 	
 }
