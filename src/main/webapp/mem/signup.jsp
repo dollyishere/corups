@@ -28,7 +28,7 @@
 		$.ajax({
 			type: "post",
 			async: false,
-			url: "http://localhost:9000/corups/member/SignUpServlet/confirmDuplicate.do",
+			url: "http://localhost:9000/corups/member/signupServlet/confirmDuplicate.do",
 			dataType: "text",
 			data: {id: _id},
 			
@@ -36,7 +36,9 @@
 				if (data == 'usable') {
 					alert("사용할 수 있는 ID 입니다.");
 					$("#id").prop("readonly", true);
-					$("#double").prop("disabled", true)
+					$("#double").prop("disabled", true);
+					$("#pwd").prop("disabled", false);
+					$("#pwd_check").prop("disabled", false);
 				} else {
 					alert("사용할 수 없는 ID입니다.")
 					$('#id').val('');
@@ -58,21 +60,24 @@
 			if($("#pwd").val() !== $("#pwd_check").val()) {
 				$("#pwd_message").text("");
 				$("#pwd_message").html("<b>비밀번호가 틀립니다.</b>");
+				$("#form-submit").prop("disabled", true);
 			} else {
 				$("#pwd_message").text("");
 				$("#pwd_message").html("<b>비밀번호가 맞습니다.</b>");
+				$("#form-submit").prop("disabled", false);
 			}
 		})
 		
 		$("#pwd").keyup(function() {
 			$("#pwd_message").text("");
+			$("#form-submit").prop("disabled", true);
 		})
 	})
 	
 </script>
 </head>
 <body>
-	<form action="member/SignUpServlet" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form action="<c:url value="/member/signupServlet" />" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<table border="1" >
 			<colgroup>
 				<col width="150" />
@@ -88,7 +93,7 @@
 				<tr>
 					<td>프로필 사진</td>
 					<td>
-						<input type="file">
+						<input type="file" name="image" id="image" accept="image/*">
 					</td>
 					<td>프로필 사진을 선택하세요.</td>
 				</tr>
@@ -103,14 +108,14 @@
 				<tr>
 					<td>패스워드</td>
 					<td>
-						<input type="password" name="pwd" id="pwd" size="20" maxlength="20" required />
+						<input type="password" name="pwd" id="pwd" size="20" maxlength="20" required disabled />
 					</td>
 					<td>패스워드를 적어 주세요.</td>
 				</tr>
 				<tr>
 					<td>패스워드 확인</td>
 					<td>
-						<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" required />
+						<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" required disabled />
 						&nbsp;
 						<span id="pwd_message"></span>
 					</td> 
@@ -154,11 +159,17 @@
 				<tr>
 					<td>관심사</td>
 					<td>
-						<label><input type="checkbox" name="internet" value="i">인터넷</label>
+						<label><input type="checkbox" name="reading" value="r">독서</label>
 						<label><input type="checkbox" name="travel" value="t">여행</label>
 						<label><input type="checkbox" name="gaming" value="g">게임</label>
 						<label><input type="checkbox" name="movie" value="m">영화</label>
 						<label><input type="checkbox" name="exercise" value="e">운동</label>
+						<br>
+						<label><input type="checkbox" name="cooking" value="c">요리</label>
+						<label><input type="checkbox" name="programming" value="p">프로그래밍</label>
+						<label><input type="checkbox" name="song" value="s">노래</label>
+						<label><input type="checkbox" name="language" value="l">어학</label>
+						<label><input type="checkbox" name="others" value="o">기타</label>
 					</td>
 					<td>관심사를 선택하세요.</td>
 				</tr>
@@ -167,7 +178,7 @@
 			<!-- 회원가입 버튼 -->
 			<tfoot>
 				<tr><th align="center" colspan="3">
-					<input type="submit" value="회원가입" />
+					<input type="submit" value="회원가입" id="form-submit" disabled />
 					&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="다시쓰기" />
 				</th></tr>

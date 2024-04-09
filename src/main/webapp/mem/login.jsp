@@ -16,7 +16,7 @@
 </style>
 </head>
 <body>
-	<form action="<c:url value="/member/LoginServlet" />" method="post">
+	<form action="<c:url value="/member/loginServlet" />" method="post">
 		<table border="1">
 			<tr>
 				<td colspan="2">로그인</td>
