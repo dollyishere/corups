@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Date;
+
 /**
  * member & study DTO
  * @author ljy
@@ -7,6 +9,7 @@ package dto;
  * **/
 public class MemberStudyDTO {
 	private String	memberId;	//회원 id
+	private Date joinDate; // 스터디 참여 날짜
 	private int	studyNo;	//스터디 번호
 	
 	public MemberStudyDTO() {
@@ -21,6 +24,14 @@ public class MemberStudyDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
 
 	public int getStudyNo() {
 		return studyNo;
@@ -33,8 +44,6 @@ public class MemberStudyDTO {
 	// toString Override
 	@Override
 	public String toString() {
-		return "MemberStudyDTO [memberId=" + memberId + ", studyNo=" + studyNo + "]";
+		return "MemberStudyDTO [memberId=" + memberId + ", joinDate=" + joinDate + ", studyNo=" + studyNo + "]";
 	}
-
-	
 }

@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.AdminDAO;
-
 /**
  * 관리자(admin) 로그아웃 controller
  * @author 임주연
@@ -20,7 +18,6 @@ import dao.AdminDAO;
 @WebServlet("/admin/adminLogoutServlet")
 public class AdminLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AdminDAO adminDAO = null;
 
     public AdminLogoutServlet() {
         super();
@@ -44,7 +41,6 @@ public class AdminLogoutServlet extends HttpServlet {
             session.invalidate();
         }
 
-		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
 		

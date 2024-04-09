@@ -139,7 +139,7 @@ public class MemberDAO {
 		
 		try {
 			connector = datasource.connection();
-			String query = "select * from member order by name";
+			String query = "select * from member order by join_date";
 			
 			pstmt = connector.prepareStatement(query);
 			rs = pstmt.executeQuery();
