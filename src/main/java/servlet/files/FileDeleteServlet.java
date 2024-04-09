@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2024-04-08
  **/
 @WebServlet("/file/fileDeleteServlet")
-public class fileDeleteServlet extends HttpServlet {
+public class FileDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public fileDeleteServlet() {
+    public FileDeleteServlet() {
         super();
     }
 

@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2024-04-08
  **/
 @WebServlet("/file/fileUploadServlet")
-public class fileUploadServlet extends HttpServlet {
+public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public fileUploadServlet() {
+    public FileUploadServlet() {
         super();
     }
 
