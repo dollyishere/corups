@@ -1,4 +1,4 @@
-package controller.memberStudy;
+package servlet.admin;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyStudyListServlet
+ * Servlet implementation class AdminLogoutServlet
  */
-@WebServlet("/memberStudy/MyStudyListServlet")
-public class MyStudyListServlet extends HttpServlet {
+@WebServlet("/admin/AdminLogoutServlet")
+public class AdminLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyStudyListServlet() {
+    public AdminLogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

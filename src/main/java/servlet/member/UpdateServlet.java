@@ -1,4 +1,4 @@
-package controller.member;
+package servlet.member;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberListServlet
+ * Servlet implementation class UpdateServlet
  */
-@WebServlet("/member/MemberListServlet")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/member/UpdateServlet")
+public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServlet() {
+    public UpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

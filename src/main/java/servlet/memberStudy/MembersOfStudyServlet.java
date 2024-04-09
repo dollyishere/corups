@@ -1,4 +1,4 @@
-package controller.memberStudy;
+package servlet.memberStudy;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
