@@ -3,15 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
-<!-- TodoListServlet -> statusTodoArray, todoArray -->
+<!-- TodoListServlet -> statusArray, todoArray -->
+<!-- TodoSearchServlet -> statusArray, todoArray, searchText, searchStatus -->
+
 <script type="text/javascript">
     function gotoDetail(todo_no) {
-        document.location = "${contextPath}/todoDetailServlet?todo_no=" + todo_no;
+    	// 세션 변수 설정
+        <% session.setAttribute("myTodoPage", "true"); %>
+        document.location = "${contextPath}/todoDetailServlet?todo_no="+todo_no;
     }
-    
-    window.addEventListener('popstate', function(event) {
-        location.reload();
-    });
     
 </script>
 
@@ -25,13 +25,14 @@
 <body>
 
 	<form action="todoSearchServlet" method="post">
-    <select name="status" id="status">
-        <option value="완료">완료</option>
-        <option value="진행중">진행중</option>
-        <option value="보류">보류</option>
-        <option value="취소">취소</option>
+    <select name="searchStatus" id="searchStatus">
+    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
+        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
+        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
+        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
+        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
     </select>
-    <input type="text" id="searchKeyword" name="keyword" placeholder="검색어를 입력하세요">
+    <input type="text" id="searchText" name="searchText" placeholder="검색어를 입력하세요" value="${searchText}">
     <input type="submit" value="검색">
     </form>
     <br>
@@ -54,7 +55,7 @@
 				    <td>
 				    설명 : ${todo.detail}<br>
 					상태 : 
-				    <c:forEach var="statusItem" items="${statusTodoArray}">
+				    <c:forEach var="statusItem" items="${statusArray}">
 					    <c:choose>
 					        <c:when test="${todo.no eq statusItem.todoNo}">
 					            <c:if test="${statusItem.status eq 'D'}">완료</c:if>

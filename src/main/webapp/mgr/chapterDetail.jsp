@@ -12,7 +12,8 @@
 <title>챕터 상세 페이지 - 스터디 방장</title>
  	<script type="text/javascript">
 	 function gotoTodoRegister() {
-	        document.location = "${contextPath}/todoRegisterServlet";
+		 <% session.setAttribute("myTodoPage", "false"); %>
+	        document.location = "${contextPath}/todoRegisterServlet?rootPage="+1;
 	}
 	 </script>
 </head>
