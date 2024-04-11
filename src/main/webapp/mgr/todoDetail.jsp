@@ -6,58 +6,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>할일 정보 확인</title>
+<title>스터디 생성자 할일 정보 확인</title>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-	function gotoBefore(){
-		 window.history.back();
-// 		 window.location.reload();  // 이전 페이지를 새로고침
+
+	function gotoUpdate(todoNo, rootPage){
+		document.location = "todoUpdateServlet?todoNo="+todoNo+"&rootPage="+rootPage;
 	}
 	
-	function gotoUpdate(todoNo){
-		 document.location = "todoUpdateServlet?todoNo="+todoNo;
-	}
+	$(document).ready(function(){
+	    $("#okBtn").click(function(){
+	        var status = $("#status").val();
+	        var todoNo = $("#todoNo").val();
+	        var rootPage = $("rootPage").val();
+	        var myTodoPage = ${sessionScope.myTodoPage};
+	        
+	        var datas = {
+	            status: status,
+	            todoNo: todoNo,
+	            rootPage: rootPage
+	        };
+	        
+	        $.ajax({
+	            url: "statusUpdateServlet",
+	            type: "POST",
+	            data: datas,
+	            dataType: "text",  // 응답 데이터 타입 지정
+	            success: function(response){
+	            	if(myTodoPage == true)
+                	document.location = "todoListServlet";
+                	else
+                	document.location = "todoListServlet";
+	            },
+	            error: function(error){
+	                alert("Error: " + error);  // 에러 처리
+	            }
+	        });
+	    });
+	});
 	
-	window.addEventListener('popstate', function(event) {
-        location.reload();
-    });
 </script>
 
 </head>
 <body>
-    <table border="1">
-        <caption><b>스터디 이름</b></caption>
-        <caption>챕터 이름</caption>
-        <tbody>
-            <tr>
-                <th>할 일 </th>
-                <td>${todo.name}</td>
-            </tr>
-            <tr>
-                <th>상태</th>
-                <td>
-                <input type="radio" id="Done" name="status" value="complete" ${status == 'D' ? 'checked' : ''}>완료
-                <input type="radio" id="Progress" name="status" value="inProgress" ${status == 'P' ? 'checked' : ''}>진행중
-                <input type="radio" id="Hold" name="status" value="보류" ${status == 'H' ? 'checked' : ''}>보류
-                <input type="radio" id="Canceled" name="status" value="취소" ${status == 'C' ? 'checked' : ''}>취소
-                </td>
-            </tr>
-            <tr>
-                <th>기간</th>
-                <td>${todo.startDate} ~ ${todo.endDate}</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td>${todo.detail}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2">첨부자료가 있다면 첨부자료 다운로드 띄우기</td>
-            </tr>
-        </tfoot>
-    </table>
-    <input type="button" id="updateBtn" value="수정" onclick="gotoUpdate(${todo.no})">
-    <input type="button" id="okBtn" value="확인" onclick="gotoBefore()">
+	<%@ include file="/study/todoDetail.jsp" %>
+    
+    <input type="button" value="수정" onclick="gotoUpdate(${todo.no}, ${rootPage})">
 </body>
 </html>

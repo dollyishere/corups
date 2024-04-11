@@ -7,12 +7,35 @@
 <head>
 <meta charset="UTF-8">
 <title>할일 정보 확인</title>
-
-<script>
-	function gotoBefore(){
-		 window.history.back();
-	}
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#okBtn").click(function(){
+        var status = $("input[name='status']:checked").val();
+        var todoNo = $("#todoNo").val();
+        var myTodoPage = ${sessionScope.myTodoPage};
+        var datas = {
+            status: status,
+            todoNo: todoNo
+        };
+        
+        $.ajax({
+            url: "statusUpdateServlet",
+            type: "POST",
+            data: datas,
+            dataType: "text",  // 응답 데이터 타입 지정
+            success: function(response){
+            	if(myTodoPage == true)
+                	document.location = "todoListServlet";
+                else
+                	document.location = "todoListServlet";
+            },
+            error: function(error){
+                alert("Error: " + error);  // 에러 처리
+            }
+        });
+    });
+});
 </script>
 </head>
 <body>
@@ -27,10 +50,10 @@
             <tr>
                 <th>상태</th>
                 <td>
-                <input type="radio" id="Done" name="status" value="complete" ${status == 'D' ? 'checked' : ''}>완료
-                <input type="radio" id="Progress" name="status" value="inProgress" ${status == 'P' ? 'checked' : ''}>진행중
-                <input type="radio" id="Hold" name="status" value="보류" ${status == 'H' ? 'checked' : ''}>보류
-                <input type="radio" id="Canceled" name="status" value="취소" ${status == 'C' ? 'checked' : ''}>취소
+                <input type="radio" id="status" name="status" value="D" ${status == 'D' ? 'checked' : ''}>완료
+                <input type="radio" id="status" name="status" value="P" ${status == 'P' ? 'checked' : ''}>진행중
+                <input type="radio" id="status" name="status" value="H" ${status == 'H' ? 'checked' : ''}>보류
+                <input type="radio" id="status" name="status" value="C" ${status == 'C' ? 'checked' : ''}>취소
                 </td>
             </tr>
             <tr>
@@ -48,7 +71,7 @@
             </tr>
         </tfoot>
     </table>
-    
-    <input type="button" id="okBtn" value="확인" onclick="gotoBefore()">
+    <input type="hidden" id="todoNo" value="${todo.no}">
+    <input type="button" id="okBtn" value="확인">
 </body>
 </html>

@@ -8,15 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.ChapterDAO;
-import dao.StatusTodoDAO;
-import dao.StudyDAO;
+import dao.StatusDAO;
 import dao.TodoDAO;
-import dto.ChapterDTO;
-import dto.StudyDTO;
+import dto.StatusDTO;
 import dto.TodoDTO;
+import utils.SessionUtil;
 
 /**
  * /todo/TodoDetailServlet
@@ -60,7 +57,7 @@ public class TodoDetailServlet extends HttpServlet {
 		System.out.println(todo);
 		
 		// 3. 세션에 id 가져오기
-		String id = getID(request, response);
+		String id = SessionUtil.getID(request, response);
 		
 //		// Chapter 와 Study 정보 조회
 //		ChapterDAO chapterDAO = new ChapterDAO();
@@ -69,8 +66,8 @@ public class TodoDetailServlet extends HttpServlet {
 //		StudyDAO studyDAO = new StudyDAO();
 //		StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
 		
-		StatusTodoDAO statusTodoDao = new StatusTodoDAO();
-		String status = statusTodoDao.getStatus(id, todo.getNo());		
+		StatusDAO statusTodoDao = new StatusDAO();
+		StatusDTO status = statusTodoDao.getStatus(id, todo.getNo());		
 		
 //		// 5. id 와 create_user_id 가 같다면
 //		//		-> mgr/todoDetail.jsp 로 이동
@@ -81,7 +78,7 @@ public class TodoDetailServlet extends HttpServlet {
 //		request.setAttribute("study", study);
 //		request.setAttribute("chapter", chapter);
 		request.setAttribute("todo", todo);
-		request.setAttribute("status", status);
+		request.setAttribute("status", status.getStatus());
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(page + "/todoDetail.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -90,22 +87,4 @@ public class TodoDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 	}
 
-	
-	private String getID(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		 // 세션을 가져옵니다. 없으면 null을 반환합니다.
-        HttpSession session = request.getSession(false);
-        String id = "";
-        
-        if (session == null) {
-        	response.getWriter().append("Session not found");
-        } else {
-        	id = (String) session.getAttribute("id");
-        	if (id == null) 
-        		response.getWriter().append("Username attribute not found in session");
-        }
-        
-        return id;
-        
-	}
 }
