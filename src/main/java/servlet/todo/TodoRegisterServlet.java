@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.StatusDAO;
 import dao.TodoDAO;
+import dto.StatusDTO;
 import dto.TodoDTO;
+import utils.SessionUtil;
 
 /**
  * /todo/TodoRegisterServlet
@@ -56,12 +59,29 @@ public class TodoRegisterServlet extends HttpServlet {
 		todo.setName(name);
 		todo.setStartDate(startDate);
 		
+		// Insert todo
 		TodoDAO todoDAO = new TodoDAO();
-		boolean isSuccess = todoDAO.insertTodo(todo);
+		int todoNo = todoDAO.insertTodo(todo);
+		boolean success = (todoNo > 0);
+		if(success) {
+			// StatusDTO
+			StatusDTO status = new StatusDTO();
+			status.setMemberId(SessionUtil.getID(request, response));
+			status.setStatus("P");
+			status.setTodoNo(todoNo);
+			
+			// Insert status
+			StatusDAO statusDAO = new StatusDAO();
+			success = statusDAO.insertStatus(status);			
+		}
 		
-		if(isSuccess ) {
+		String result = "실패";
+		if(success) {
+			result = "성공";
 			System.out.println("성공");
 		}
+
+		response.getWriter().write(result);
 	}
 	
 	private Date parseDate(String dateStr) {
