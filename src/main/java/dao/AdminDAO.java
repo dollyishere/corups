@@ -26,7 +26,7 @@ public class AdminDAO {
 		boolean state = false;
 		try {
 			connector = datasource.connection();
-			String query = "select count(*) from tblAdmin where admin_id = ? and admin_pwd = ?";
+			String query = "select count(*) from admin where admin_id = ? and admin_pwd = ?";
 			
 			pstmt = connector.prepareStatement(query);
 			pstmt.setString(1, id);

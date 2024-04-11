@@ -34,7 +34,7 @@ public class AdminLogoutServlet extends HttpServlet {
 	 * POST 요청 수행(관리자 로그아웃)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/admin/index.jsp";
+		String nextPage = "/index.jsp";
 		
 		HttpSession session = request.getSession(false);
         if (session != null) {

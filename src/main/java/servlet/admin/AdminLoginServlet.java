@@ -39,7 +39,7 @@ public class AdminLoginServlet extends HttpServlet {
 	 * POST 요청 수행(관리자 로그인)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/admin/index.jsp";
+		String nextPage = "/admin/main.jsp";
 		boolean status = false;
 		
 		String id = request.getParameter("id");
