@@ -51,19 +51,29 @@ public class UpdateServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 		    response.setContentType("test/html; charset=utf-8");
 		     
-		    session = request.getSession(false);
-			String id = (String) session.getAttribute("id");
-			member = memberDAO.detail(id);
-			request.setAttribute("member", member);
+			String id = "";
 			
 			// 일반 회원인지, admin인지에 따라 루트 변경
 			nowPath = request.getParameter("nowPath");
+			System.out.println(nowPath);
 			
-			if (nowPath == "a") {
-				nextPath = "/admin/memberUpdate.jsp";
+			if (nowPath != null) {
+			    id = (String) request.getParameter("id");
+			    nextPath = "/admin/memberUpdate.jsp";
+			    System.out.println(id);
+			    System.out.println(nextPath);
 			} else {
-				nextPath = "/mem/memberUpdate.jsp";
+			    session = request.getSession(false);
+			    id = (String) session.getAttribute("id");
+			    nextPath = "/mem/profileUpdate.jsp";
+			    System.out.println(id);
+			    System.out.println(nextPath);
 			}
+			
+			member = memberDAO.detail(id);
+			request.setAttribute("member", member);
+
+			nowPath = request.getParameter("nextPath");
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
 			requestDispatcher.forward(request, response);
 	} // doGET() END
@@ -74,7 +84,7 @@ public class UpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 	     response.setContentType("text/html; charset=utf-8");
-	     nextPath = "/mem/login.jsp";
+	     nextPath = "/mem/main.jsp";
 	     String id = "";
 	     boolean resultQ = false;
 	     FileItem imgFile = null;
@@ -118,6 +128,10 @@ public class UpdateServlet extends HttpServlet {
 	    			 // 관심사일 시
 	    			 if (interestsName.contains(item.getFieldName())) {
 	    				 interests.add(item.getString("utf-8"));
+	    			 } else if ("nowPath".equals(item.getFieldName())) {
+	    				 nowPath = item.getString("utf-8");
+	    			 } else if ("preImg".equals(item.getFieldName())) {
+	    				 member.setImage(item.getString("utf-8"));
 	    			 } else if ("id".equals(item.getFieldName())) {
 	    				 member.setId(item.getString("utf-8"));
 	    				 id = item.getString("utf-8");
@@ -146,10 +160,11 @@ public class UpdateServlet extends HttpServlet {
 	    			 }
 	    		 } else if (item.getSize() > 0) {
 	    			 imgFile = item;
+	    			 System.out.println(imgFile);
 	    		 }
 	    	 }
 	    	 
-	    	 if (imgFile != null) {
+	    	 if (imgFile != null && member.getImage() == null) {
 	    		 File currentPath = new File(realPath);
     		     
     			 int idx = imgFile.getName().lastIndexOf("\\");
@@ -158,12 +173,9 @@ public class UpdateServlet extends HttpServlet {
     			 }
     			 String fileName = imgFile.getName().substring(idx + 1);
     			 int lastDotIndex = fileName.lastIndexOf(".");
-    			 System.out.println("fileName : " + id + "_profile_img" + fileName.substring(lastDotIndex));
-    			 member.setImage(id + "_profile_img" + fileName.substring(lastDotIndex));
-    			 uploadFile = new File(currentPath + "\\" + id + "_profile_img" + fileName.substring(lastDotIndex));
-	 			imgFile.write(uploadFile);
-	    	 } else {
-	    		 member.setImage("default_profile_img.jpg");
+    			 member.setImage(id + "_p_img" + fileName.substring(lastDotIndex));
+    			 uploadFile = new File(currentPath + "\\" + id + "_p_img" + fileName.substring(lastDotIndex));
+    			 imgFile.write(uploadFile);
 	    	 }
 	    	 
 		} catch (Exception e) {
@@ -182,11 +194,17 @@ public class UpdateServlet extends HttpServlet {
 
 	     member.toString();
 	     memberDAO = new MemberDAO();
-	     resultQ = memberDAO.signup(member);
-	     System.out.println(resultQ);
+	     resultQ = memberDAO.update(member);
+	     
+		if (nowPath != null) {
+		    nextPath = "/member/memberListServlet";
+		}
+				
 	     if (!resultQ) {
 	    	 nextPath = "/errorLog.jsp";
 	     }
+	     
+	     System.out.println(nextPath);
 	     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
     	 requestDispatcher.forward(request, response);
 	} // doPOST() END

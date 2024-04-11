@@ -159,12 +159,11 @@ public class SignupServlet extends HttpServlet {
     			 }
     			 String fileName = imgFile.getName().substring(idx + 1);
     			 int lastDotIndex = fileName.lastIndexOf(".");
-    			 System.out.println("fileName : " + id + "_profile_img" + fileName.substring(lastDotIndex));
-    			 member.setImage(id + "_profile_img" + fileName.substring(lastDotIndex));
-    			 uploadFile = new File(currentPath + "\\" + id + "_profile_img" + fileName.substring(lastDotIndex));
+    			 member.setImage(id + "_p_img" + fileName.substring(lastDotIndex));
+    			 uploadFile = new File(currentPath + "\\" + id + "_p_img" + fileName.substring(lastDotIndex));
 	 			imgFile.write(uploadFile);
 	    	 } else {
-	    		 member.setImage("default_profile_img.jpg");
+	    		 member.setImage("0_p_img.jpg");
 	    	 }
 	    	 
 		} catch (Exception e) {
@@ -178,10 +177,10 @@ public class SignupServlet extends HttpServlet {
 	     if (interests != null & !interests.isEmpty()) {
 	    	 joinedInterests = String.join("", interests);
 	     }
-	     
+	    
 	     member.setInterest(joinedInterests);
 
-	     member.toString();
+	     System.out.println(member.toString());
 	     memberDAO = new MemberDAO();
 	     resultQ = memberDAO.signup(member);
 	     System.out.println(resultQ);

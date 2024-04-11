@@ -53,6 +53,21 @@
 		})
 	}
 	
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("image").addEventListener("change", function() {
+			console.log("추적중...");
+			if (this.files && this.files[0]) {
+				console.log("성공!");
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#imagePreview").html('<img alt="imagePreview" src="'+ e.target.result + '" />');
+					console.log($("#imgPreview"))
+				};
+				reader.readAsDataURL(this.files[0]);
+			};
+		});
+	});
+	
 	/* 비번 확인 */
 	$(document).ready(function() {
 		// 암호 확인 기능 구현
@@ -93,6 +108,9 @@
 				<tr>
 					<td>프로필 사진</td>
 					<td>
+						<div style="width='400px';"  id="imagePreview">
+							
+						</div>
 						<input type="file" name="image" id="image" accept="image/*">
 					</td>
 					<td>프로필 사진을 선택하세요.</td>
