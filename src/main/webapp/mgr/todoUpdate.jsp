@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	
-	<!-- todo -->
+<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
+	<!-- todo, returnPage -->
     
 <!DOCTYPE html>
 <html>
@@ -37,19 +38,42 @@
                     	content: content,
                     	todoNo: todoNo
                     },
-                    dataType: "json",
+                    dataType: "text",
                     success: function(response) {
-                        if (response.success) {
-                        	window.history.back();
-                        } else {
-                            alert(response.errorMessage);
-                        }
+                    	document.location = "todoDetailServlet?todo_no=" + todoNo;
                     },
                     error: function() {
                         alert("Error occurred while processing data");
                     }
                 });
-            });
+            }); 
+       
+	        $("#deleteBtn").click(function(e) {
+	            e.preventDefault();
+	            
+	            var todoNo = $("#todoNo").val();
+	            var rootPage = $("#rootPage").val();
+	            var myTodoPage = ${sessionScope.myTodoPage};
+	            $.ajax({
+	                url: "todoDeleteServlet",
+	                type: "POST",
+	                async: true,
+	                data: { 
+	                	todoNo: todoNo
+	                },
+	                dataType: "text",
+	                success: function(response) {
+	                   	alert("할 일 삭제");
+	                   	if(myTodoPage == true)
+	                       	document.location = "todoListServlet";
+	                       else
+	                       	document.location = "todoListServlet";
+	                },
+	                error: function() {
+	                    alert("Error occurred while processing data");
+	                }
+	            });
+	        });   
         });
     </script>
 <script>
@@ -87,6 +111,7 @@
 				<td colspan="2">
 				<input type="hidden" id="todoNo" name="todoNo" value="${todo.no}">
 				<input type="button" id="updateBtn" value="수정">
+				<input type="button" id="deleteBtn" value="삭제">
 				<input type="button" value="취소" onclick="gotoBefore()">
 				</td>
 			</tr>

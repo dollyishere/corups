@@ -53,8 +53,6 @@ public class TodoUpdateServlet extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		   
 
 		// get parameter
 		String name = request.getParameter("name");
@@ -78,16 +76,7 @@ public class TodoUpdateServlet extends HttpServlet {
 		TodoDAO todoDAO = new TodoDAO();
 		boolean isSuccess = todoDAO.updateTodo(todo);
 		
-		   // 이 부분은 실제 비즈니스 로직에 따라 구현해야 합니다.
-	    
-	    response.setContentType("application/json");
-	    PrintWriter out = response.getWriter();
-	    
-	    if (isSuccess) {
-	        out.println("{\"success\": true}");
-	    } else {
-	        out.println("{\"success\": false, \"errorMessage\": \"Data processing failed\"}");
-	    }
+		response.getWriter();
 		
 	}
 
