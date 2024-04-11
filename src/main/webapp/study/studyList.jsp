@@ -20,6 +20,18 @@
 </style>
 </head>
 <body>
+	<form action="" method="get">
+		<p>
+			<select name="searchType">
+				<option value="ALL" selected="selected">전체검색</option>
+				<option value="SUBJECT">제목</option>
+				<option value="WRITER">작성자</option>
+				<option value="CONTENTS">내용</option>
+			</select> 
+			<input type="text" name="searchText">
+			<input type="submit" value="검색" />
+		</p>
+	</form>
 	<section>
 		<div class="rect">
 			<p>Study1</p>

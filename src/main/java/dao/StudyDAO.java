@@ -1,32 +1,67 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import db.MySQLConnector;
 import dto.StudyDTO;
 
 public class StudyDAO {
-	private Connection connector = null;
-//	private MySQLConnector datasource = null;
+	private Connection connect = null;
 	private PreparedStatement pstmt = null;
+	private MySQLConnector dataFactory = null;
 	private ResultSet rs = null;
 	
-//	public StudyDAO {
-//		datasource = new MySQLConnector();
-//	}
-
+	public StudyDAO() {
+		dataFactory = new MySQLConnector();
+	}
+	
+	
 	/**
 	 * 스터디 목록 조회
 	 * 
 	 * @param 
 	 * @return ArrayList<StudyDTO>
 	 * **/
-	public ArrayList<StudyDTO> studyList() {
-		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
-		return studyList;
-	}
+	
+//	public ArrayList<StudyDTO> studyList() {
+//		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
+//		try {
+//			connect = dataFactory.connection();
+//			String query = "select * from study order by no desc";
+//			System.out.println(query);
+//			
+//			pstmt = connect.prepareStatement(query);
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				int no = rs.getInt("no");
+//				String name = rs.getString("name");
+//				String detail = rs.getString("detail");
+//				String study_pwd = rs.getString("study_pwd");
+//				int max_num = rs.getInt("max_num");
+//				Date created_date = rs.getDate("created_date");
+//				Date update_date = rs.getDate("updated_date");
+//				String create_user_id = rs.getString("create_user_id");
+//				String category = rs.getString("category");
+//				
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return studyList;
+//	}
+//	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 내 스터디 목록 조회
@@ -70,10 +105,34 @@ public class StudyDAO {
 	 * @param  StudyDTO
 	 * @return boolean
 	 * **/
-	public boolean insertStudy(StudyDTO studydto) {
+	public boolean insertStudy(StudyDTO s) {
 		boolean state = false;
+		try {
+			connect = dataFactory.connection();
+			String name = s.getName();
+			String detail = s.getDetail();
+			String studyPwd = s.getStudyPwd();
+			int maxNum = s.getMaxNum();
+			String category = s.getCategory();
+			String query = "INSERT INTO study (name, detail, study_pwd, max_num, category)" + " VALUES (?, ?, ?, ?, ?	)";
+			System.out.println(query);
+			
+			pstmt = connect.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, detail);
+			pstmt.setString(3, studyPwd);
+			pstmt.setInt(4, maxNum);
+			pstmt.setString(5, category);
+			int rowsAffected = pstmt.executeUpdate();
+			
+			if(rowsAffected == 1) {
+				state = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
 		return state;
-	}
+	}	
 	
 	/**
 	 * 스터디 수정
@@ -81,7 +140,7 @@ public class StudyDAO {
 	 * @param  StudyDTO
 	 * @return boolean
 	 * **/
-	public boolean updateStudy(StudyDTO studydto) {
+	public boolean updateStudy(StudyDTO studyDTO) {
 		boolean state = false;
 		return state;
 	}

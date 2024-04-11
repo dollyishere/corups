@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.StudyDAO;
 
 
-@WebServlet("/studyListServlet")
+@WebServlet("/study/studyListServlet")
 public class StudyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class StudyDeleteServlet
  */
-@WebServlet("/studyDeleteServlet")
+@WebServlet("/study/studyDeleteServlet")
 public class StudyDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

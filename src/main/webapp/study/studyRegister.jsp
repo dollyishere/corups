@@ -1,46 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>스터디 생성 화면 : studyRegister.jsp</title>
+<script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js" />"></script>
 <style>
-
+	#write {
+		width: 500px;
+	}
 </style>
 </head>
 <body>
-	<section>
-		<form action="">
+		<form action="<c:url value="/study/studyRegisterServlet" />" method="post" >		
 			<p> 스터디 생성
 			<p>이름 :
-				<input type="text" required><br>
+				<input type="text" name="name" required><br>
 			</p>
-			<p><span>소개 :</span> 
-				<textarea rows="5" cols="22" required></textarea><br>
+			<p id="write"><span>소개 :</span> 
+				<textarea name="detail" class="ckeditor" rows="5" cols="22"></textarea><br>
 			</p>
 			<p>패스워드 :
-				<input type="password" required><br>
+				<input type="password" name="studyPwd" required><br>
 			</p>
 			<p>최대 인원 :
-				<input type="number" value="1"><br>
+				<input type="number" name="maxNum" value="1"><br>
 			</p>
 			<p>카테고리 :
 				<select name="category">
-					<option value="common">일반</option>			
-					<option value="hobby">취미</option>
-					<option value="prepare">취준</option>
-					<option value="change">이직</option>
-					<option value="certification">자격증</option>
-					<option value="student">학생</option>
-					<option value="c-test">수험</option>
-					<option value="book">독서</option>
-					<option value="etc">기타</option>			
+					<option value="A">A</option>			
+					<option value="B">B</option>
+					<option value="C">C</option>		
 				</select>
 			</p><br>
-			<a href="studyList.jsp"><input type="button" value="생성하기"></a>
+			<a href="studyList.jsp"><input type="submit" value="생성하기"></a>
 			<input type="button" value="취소">
 		</form>
-	</section>
 </body>
 </html>
