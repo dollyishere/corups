@@ -36,7 +36,7 @@ public class ChapterDAO {
 
 	    try {
 	        conn = datasource.connection();
-	        String query = "SELECT * FROM chapter WHERE study_no = ? ORDER BY no LIMIT ?, ?";
+	        String query = "SELECT * FROM chapter WHERE study_no = ?";
 
 	        pstmt = conn.prepareStatement(query);
 	        pstmt.setInt(1, studyNo);
