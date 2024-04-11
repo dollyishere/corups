@@ -31,6 +31,7 @@ public class MemberListServlet extends HttpServlet {
   	 * GET 요청 수행(회원 관리 페이지로 이동)
   	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("왔어?");
 		memberDAO = new MemberDAO();
 		List<MemberDTO> memberList = memberDAO.selectList();
 		
