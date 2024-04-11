@@ -1,13 +1,14 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import db.MySQLConnector;
+import dto.StatusDTO;
 import dto.TodoDTO;
 
 /**
@@ -58,29 +59,34 @@ public class TodoDAO extends MySQLConnector{
 	
 	/**
 	 * Get the Todo List of the specified searchText and category
-	 * @param String searchText, char category
+	 * @param String searchText, ArrayList<StatusDTO> statusTodoArray
 	 * @return ArrayList<TodoDTO>
 	 */
-	public ArrayList<TodoDTO> searchTodo(String searchText, char category) {
-		ArrayList<TodoDTO> todoArray = null;
+	public ArrayList<TodoDTO> searchTodo(String searchText, ArrayList<StatusDTO> statusTodoArray) {
+		ArrayList<TodoDTO> todoArray = new ArrayList<TodoDTO>();
 		conn = connection();
+		System.out.println("여기보세요~~~~~");
+		System.out.println(searchText);
 		
 		try {
 			String query = "SELECT * FROM todo WHERE name LIKE ? OR detail LIKE ?";
+			
+			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%" + searchText + "%");
 			pstmt.setString(2, "%" + searchText + "%");
-            
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, searchText);
-			pstmt.setString(2, searchText);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				TodoDTO todoDTO = createTodoDTO();
-				todoArray.add(todoDTO);
+				// todoDTO.getNo() 과 같다면 추가하고 break;
+				for(int i = 0; i < statusTodoArray.size(); i++){
+					if(todoDTO.getNo() == statusTodoArray.get(i).getTodoNo()) {
+						todoArray.add(todoDTO);	
+						break;
+					}
+				}
 			}
-			
 		} catch (SQLException e) {
 			System.err.println("searchTodo() ERR : " + e.getMessage());
 		}
@@ -94,7 +100,7 @@ public class TodoDAO extends MySQLConnector{
 	
 	/**
 	 * Get the Todo Detail
-	 * @param String searchText, char category
+	 * @param int no
 	 * @return TodoDTO
 	 */
 	public TodoDTO todoDetail(int no) {
@@ -126,16 +132,16 @@ public class TodoDAO extends MySQLConnector{
 	/**
 	 * Insert the Todo
 	 * @param TodoDTO todoDTO
-	 * @return boolean
+	 * @return int
 	 */
-	public boolean insertTodo(TodoDTO todo) {
-		
+	public int insertTodo(TodoDTO todo) {
+		int todo_no = -1;
 		conn = connection();
 		  
 		try {
 			
 			String query = "INSERT INTO todo (name, chapter_no, detail, created_date, update_date, start_date, end_date) VALUES (?, ?, ?, now(), now(), ?, ?)";
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, todo.getName());
 			pstmt.setInt(2, todo.getChapterNo());
 	        pstmt.setString(3, todo.getDetail());
@@ -143,15 +149,18 @@ public class TodoDAO extends MySQLConnector{
 	        pstmt.setDate(5, todo.getEndDate());     
 	        pstmt.executeUpdate();
 			
-			return true;
+	        rs = pstmt.getGeneratedKeys();  
+	        if (rs.next()) {
+	        	todo_no = rs.getInt(1);  // 첫 번째 칼럼의 값을 가져옴 (보통 자동 증가된 값)
+	        }
 			
 		} catch (SQLException e) {
-			System.err.println("insertTodo() ERR : " + e.getMessage());
-			return false;			
+			System.err.println("insertTodo() ERR : " + e.getMessage());		
 		}
 		finally {
-			close(conn, pstmt, null);
+			close(conn, pstmt, rs);
 		}
+		return todo_no;
 	}
 
 	/**
