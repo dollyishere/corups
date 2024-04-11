@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 
 
 <!DOCTYPE html>
@@ -16,7 +13,7 @@
 </head>
 <body>
 
-	<div align="center" style="border: 0.5px solid black;" onclick="location.href='/mgr/chapterDetailServlet?studyNo=${study.no}'">
+	<div align="center" style="border: 0.5px solid black;" onclick="${contextPath}/chapter/chapterRegisterServletterDetailServlet?studyNo=${study.no}'">
 
 
 	 <h4>
@@ -29,30 +26,34 @@
 				<col width="50" />
 				<col width="300" />
 				<col width="200" />
+				<col width="200" />
 			</colgroup>
 			<thead>
 				<tr>
 					<th>순번</th>
 					<th>챕터 이름</th>
-					<th>기간</th>
+					<th>StartDate</th>
+					<th>EndDate</th>
 				</tr>
 			</thead>
 
 			<tbody>
+			<input type="button" value="chapter 추가" onclick="location.href='/chapter/chapterRegisterServlet'"/>
 				<c:choose>
 					<c:when test="${chapterCount == 0}">
 						<tr>
-							<td align="center" colspan="3">등록된 챕터가 없습니다.</td>
+							<td align="center" colspan="4">등록된 챕터가 없습니다.</td>
+							
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="chapter" items="${chapterList}" varStatus="status">
 							<tr>
 								<!-- 챕터 번호 -->
-								<td align="center">${status.index + 1}</td>
+								<td align="center">${chapter.no}</td>
 								<!-- 챕터 제목 -->
 								<td><a
-									href="<c:url value="/study/chapterListServlet?no=${chapter.no}" />">
+									href="<c:url value="/study/chapterDetailServlet?no=${chapter.no}" />">
 										<c:out value="${chapter.name}" />
 								</a></td>
 								<!-- 챕터 기간 -->
@@ -67,7 +68,7 @@
 			<tfoot>
 				<!-- 페이지 번호 -->
 				<tr>
-					<td align="center" colspan="3"><c:out value="${pageNavigator}"
+					<td align="center" colspan="4">페이지 네비<c:out value="${pageNavigator}"
 							escapeXml="false" /></td>
 				</tr>
 			</tfoot>
