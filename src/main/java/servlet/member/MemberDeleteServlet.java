@@ -1,6 +1,7 @@
 package servlet.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class MemberDeleteServlet extends HttpServlet {
 	 * POST 요청 수행(회원 탈퇴)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/index.jsp";
+		PrintWriter out = response.getWriter();
 		boolean status = false;
 		
 		String id = request.getParameter("id");
@@ -46,13 +47,23 @@ public class MemberDeleteServlet extends HttpServlet {
 		memberDAO = new MemberDAO();
 		status = memberDAO.delete(id, pwd);
 		
-		// 로그인 가능 시, 세션에 정보 저장
-		if (!status) {
-			nextPage = "/logError.jsp?mod=0";
+		String nowPath = request.getParameter("nowPath");
+		
+		if (nowPath != null) {
+		    String nextPath = "/member/memberListServlet";
+		    System.out.println(nextPath);
+		    RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
+	    	requestDispatcher.forward(request, response);
+		} else {
+			// 탈퇴 가능 시, 세션에 정보 저장
+			if (status) {
+				out.write("delete complete");
+			} else {
+				out.write("delete fail");
+			}
+			return;
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
-		requestDispatcher.forward(request, response);
 	} // doPOST() END
 
 }
