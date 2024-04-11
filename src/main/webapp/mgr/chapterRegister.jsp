@@ -16,10 +16,12 @@
 		study.name${study.name}
 	</h2>
 	<div align="center" border="1">
-		<form action="<c:url value='/mgr/chapterRegisterServlet'/>" method="post">
+		
+		<form action="${contextPath}/chapter/chapterRegisterServlet" method="post">
+		
 			<table align="center" border="1" summary="챕터 추가">
 				<tr>
-					<th colspan="2" align="center">chapter${chapter.name} 수정</th>
+					<th colspan="2" align="center">chapter${chapter.name} 추가</th>
 				</tr>
 				<tr>
 					<td>챕터 이름 :</td>
@@ -37,9 +39,9 @@
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" name="insertChpater" value="추가"
-							onclick="location.href='<c:url value='/mgr/chapterRegisterServlet'/>'" />
+							onclick="location.href='<c:url value='/chapter/chapterRegisterServlet'/>'" />
 						<input type="button" name="cancleUpdate" value="취소"
-							onclick="location.href='<c:url value='/mgr/chapterListServlet?num=${chapter.num}'/>'" />
+							onclick="location.href='<c:url value='/chapter/chapterListServlet?num=${chapter.num}'/>'" />
 					</td>
 				</tr>
 			</table>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 
 <!DOCTYPE html>
@@ -21,7 +20,8 @@
             <tr>
                 <div style="display: inline-block;">
                     <h3 align="center">chapter.name ${chapter.name} </h3>
-                    <input type="button" value="chapter 추가">
+                    <input type="button" value="chapter 추가" onclick="location.href='/mgr/chapterRegisterServelet?&studyNo=${studyNo}&memberid=${memberId}'"/>
+                    
                 </div>
             </tr>
 
@@ -45,8 +45,6 @@
                     <c:when test="${todoCount == 0}">
                         <tr>
                             <td align="center" colspan="4">todo가 없습니다.</td>
-                            <td><input type="button" name="insertTodo" value="할일추가"
-                                onclick="location.href='<c:url value='/study/todoRegisterServlet' />'" /></td>
                         </tr>
                     </c:when>
                     <c:otherwise>
@@ -56,7 +54,7 @@
                                 <td align="center">${status.index + 1}</td>
 
                                 <!-- 할 일 이름 -->
-                                <td><a href="<c:url value='/study/chapterListServlet?num=${chapter.num}' />">
+                                <td><a href="<c:url value='/study/chapterListServlet?num=${todo.no}' />">
                                         <c:out value="${todo.name}" />
                                 </a></td>
 
@@ -77,6 +75,11 @@
                 <tr>
                     <td align="center" colspan="4"><c:out value="${pageNavigator}" escapeXml="false" /></td>
                 </tr>
+                <tr>
+                    <td colspan="4" align="center">
+                        <input type="button" value="목록(뒤로가기)" onclick="location.href='<c:url value='/study/studyDetailServlet?studyNo=${chapter.studyNo}' />'" />
+                    </td>
+                </tr>    
             </tfoot>
         </table>
     </div>
