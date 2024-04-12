@@ -36,7 +36,6 @@ public class LogoutServlet extends HttpServlet {
 	            session.removeAttribute("id");
 	        }
 		
-	    System.out.println(nextPage);
 		// 로그아웃 성공할 시 index.jsp로
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
 		requestDispatcher.forward(request, response);
