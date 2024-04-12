@@ -33,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
 		
 		 HttpSession session = request.getSession(false);
 	        if (session != null) {
-	            session.invalidate();
+	            session.removeAttribute("id");
 	        }
 		
 	    System.out.println(nextPage);
