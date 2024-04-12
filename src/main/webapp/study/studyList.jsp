@@ -13,10 +13,6 @@
 		height: 100px;
 		border: 1px solid black;
 	}
-/* 	section { */
-/* 		float: left; */
-/* 		text-align : center; */
-/* 	} */
 </style>
 </head>
 <body>

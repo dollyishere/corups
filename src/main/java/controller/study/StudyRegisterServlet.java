@@ -48,10 +48,7 @@ public class StudyRegisterServlet extends HttpServlet {
 		String studyPwd = request.getParameter("studyPwd");
 		int maxNum = Integer.parseInt(request.getParameter("maxNum"));
 		String category = request.getParameter("category");
-//		int no;
-//		Date createdDate;              
-//		Date updatedDate;
-//		String createUserId;
+
 		// 모델
 		StudyDTO studyDTO = new StudyDTO();
 		studyDTO.setName(name);
