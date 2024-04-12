@@ -28,7 +28,7 @@ public class ChapterDAO {
 
 	/**
 	 * chapter 목록보기 List chapter
-	 * @param int study_no , pageInfo
+	 * @param int study_no
 	 * @return ArrayList<ChapterDTO>
 	 */
 	public ArrayList<ChapterDTO> chapterList(int studyNo) {
@@ -64,11 +64,54 @@ public class ChapterDAO {
 	        close(rs, pstmt, conn);
 	    }
 	    return chapterList;
+	    
+	    
 	}
+	/**
+	 * chapter 목록-studyName
+	 * @param int study_no
+	 * @return ArrayList<ChapterDTO>
+	 */
+	public ArrayList<ChapterDTO> chapterListWithStudyName(int studyNo) {
+	    ArrayList<ChapterDTO> chapterList = new ArrayList<ChapterDTO>();
+
+	    try {
+	        conn = datasource.connection();
+	        String query = "SELECT c.*, s.name AS study_name " +
+	                       "FROM chapter c " +
+	                       "JOIN study s ON c.study_no = s.no " +
+	                       "WHERE c.study_no = ?";
+
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, studyNo);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            ChapterDTO chapter = new ChapterDTO();
+	            chapter.setNo(rs.getInt("no"));
+	            chapter.setStudyNo(rs.getInt("study_no"));
+	            chapter.setName(rs.getString("name"));
+	            chapter.setCreatedDate(rs.getDate("created_date"));
+	            chapter.setUpdateDate(rs.getDate("start_date"));
+	            chapter.setStartDate(rs.getDate("start_date"));
+	            chapter.setEndDate(rs.getDate("end_date"));
+	            chapter.setStudyName(rs.getString("study_name")); // 스터디 이름 설정
+	            System.out.println(rs.getString("study_name"));
+
+	            chapterList.add(chapter);
+	        }
+
+	    } catch (SQLException e) {
+	        System.err.println("chapterListWithStudyName():" + e.getMessage());
+	    } finally {
+	        close(rs, pstmt, conn);
+	    }
+	    return chapterList;
+	}
+
 
 	/**
 	 * chapter 총 갯수 조회 chapterCount
-	 * 
 	 * @param ChapterDTO chapter
 	 * @return 
 	 */
@@ -129,7 +172,6 @@ public class ChapterDAO {
 
 	/**
 	 * chapter 생성하기 Insert chapter
-	 * 
 	 * @param ChapterDTO chapter
 	 * @return boolean
 	 */

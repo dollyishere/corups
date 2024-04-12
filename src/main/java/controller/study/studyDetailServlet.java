@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
 import dto.ChapterDTO;
-import util.PageInfo;
+
 
 /**
  * /chapter/ChapterListServlet
@@ -56,63 +56,26 @@ public class studyDetailServlet extends HttpServlet {
 		/* 페이지 정보를 담고 있는 PageInfo 객체를 생성하고 초기화
 		 PageInfo pageInfo = new PageInfo(Integer.parseInt(pageNum), 10, 10); // listCount와 pagePerBlock 값은 임의로 설정
 		*/
-		 // 해당 스터디에 대한 챕터 목록 가져오기
-		ArrayList<ChapterDTO> chapterList = this.chapterDAO.chapterList(studyNo);
-		
+		 // 해당 스터디에 대한 챕터 목록과 스터디 이름 가져오기
+        ArrayList<ChapterDTO> chapterList = this.chapterDAO.chapterListWithStudyName(studyNo);
+        chapterList.get(0).getStudyName();
+        System.out.println("------");
+        System.out.println(chapterList.get(0).getStudyName());
+
 
 		// chapterListServlet으로 전달할 studyNo와 chapterList를 request 속성으로 설정
 		//request.setAttribute("studyNo", 1);
 		request.setAttribute("chapterList", chapterList);
-
+		request.setAttribute("studyName",chapterList.get(0).getStudyName());
 		// chapterListServlet으로 포워딩
 		request.getRequestDispatcher("/study/studyDetail.jsp").forward(request, response);
 		
-		
-/**
- * chapterListServlet........
- *   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
-        // studyNo 파라미터 받기
-        int studyNo = Integer.parseInt(request.getParameter("studyNo")); // 스터디 번호
-        String pageNum = request.getParameter("pageNum"); // 페이지 번호
-        if (pageNum == null) {
-            pageNum = "1";
-        }
-
-
-
-        // chapter 총 수( 페이지 번호를 계산하는 메서드 호출)
-      //  int chapterCount = chapterDAO.chapterCount(studyNo, pageInfo); // studyNo와 pageInfo를 인수로 전달
-
-     // 페이징 처리를 위한 객체 생성
-        //    PageNavigator pNavigator = new PageNavigator(chapterCount, pageInfo.getListCount(), pageInfo.getPagePerBlock(), pageInfo.getPageNum(), studyNo);
-
-
-        // 페이지 번호들을 문자열로 반환
-      //  String pageNavigator = pNavigator.getPageNavigator();
-
-        // 목록을 조회하기 위한 DAO 호출
-        ArrayList<ChapterDTO> chapterList = chapterDAO.chapterList(studyNo); // studyNo와 pageInfo를 인수로 전달
-
-        // request에 필요한 데이터를 설정
-      //  request.setAttribute("chapterCount", chapterCount);
-      //  request.setAttribute("pageNavigator", pageNavigator); // 페이지 번호
-        request.setAttribute("chapterList", chapterList); // 조회 결과 리스트
-
-        // studyDetailServlet으로 포워딩
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/studyDetailServlet");
-        requestDispatcher.forward(request, response);
- * 
- * */
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		System.out.println("post");
 	}
 
 }

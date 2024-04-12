@@ -2,6 +2,8 @@ package controller.chapter;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,14 +62,24 @@ public class chapterRegisterServlet extends HttpServlet {
 		String name = request.getParameter("chapterName");
 		Date startDate = Date.valueOf(request.getParameter("startDate")); // 사용자가 입력한 시작일
 		Date endDate = Date.valueOf(request.getParameter("endDate")); // 사용자가 입력한 시작일
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date startUtilDate = new Date(System.currentTimeMillis());
+        java.util.Date endUtilDate = new Date(System.currentTimeMillis());
+        try {
+        	startUtilDate = format.parse(request.getParameter("startDate"));
+        	endUtilDate = format.parse(request.getParameter("endDate"));
+        } catch (ParseException e) {
+           System.out.println(e.getMessage());
+        }
 
 		// Chapter객체 생성
 		ChapterDTO chapter = new ChapterDTO();
 		chapter.setStudyNo(studyNo);
 		chapter.setName(name);
 
-		chapter.setStartDate(startDate);
-		chapter.setEndDate(endDate);
+		chapter.setStartDate((java.sql.Date) startDate);
+		chapter.setEndDate((java.sql.Date) endDate);
 
 		// 챕터 추가
 		chapterDAO = new ChapterDAO();
@@ -75,15 +87,24 @@ public class chapterRegisterServlet extends HttpServlet {
 		request.setAttribute("bool", complete);
 
 		// 챕터 등록 성공 시 챕터 목록 페이지로 이동
+//		response.setContentType("text/plain");
 		if (complete) {
 			// 등록 성공 시 챕터 목록 페이지로 이동
 			System.out.println(complete);
-			response.sendRedirect("chapterListServlet?studyNo=" + studyNo);
+			  
+			
+			response.getWriter().write("success," + studyNo);
+			response.sendRedirect("../study/studyDetailServlet?studyNo=" + studyNo);
+
 		} else {
 		    response.sendRedirect(request.getContextPath() + "/errorLog.jsp");
 			System.err.println("등록error!!");
+			response.getWriter().write("fail");
 
 		}
+		// 서버에서 응답 데이터에 studyNo를 포함하여 전송
+		// 등록 성공 시 "success" 문자열을, 실패 시 "fail" 문자열을 응답으로 전송한다고 가정합니다.
+	
 
 	}
 }

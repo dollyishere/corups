@@ -54,7 +54,7 @@
                                 <td align="center">${status.index + 1}</td>
 
                                 <!-- 할 일 이름 -->
-                                <td><a href="<c:url value='/study/chapterListServlet?num=${todo.no}' />">
+                                <td><a href="<c:url value='todoDetailServlet?num=${todoNo}' />">
                                         <c:out value="${todo.name}" />
                                 </a></td>
 

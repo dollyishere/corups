@@ -28,6 +28,15 @@ public class ChapterDTO {
 	private int listCount = 10;
 	/** 챕터 목록 페이지 네비게이터 블록 수*/
 	private int pagePerBlock = 10;
+    private String studyName;   // 스터디 이름
+
+	public String getStudyName() {
+		return studyName;
+	}
+
+	public void setStudyName(String studyName) {
+		this.studyName = studyName;
+	}
 
 	/**
 	 * 생성자
@@ -116,7 +125,8 @@ public class ChapterDTO {
 	public String toString() {
 		return "ChapterDTO [no=" + no + ", studyNo=" + studyNo + ", name=" + name + ", createdDate=" + createdDate
 				+ ", updateDate=" + updateDate + ", startDate=" + startDate + ", endDate=" + endDate + ", pageNum="
-				+ pageNum + ", listCount=" + listCount + ", pagePerBlock=" + pagePerBlock + "]";
+				+ pageNum + ", listCount=" + listCount + ", pagePerBlock=" + pagePerBlock + ", studyName=" + studyName
+				+ "]";
 	}
 	public ChapterDTO() {
 	}
