@@ -28,35 +28,49 @@ public class StudyDAO {
 	 * @return ArrayList<StudyDTO>
 	 * **/
 	
-//	public ArrayList<StudyDTO> studyList() {
-//		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
-//		try {
-//			connect = dataFactory.connection();
-//			String query = "select * from study order by no desc";
-//			System.out.println(query);
-//			
-//			pstmt = connect.prepareStatement(query);
-//			rs = pstmt.executeQuery();
-//			
-//			while (rs.next()) {
-//				int no = rs.getInt("no");
-//				String name = rs.getString("name");
-//				String detail = rs.getString("detail");
-//				String study_pwd = rs.getString("study_pwd");
-//				int max_num = rs.getInt("max_num");
-//				Date created_date = rs.getDate("created_date");
-//				Date update_date = rs.getDate("updated_date");
-//				String create_user_id = rs.getString("create_user_id");
-//				String category = rs.getString("category");
-//				
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return studyList;
-//	}
-//	
+	public ArrayList<StudyDTO> studyList() {
+		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
+		try {
+			connect = dataFactory.connection();
+			String query = "select * from study order by no desc";
+			System.out.println(query);
+			
+			pstmt = connect.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			StudyDTO study = null;
+			while (rs.next()) {
+				study = new StudyDTO();
+				
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				String detail = rs.getString("detail");
+				String study_pwd = rs.getString("study_pwd");
+				int max_num = rs.getInt("max_num");
+				Date created_date = rs.getDate("created_date");
+				Date update_date = rs.getDate("update_date");
+				String create_user_id = rs.getString("create_user_id");
+				String category = rs.getString("category");
+				
+				study.setNo(no);
+				study.setName(name);
+				study.setDetail(detail);
+				study.setStudyPwd(study_pwd);
+				study.setMaxNum(max_num);
+				study.setCreatedDate(created_date);
+				study.setUpdatedDate(update_date);
+				study.setCreateUserId(create_user_id);
+				study.setCategory(category);
+				
+				studyList.add(study);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return studyList;
+	}
+	
 	
 	
 	
@@ -66,15 +80,44 @@ public class StudyDAO {
 	/**
 	 * 내 스터디 목록 조회
 	 * 
-	 * @param int no(member)
+	 * @param String id(member)
 	 * @return ArrayList<StudyDTO>
 	 * **/
 	
-//	public ArrayList<studyDTO> myStudyList(memberDTO no) {
-//		ArrayList<StudyDTO> myStudyList = new ArrayList<StudyDTO>();
-//		return myStudyList;
-//		
-//	}
+	public ArrayList<StudyDTO> myStudyList(String id) {
+		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
+		try {
+			connect = dataFactory.connection();
+			String query = "select * from study where id=? order by no desc";
+			System.out.println(query);
+			
+			pstmt = connect.prepareStatement(query);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			StudyDTO study = null;
+			while (rs.next()) {
+				study = new StudyDTO();
+				
+				study.setNo(rs.getInt("no"));
+				study.setName(rs.getString("name"));
+				study.setDetail(rs.getString("detail"));
+				study.setStudyPwd(rs.getString("study_pwd"));
+				study.setMaxNum(rs.getInt("max_num"));
+				study.setCreatedDate(rs.getDate("created_date"));
+				study.setUpdatedDate(rs.getDate("update_date"));
+				study.setCreateUserId(rs.getString("create_user_id"));
+				study.setCategory(rs.getString("category"));
+				
+				studyList.add(study);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return studyList;
+	}
+	
 	
 	/**
 	 * 스터디 검색
@@ -82,8 +125,50 @@ public class StudyDAO {
 	 * @param String searchText, String category
 	 * @return ArrayList<StudyDTO>
 	 * **/
-	public ArrayList<StudyDTO> searchStudy(String searchText, String category) {
+	public ArrayList<StudyDTO> searchStudy(String searchText, String searchCategory) {
 		ArrayList<StudyDTO> studySearch = new ArrayList<StudyDTO>();
+		
+		
+		studySearch = new ArrayList<StudyDTO>();
+		
+		try {
+			connect = dataFactory.connection();
+			String query = "select * from study where name LIKE ? AND detail LIKE ? ";
+			if(searchCategory != "ALL")
+				query += "AND category = ? ";
+			query += "order by no desc";
+					
+			System.out.println(query);
+			
+			pstmt = connect.prepareStatement(query);
+			pstmt.setString(1, "%"+searchText+"%");
+			pstmt.setString(2, "%"+searchText+"%");
+			if(searchCategory != "ALL") {
+				pstmt.setString(3, searchCategory);
+			}
+			rs = pstmt.executeQuery();
+			
+			StudyDTO study = null;
+			while (rs.next()) {
+				study = new StudyDTO();
+				
+				study.setNo(rs.getInt("no"));
+				study.setName(rs.getString("name"));
+				study.setDetail(rs.getString("detail"));
+				study.setStudyPwd(rs.getString("study_pwd"));
+				study.setMaxNum(rs.getInt("max_num"));
+				study.setCreatedDate(rs.getDate("created_date"));
+				study.setUpdatedDate(rs.getDate("update_date"));
+				study.setCreateUserId(rs.getString("create_user_id"));
+				study.setCategory(rs.getString("category"));
+				
+				studySearch.add(study);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return studySearch;
 
 	}
@@ -96,6 +181,30 @@ public class StudyDAO {
 	 * **/
 	public StudyDTO studyDetail(int no) {
 		StudyDTO studyDetail = new StudyDTO();
+		
+		connect = dataFactory.connection();
+		String query = "select * from study where no = ?";
+		try {
+			pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				studyDetail.setNo(rs.getInt("no"));
+				studyDetail.setName(rs.getString("name"));
+				studyDetail.setDetail(rs.getString("detail"));
+				studyDetail.setStudyPwd(rs.getString("study_pwd"));
+				studyDetail.setMaxNum(rs.getInt("max_num"));
+				studyDetail.setCreatedDate(rs.getDate("created_date"));
+				studyDetail.setUpdatedDate(rs.getDate("update_date"));
+				studyDetail.setCreateUserId(rs.getString("create_user_id"));
+				studyDetail.setCategory(rs.getString("category"));
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("studyDetail ERR : " + e.getMessage());
+		}
+		
 		return studyDetail;
 	}
 	
@@ -109,13 +218,15 @@ public class StudyDAO {
 		boolean state = false;
 		try {
 			connect = dataFactory.connection();
+
+			String query = "INSERT INTO study (name, detail, study_pwd, max_num, category, created_date, update_date, create_user_id)" + " VALUES (?, ?, ?, ?, ?, now(), now(), 1)";
+			
 			String name = s.getName();
 			String detail = s.getDetail();
 			String studyPwd = s.getStudyPwd();
 			int maxNum = s.getMaxNum();
 			String category = s.getCategory();
-			String query = "INSERT INTO study (name, detail, study_pwd, max_num, category)" + " VALUES (?, ?, ?, ?, ?	)";
-			System.out.println(query);
+//			System.out.println(query);
 			
 			pstmt = connect.prepareStatement(query);
 			pstmt.setString(1, name);
@@ -123,6 +234,7 @@ public class StudyDAO {
 			pstmt.setString(3, studyPwd);
 			pstmt.setInt(4, maxNum);
 			pstmt.setString(5, category);
+//			System.out.println(pstmt);
 			int rowsAffected = pstmt.executeUpdate();
 			
 			if(rowsAffected == 1) {
@@ -142,6 +254,28 @@ public class StudyDAO {
 	 * **/
 	public boolean updateStudy(StudyDTO studyDTO) {
 		boolean state = false;
+		
+		connect = dataFactory.connection();
+		String query = "UPDATE study " +
+                "SET name = ?, detail = ?, study_pwd = ?, max_num = ?, category = ?, update_date = NOW() " +
+                "WHERE no = ?";
+		try {
+			pstmt = connect.prepareStatement(query);
+			pstmt.setString(1, studyDTO.getName());
+			pstmt.setString(2, studyDTO.getDetail());
+			pstmt.setString(3, studyDTO.getStudyPwd());
+			pstmt.setInt(4, studyDTO.getMaxNum());
+			pstmt.setString(5, studyDTO.getCategory());
+			pstmt.setInt(6, studyDTO.getNo());			
+			int n = pstmt.executeUpdate();
+			
+			if(n > 0) {
+				state = true;
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("updateStudy ERR : " + e.getMessage());
+		}
 		return state;
 	}
 	
@@ -153,6 +287,23 @@ public class StudyDAO {
 	 * **/
 	public boolean deleteStudy(int no) {
 		boolean state = false;
+		connect = dataFactory.connection();
+		String query = "DELETE FROM study WHERE no = ?";
+		
+		try {
+			pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+			int n = pstmt.executeUpdate();
+			
+			if(n > 0) {
+				state = true;
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("deleteStudy ERR : " + e.getMessage());
+		}
+		
 		return state;
 	}
 	
