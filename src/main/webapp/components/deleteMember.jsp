@@ -45,9 +45,10 @@
 	    		async : false,
 	    		url: "http://localhost:9000/corups/member/memberDeleteServlet",
 	    		dataType: "text",
-	    		data: {id: _id, pwd: _pwd, nowPath: "a"},
+	    		data: {id: _id, pwd: _pwd},
 	    		success: function(data, textStatus) {
 	    			alert("탈퇴 완료되었습니다.");
+	    			window.location.replace("<%= request.getContextPath() %>/getRedirect.jsp")
 	    		},
 	    		error: function(data, textStatus) {
 	    			alert("다시 한 번 시도해주세요.");

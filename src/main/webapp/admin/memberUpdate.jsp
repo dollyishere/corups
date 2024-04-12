@@ -74,6 +74,7 @@
 
 	<form action="<c:url value="/member/updateServlet" />" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<input type="hidden" name="nowPath" value="a"/>
+		<input type="hidden" name="nowCase" value="r"/>
 		<table border="1" >
 			<colgroup>
 				<col width="150" />

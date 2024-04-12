@@ -29,7 +29,7 @@ public class MemberDeleteServlet extends HttpServlet {
     } // 생성자 END
 
 	/**
-	 * GET 요청 수행
+	 * GET 요청 수행(admin일 시, MemberMgr로 돌아가기)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	} // doGET() END
@@ -47,22 +47,12 @@ public class MemberDeleteServlet extends HttpServlet {
 		memberDAO = new MemberDAO();
 		status = memberDAO.delete(id, pwd);
 		
-		String nowPath = request.getParameter("nowPath");
-		
-		if (nowPath != null) {
-		    String nextPath = "/member/memberListServlet";
-		    System.out.println(nextPath);
-		    RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	requestDispatcher.forward(request, response);
+		if (status) {
+			out.write("delete complete");
 		} else {
-			// 탈퇴 가능 시, 세션에 정보 저장
-			if (status) {
-				out.write("delete complete");
-			} else {
-				out.write("delete fail");
-			}
-			return;
+			out.write("delete fail");
 		}
+		return;
 		
 	} // doPOST() END
 

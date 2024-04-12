@@ -37,6 +37,7 @@ public class UpdateServlet extends HttpServlet {
     HttpSession session = null;
     private String nowPath;
     private String nextPath;
+    private String nowCase;
        
     public UpdateServlet() {
         super();
@@ -46,34 +47,28 @@ public class UpdateServlet extends HttpServlet {
   	 * GET 요청 수행(회원 정보 수정 페이지로 이동)
   	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		회원 정보 가져온 뒤 view로 이동
+			// 회원 정보 가져온 뒤 view로 이동
 			memberDAO = new MemberDAO();
 			request.setCharacterEncoding("utf-8");
 		    response.setContentType("test/html; charset=utf-8");
 		     
 			String id = "";
-			
+	
 			// 일반 회원인지, admin인지에 따라 루트 변경
 			nowPath = request.getParameter("nowPath");
-			System.out.println(nowPath);
 			
 			if (nowPath != null) {
 			    id = (String) request.getParameter("id");
 			    nextPath = "/admin/memberUpdate.jsp";
-			    System.out.println(id);
-			    System.out.println(nextPath);
 			} else {
 			    session = request.getSession(false);
 			    id = (String) session.getAttribute("id");
 			    nextPath = "/mem/profileUpdate.jsp";
-			    System.out.println(id);
-			    System.out.println(nextPath);
 			}
 			
 			member = memberDAO.detail(id);
 			request.setAttribute("member", member);
-
-			nowPath = request.getParameter("nextPath");
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
 			requestDispatcher.forward(request, response);
 	} // doGET() END
@@ -197,14 +192,13 @@ public class UpdateServlet extends HttpServlet {
 	     resultQ = memberDAO.update(member);
 	     
 		if (nowPath != null) {
-		    nextPath = "/member/memberListServlet";
+		    nextPath = "/getRedirect.jsp";
 		}
 				
 	     if (!resultQ) {
 	    	 nextPath = "/errorLog.jsp";
 	     }
 	     
-	     System.out.println(nextPath);
 	     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
     	 requestDispatcher.forward(request, response);
 	} // doPOST() END
