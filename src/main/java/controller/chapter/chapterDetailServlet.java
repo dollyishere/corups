@@ -19,7 +19,7 @@ import dto.ChapterDTO;
  * @author cyb
  */
 
-@WebServlet("/chapter/ChapterDetailServlet")
+@WebServlet("/chapter/chapterDetailServlet")
 public class chapterDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,7 @@ public class chapterDetailServlet extends HttpServlet {
 
 		request.setAttribute("chapter", chapter);
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/chapterDetail.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./mgr/chapterDetail.jsp");
 		requestDispatcher.forward(request, response);
 
 	}
