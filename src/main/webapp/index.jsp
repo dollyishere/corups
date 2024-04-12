@@ -9,17 +9,19 @@
 <head>
 <meta charset="UTF-8">
 <title>landing page: index.jsp</title>
+<link rel="stylesheet"
+	href="resources/css/bootstrap.min.css">
 </head>
 <body>
 	<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-		<img alt="main_img.jpg" src="sources/main_img.jpg" width="300px" ><br>
+		<img alt="main_img.jpg" src="resources/imgs/main_img.jpg" width="300px" ><br>
 		<h5>함께 만들어요</h5>
 		<h1 style="font-style: italic;">Corups!</h1>
 		<div>
-			<th><input type="button" value="로그인" onclick="location.href='<c:url value="/member/LoginServlet"/>'" /></th>
-			<th><input type="button" value="회원가입" onclick="location.href='<c:url value="/member/SignUpServlet"/>'" /></th>
+			<input type="button" value="로그인" onclick="location.href='<c:url value="/member/loginServlet"/>'" />
+			<input type="button" value="회원가입" onclick="location.href='<c:url value="/member/signupServlet"/>'" />
 		</div>
-		<button>관리자 모드</button>
-	</div>
+		<input type="button" value="관리자 모드" onclick="location.href='<c:url value="/admin/adminLoginServlet"/>'" />
+  </div>
 </body>
 </html> 
