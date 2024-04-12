@@ -36,6 +36,10 @@ $(document).ready(function(){
         });
     });
 });
+
+function gotoUpdate(todoNo){
+	document.location = "todoUpdateServlet?todoNo="+todoNo;
+}
 </script>
 </head>
 <body>
@@ -73,5 +77,10 @@ $(document).ready(function(){
     </table>
     <input type="hidden" id="todoNo" value="${todo.no}">
     <input type="button" id="okBtn" value="확인">
+    <c:choose>
+    	<c:when test="${mgr}">
+    		<input type="button" value="수정" onclick="gotoUpdate(${todo.no}, ${rootPage})">
+    	</c:when>
+    </c:choose>
 </body>
 </html>

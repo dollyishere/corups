@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FileDAO;
 import dao.StatusDAO;
 import dao.TodoDAO;
 import dto.StatusDTO;
@@ -39,12 +40,13 @@ public class TodoListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+//		/** 삭제해야할 코드 **/
+//		testSession(request, response);
+		FileDAO fileDAO = new FileDAO();
+		
 		//  인코딩
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-//		/** 삭제해야할 코드 **/
-//		testSession(request, response);
 		
 		// 1. 세션에서 아이디 받기
 		String id = SessionUtil.getID(request, response);

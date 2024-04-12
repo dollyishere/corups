@@ -71,15 +71,17 @@ public class TodoDetailServlet extends HttpServlet {
 		
 //		// 5. id 와 create_user_id 가 같다면
 //		//		-> mgr/todoDetail.jsp 로 이동
-		String page = "/study";
+		boolean mgr = false;
 //		if(id.equals(study.getCreateUserId()))
-			page = "/mgr";
+			mgr = true;
 		
 //		request.setAttribute("study", study);
 //		request.setAttribute("chapter", chapter);
+		request.setAttribute("mgr", mgr);
 		request.setAttribute("todo", todo);
 		request.setAttribute("status", status.getStatus());
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(page + "/todoDetail.jsp");
+		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("study/todoDetail.jsp");
 		requestDispatcher.forward(request, response);
 	}
 
