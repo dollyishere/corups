@@ -190,17 +190,20 @@ public class UpdateServlet extends HttpServlet {
 	     member.toString();
 	     memberDAO = new MemberDAO();
 	     resultQ = memberDAO.update(member);
-	     
-		if (nowPath != null) {
-		    nextPath = "/getRedirect.jsp";
-		}
-				
+
 	     if (!resultQ) {
 	    	 nextPath = "/errorLog.jsp";
 	     }
 	     
-	     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-    	 requestDispatcher.forward(request, response);
+	     
+		if (nowPath != null) {
+			response.sendRedirect("../member/memberListServlet");
+			return;
+		} else {
+		     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
+	    	 requestDispatcher.forward(request, response);
+		}
+
 	} // doPOST() END
 
 }

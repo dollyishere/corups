@@ -18,8 +18,6 @@ import dto.MemberDTO;
 @WebServlet("/member/memberDetailServlet")
 public class MemberDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberDTO member = null;
-    private MemberDAO memberDAO = null;
     
     public MemberDetailServlet() {
         super();
