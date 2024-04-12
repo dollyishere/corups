@@ -49,12 +49,13 @@
 								varStatus="status">
 								<tr>
 									<!-- 챕터 번호 -->
-									<td align="center">${chapter.no}</td>
+									<td align="center">${status.index + 1}</td>
 									<!-- 챕터 제목 -->
 									<td><a
-										href="<c:url value="/study/chapterDetailServlet?no=${chapter.no}" />">
+										href="<c:url value="/chapter/chapterDetailServlet?no=${chapter.no}" />">
 											<c:out value="${chapter.name}" />
 									</a></td>
+							
 									<!-- 챕터 기간 -->
 									<td align="center"><c:out value="${chapter.startDate}" /></td>
 									<td align="center"><c:out value="${chapter.endDate}" /></td>

@@ -43,7 +43,7 @@ public class studyDetailServlet extends HttpServlet {
 		
 		// studyNo 매개변수 가져오기
 		//int studyNo = Integer.parseInt(request.getParameter("studyNo"));
-		int studyNo=1;
+		int studyNo=2;
 		/* pageNum 매개변수 가져오기
 		String pageNum = request.getParameter("pageNum");
 		if (pageNum == null) {
