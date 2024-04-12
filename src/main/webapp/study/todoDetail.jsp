@@ -1,47 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>할일 정보 확인</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#okBtn").click(function(){
+        var status = $("input[name='status']:checked").val();
+        var todoNo = $("#todoNo").val();
+        var myTodoPage = ${sessionScope.myTodoPage};
+        var datas = {
+            status: status,
+            todoNo: todoNo
+        };
+        
+        $.ajax({
+            url: "statusUpdateServlet",
+            type: "POST",
+            data: datas,
+            dataType: "text",  // 응답 데이터 타입 지정
+            success: function(response){
+            	if(myTodoPage == true)
+                	document.location = "todoListServlet";
+                else
+                	document.location = "todoListServlet";
+            },
+            error: function(error){
+                alert("Error: " + error);  // 에러 처리
+            }
+        });
+    });
+});
+
+function gotoUpdate(todoNo){
+	document.location = "todoUpdateServlet?todoNo="+todoNo;
+}
+</script>
 </head>
 <body>
-<form action="TodoDetailServlet" method="post">
-	<table border="1">
-		<caption><b>스터디 이름</b></caption>
-		<caption>할 일 이름</caption>
-		<tbody>
-			<tr>
-				<th>챕터</th>
-				<td>챕터1</td>
-			</tr>
-			<tr>
-				<th>상태</th>
-				<td><input type="radio" id="complete" name="status"
-					value="complete"> <label for="complete">완료</label> <input
-					type="radio" id="inProgress" name="status" value="inProgress">
-					<label for="inProgress">진행중</label> <input type="radio"
-					id="pending" name="status" value="보류"> <label for="pending">보류</label>
-
-					<input type="radio" id="cancled" name="status" value="취소">
-					<label for="cancled">취소</label></td>
-			</tr>
-			<tr>
-				<th>기간</th>
-				<td>2024.04.08 - 2024.04.18</td>
-			<tr>
-				<th>내용</th>
-				<td>단어 100개 외우기</td>
-				</td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="2">첨부자료가 있다면 첨부자료 다운로드 띄우기</td>
-			</tr>
-		</tfoot>
-	</table>
-</form>
+    <table border="1">
+        <caption><b>스터디 이름</b></caption>
+        <caption>챕터 이름</caption>
+        <tbody>
+            <tr>
+                <th>할 일 </th>
+                <td>${todo.name}</td>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <td>
+                <input type="radio" id="status" name="status" value="D" ${status == 'D' ? 'checked' : ''}>완료
+                <input type="radio" id="status" name="status" value="P" ${status == 'P' ? 'checked' : ''}>진행중
+                <input type="radio" id="status" name="status" value="H" ${status == 'H' ? 'checked' : ''}>보류
+                <input type="radio" id="status" name="status" value="C" ${status == 'C' ? 'checked' : ''}>취소
+                </td>
+            </tr>
+            <tr>
+                <th>기간</th>
+                <td>${todo.startDate} ~ ${todo.endDate}</td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>${todo.detail}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">첨부자료가 있다면 첨부자료 다운로드 띄우기</td>
+            </tr>
+        </tfoot>
+    </table>
+    <input type="hidden" id="todoNo" value="${todo.no}">
+    <input type="button" id="okBtn" value="확인">
+    <c:choose>
+    	<c:when test="${mgr}">
+    		<input type="button" value="수정" onclick="gotoUpdate(${todo.no}, ${rootPage})">
+    	</c:when>
+    </c:choose>
 </body>
 </html>

@@ -8,22 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * /file/fileUploadServlet
+ * /file/fileDownloadServlet
  * 
  * @author nsr
  * @since 2024-04-08
  **/
-@WebServlet("/file/fileUploadServlet")
-public class fileUploadServlet extends HttpServlet {
+@WebServlet("/fileDownloadServlet")
+public class FileDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public fileUploadServlet() {
+       
+    public FileDownloadServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {

@@ -1,24 +1,32 @@
 package dto;
 /**
- * Status DTO
+ * Status-Todo DTO
  * 
  * @author nsr
  * @since 2024-04-08
  **/
 public class StatusDTO {
-	private int no;
-	private String status;
+	private String	memberId;
+	private int	todoNo;
+	private String	status;
 
 	public StatusDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public int getNo() {
-		return no;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public int getTodoNo() {
+		return todoNo;
+	}
+
+	public void setTodoNo(int todoNo) {
+		this.todoNo = todoNo;
 	}
 
 	public String getStatus() {
@@ -31,7 +39,9 @@ public class StatusDTO {
 
 	@Override
 	public String toString() {
-		return "StatusDTO [no=" + no + ", status=" + status + "]";
+		return "StatusDTO [memberId=" + memberId + ", todoNo=" + todoNo + ", status=" + status + "]";
 	}
 
+
+	
 }

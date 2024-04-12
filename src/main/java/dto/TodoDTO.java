@@ -17,6 +17,9 @@ public class TodoDTO {
 	private Date startDate;
 	private Date endDate;
 
+	public TodoDTO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getNo() {
 		return no;
@@ -82,15 +85,12 @@ public class TodoDTO {
 		this.endDate = endDate;
 	}
 
-	public TodoDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	
+
 	@Override
 	public String toString() {
-		return "TodoDTO [no=" + no + ", chapterNo=" + chapterNo + ", name=" + name + ", detail=" + detail
-				+ ", createdDate=" + createdDate + ", updateDate=" + updateDate + ", startDate=" + startDate
-				+ ", endDate=" + endDate + "]";
+		return "TodoDTO [no=" + no + ", chapterNo=" + chapterNo + ", name=" + name
+				+ ", detail=" + detail + ", createdDate=" + createdDate + ", updateDate=" + updateDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
 	}
 
 }
