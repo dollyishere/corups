@@ -1,27 +1,76 @@
 package dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnector;
 import dto.FileDTO;
+
+import java.util.Vector;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * FILE DAO
  * @author nsr
  * @since 2024-04-08
  * **/
-public class FileDAO {
+public class FileDAO extends MySQLConnector{
+	
+	private Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
+	private static final String ENCTYPE = "UTF-8";
+	private static final int MAXSIZE = 10*1024*1024;
+	
 	
 	public FileDAO() {
+		
+		
 	}
+	
 	
 	/**
 	 * Get file List of todo
 	 * @param int todo_no
 	 * @return ArrayList<FileDTO>
 	 */
-	public ArrayList<FileDTO> fileList(int todo_no) {
-		return null;
+	public ArrayList<FileDTO> fileList(int todoNo) {
+		ArrayList<FileDTO> files = new ArrayList<FileDTO>();
+		conn = connection();
+		String query = "SELECT * FROM files WHERE todo_no=? ORDER BY no";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, todoNo);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				FileDTO file = new FileDTO();
+				file.setName(rs.getString("name"));
+				file.setNo(rs.getInt("no"));
+				file.setTodoNo(rs.getInt("todo_no"));
+				
+				files.add(file);
+			}
+		} catch (SQLException e) {
+			System.err.println("fileList() ERR : " + e.getMessage());
+		}
+		return files;
 	}
 
 	/**
@@ -35,11 +84,27 @@ public class FileDAO {
 	
 	/**
 	 * Insert file
-	 * @param FileDTO file
+	 * @param String file, int todoNo
 	 * @return boolean
 	 */
-	public boolean insertFiles(FileDTO file) {
-		return false;
+	public boolean insertFiles(String fileName, int todoNo) {
+		boolean success = false;
+		conn = connection();
+		String query = "INSERT INTO files (todo_no, name) VALUES (?, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, todoNo);
+			pstmt.setString(2, fileName);
+			
+			int n =pstmt.executeUpdate();
+			
+			if(n > 0)
+				success = true;
+		} catch (SQLException e) {
+			System.err.println("insertFiles() ERR: " + e.getMessage());
+		}
+		
+		return success;
 	}
 	
 	/**
