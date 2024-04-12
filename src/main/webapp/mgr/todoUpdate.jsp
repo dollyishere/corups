@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
+	
 	<!-- todo, returnPage -->
     
 <!DOCTYPE html>
@@ -52,7 +53,6 @@
 	            e.preventDefault();
 	            
 	            var todoNo = $("#todoNo").val();
-	            var rootPage = $("#rootPage").val();
 	            var myTodoPage = ${sessionScope.myTodoPage};
 	            $.ajax({
 	                url: "todoDeleteServlet",

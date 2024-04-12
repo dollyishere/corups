@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
 
 <!DOCTYPE html>
@@ -70,9 +71,11 @@ function gotoUpdate(todoNo){
             </tr>
         </tbody>
         <tfoot>
+            <c:forEach var="file" items="${files}">
             <tr>
-                <td colspan="2">첨부자료가 있다면 첨부자료 다운로드 띄우기</td>
+                <td colspan="2"><a href="${contextPath }/fileDownloadServlet?fileName=${file.name}">${file.name} 내려받기</a></td>
             </tr>
+            </c:forEach>
         </tfoot>
     </table>
     <input type="hidden" id="todoNo" value="${todo.no}">

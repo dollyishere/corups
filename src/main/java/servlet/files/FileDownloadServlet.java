@@ -53,11 +53,8 @@ public class FileDownloadServlet extends HttpServlet {
 		// 웹 브라우저의 캐시를 비활성화
 		response.setHeader("Cache-Control", "no-Cache");
 		
-		// 파일 확장자에 따라 Content-Type 설정
-		String contentType = getContentTypeByFileName(fileName);
-		response.setContentType(contentType);
-		
 		// 파일 다운로드 설정
+		response.setContentType("application/octet-stream");
 		response.setHeader("Content-disposition", "attachment; fileName=" + fileName);
 		
 		OutputStream out = response.getOutputStream();
@@ -76,29 +73,28 @@ public class FileDownloadServlet extends HttpServlet {
 		in.close();
 		out.close();
 	}
-
-private String getContentTypeByFileName(String fileName) {
-	if (fileName.endsWith(".txt")) {
-		return "text/plain";
-	} else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
-		return "image/jpeg";
-	} else if (fileName.endsWith(".png")) {
-		return "image/png";
-	} else if (fileName.endsWith(".gif")) {
-		return "image/gif";
-	} else if (fileName.endsWith(".pdf")) {
-		return "application/pdf";
-	} else if (fileName.endsWith(".doc") || fileName.endsWith(".docx")) {
-		return "application/msword";
-	} else if (fileName.endsWith(".xls") || fileName.endsWith(".xlsx")) {
-		return "application/vnd.ms-excel";
-	} else if (fileName.endsWith(".zip")) {
-		return "application/zip";
-	} else {
-		return "application/octet-stream";
+	
+	private String getContentTypeByFileName(String fileName) {
+		if (fileName.endsWith(".txt")) {
+			return "text/plain";
+		} else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+			return "image/jpeg";
+		} else if (fileName.endsWith(".png")) {
+			return "image/png";
+		} else if (fileName.endsWith(".gif")) {
+			return "image/gif";
+		} else if (fileName.endsWith(".pdf")) {
+			return "application/pdf";
+		} else if (fileName.endsWith(".doc") || fileName.endsWith(".docx")) {
+			return "application/msword";
+		} else if (fileName.endsWith(".xls") || fileName.endsWith(".xlsx")) {
+			return "application/vnd.ms-excel";
+		} else if (fileName.endsWith(".zip")) {
+			return "application/zip";
+		} else {
+			return "application/octet-stream";
+		}
 	}
-}
-
 	
 	private String getRealPath() {
 		

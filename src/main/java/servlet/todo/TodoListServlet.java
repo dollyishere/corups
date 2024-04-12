@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.FileDAO;
 import dao.StatusDAO;
@@ -41,7 +42,7 @@ public class TodoListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 //		/** 삭제해야할 코드 **/
-//		testSession(request, response);
+		testSession(request, response);
 		FileDAO fileDAO = new FileDAO();
 		
 		//  인코딩
@@ -77,14 +78,14 @@ public class TodoListServlet extends HttpServlet {
 	}
 	
 	
-//	/** 삭제해야할 코드!! **/
-//	private void testSession(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//        // 세션을 가져옵니다. 없으면 새로 생성합니다.
-//        HttpSession session = request.getSession(true);
-//        // 세션에 데이터를 추가합니다.
-//        session.setAttribute("id", "lasolim");
-//	}
+	/** 삭제해야할 코드!! **/
+	private void testSession(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+        // 세션을 가져옵니다. 없으면 새로 생성합니다.
+        HttpSession session = request.getSession(true);
+        // 세션에 데이터를 추가합니다.
+        session.setAttribute("id", "lasolim");
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
