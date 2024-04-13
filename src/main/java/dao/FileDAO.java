@@ -112,7 +112,49 @@ public class FileDAO extends MySQLConnector{
 	 * @param int no
 	 * @return boolean
 	 */
-	public boolean deleteFiles(int no) {
+	public boolean deleteFile(int no) {
+		
+		conn = connection();
+		String query = "DELETE FROM files WHERE no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			
+			int n = pstmt.executeUpdate();
+			
+			if(n > 0)
+				return true;
+			
+		} catch (SQLException e) {
+			System.err.println("deleteFile() ERR : " + e.getMessage());
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * Delete file
+	 * @param int no
+	 * @return boolean
+	 */
+	public boolean deleteFiles(int todoNo) {
+		
+		conn = connection();
+		String query = "DELETE FROM files WHERE todo_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, todoNo);
+			
+			int n = pstmt.executeUpdate();
+			
+			if(n > 0)
+				return true;
+			
+		} catch (SQLException e) {
+			System.err.println("deleteFiles() ERR : " + e.getMessage());
+		}
+		
 		return false;
 	}
 }

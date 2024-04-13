@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FileDAO;
 import dao.TodoDAO;
+import dto.FileDTO;
 import dto.TodoDTO;
 
 /**
@@ -42,7 +45,12 @@ public class TodoUpdateServlet extends HttpServlet {
 		TodoDAO todoDAO = new TodoDAO();
 		TodoDTO todo = todoDAO.todoDetail(todoNo);
 
+		// todoNo 으로 fileDTO 배열 가져오기
+		FileDAO fileDAO = new FileDAO();
+		ArrayList<FileDTO> files = fileDAO.fileList(todoNo);
+
 		request.setAttribute("todo", todo);
+		request.setAttribute("files", files);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/todoUpdate.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -63,6 +71,7 @@ public class TodoUpdateServlet extends HttpServlet {
 		Date startDate = parseDate(request.getParameter("startDate"));
 		Date endDate = parseDate(request.getParameter("endDate"));
 		String detail = request.getParameter("content");
+		
 
 		// TodoDTO
 		TodoDTO todo = new TodoDTO();
@@ -76,7 +85,11 @@ public class TodoUpdateServlet extends HttpServlet {
 		TodoDAO todoDAO = new TodoDAO();
 		boolean isSuccess = todoDAO.updateTodo(todo);
 		
-		response.getWriter();
+		
+		if(isSuccess)
+			response.getWriter().write("성공");
+		else
+			response.getWriter().write("실패");
 		
 	}
 
