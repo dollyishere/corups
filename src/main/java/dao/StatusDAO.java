@@ -162,16 +162,15 @@ public class StatusDAO extends MySQLConnector{
 	 * @param int no
 	 * @return boolean
 	 */
-	public boolean deleteStatus(int todo_no, String id) {
+	public boolean deleteStatus(int todoNo) {
 		
 		conn = connection();
 		  
 		try {
 			
-			String query = "DELETE FROM status WHERE todo_no=? AND member_id=?";
+			String query = "DELETE FROM status WHERE todo_no=?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, todo_no);
-			pstmt.setString(2, id);
+			pstmt.setInt(1, todoNo);
 	        pstmt.executeUpdate();
 			
 			return true;

@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ChapterDAO;
 import dao.FileDAO;
 import dao.StatusDAO;
+import dao.StudyDAO;
 import dao.TodoDAO;
+import dto.ChapterDTO;
 import dto.FileDTO;
 import dto.StatusDTO;
+import dto.StudyDTO;
 import dto.TodoDTO;
 import utils.SessionUtil;
 
@@ -50,7 +54,7 @@ public class TodoDetailServlet extends HttpServlet {
 
 		// 1. todo_no 파라미터 받기
 		String todoNoStr = request.getParameter("todoNo");
-		if(todoNoStr == null || todoNoStr == "")
+		if(todoNoStr == null || todoNoStr.isEmpty())
 			System.err.println("todo 너어어얼");
 		int todoNo = Integer.parseInt(todoNoStr);
 		
@@ -62,12 +66,12 @@ public class TodoDetailServlet extends HttpServlet {
 		// 3. 세션에 id 가져오기
 		String id = SessionUtil.getID(request, response);
 		
-//		// Chapter 와 Study 정보 조회
-//		ChapterDAO chapterDAO = new ChapterDAO();
-//		ChapterDTO chapter = chapterDAO.chapterDetail(todo.getChapterNo());
-//		
-//		StudyDAO studyDAO = new StudyDAO();
-//		StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
+		// Chapter 와 Study 정보 조회
+		ChapterDAO chapterDAO = new ChapterDAO();
+		ChapterDTO chapter = chapterDAO.chapterDetail(todo.getChapterNo());
+		
+		StudyDAO studyDAO = new StudyDAO();
+		StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
 		
 		StatusDAO statusTodoDao = new StatusDAO();
 		StatusDTO status = statusTodoDao.getStatus(id, todo.getNo());		
@@ -82,8 +86,8 @@ public class TodoDetailServlet extends HttpServlet {
 //		if(id.equals(study.getCreateUserId()))
 			mgr = true;
 		
-//		request.setAttribute("study", study);
-//		request.setAttribute("chapter", chapter);
+		request.setAttribute("study", study);
+		request.setAttribute("chapter", chapter);
 		request.setAttribute("mgr", mgr);
 		request.setAttribute("todo", todo);
 		request.setAttribute("files", files);

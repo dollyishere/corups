@@ -45,8 +45,8 @@ function gotoUpdate(todoNo){
 </head>
 <body>
     <table border="1">
-        <caption><b>스터디 이름</b></caption>
-        <caption>챕터 이름</caption>
+        <caption><b>${study.name}</b></caption>
+        <caption>${chapter.name}</caption>
         <tbody>
             <tr>
                 <th>할 일 </th>
@@ -82,7 +82,7 @@ function gotoUpdate(todoNo){
     <input type="button" id="okBtn" value="확인">
     <c:choose>
     	<c:when test="${mgr}">
-    		<input type="button" value="수정" onclick="gotoUpdate(${todo.no}, ${rootPage})">
+    		<input type="button" value="수정" onclick="gotoUpdate(${todo.no})">
     	</c:when>
     </c:choose>
 </body>
