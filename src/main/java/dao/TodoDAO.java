@@ -219,6 +219,43 @@ public class TodoDAO extends MySQLConnector{
 		}
 	}
 	
+	/**
+	 * chapterDetail's todoList
+	 * @author cyb
+	 * @since 4.14
+	 */
+	public ArrayList<TodoDTO> chapter_todoList(int chapter_no) {
+		ArrayList<TodoDTO> todoArray = new ArrayList<>();;
+		conn = connection();
+		
+		try {
+			String query = "SELECT * FROM todo WHERE chapter_no=?";
+			pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, chapter_no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TodoDTO todoDTO = new TodoDTO();
+				todoDTO.setChapterNo(rs.getInt("chapter_no"));
+				todoDTO.setNo(rs.getInt("no"));
+				todoDTO.setName(rs.getString("name"));
+				todoDTO.setCreatedDate(rs.getDate("created_date"));
+				todoDTO.setStartDate(rs.getDate("start_date"));
+				todoDTO.setEndDate(rs.getDate("end_date"));
+				todoDTO.setUpdateDate(rs.getDate("update_date"));
+				todoDTO.setDetail(rs.getString("detail"));
+				todoArray.add(todoDTO);
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("todoList() ERR : " + e.getMessage());
+		}
+		finally {
+			close(conn, pstmt, rs);
+		}	
+		return todoArray;
+	}
 	
 	private TodoDTO createTodoDTO() throws SQLException {
 		TodoDTO todoDTO = new TodoDTO();
