@@ -34,7 +34,6 @@ public class chapterDetailServlet extends HttpServlet {
 
 	/**
 	 * chapterDAO에서 해당 no가진 챕터 상세 정보 조회 => chapterDetail.jsp로 이동
-	 * 
 	 * study_no 파라미터 받기 study_no로 chapter 상세정보 조회 세션에 id가져오기 create_user_id가져오기 id와
 	 * chapter.create_user_id가 같으면 /mgr/chapterDetail.jsp로 이동 아니면
 	 * /chapterDetail.jsp로 이동
@@ -59,6 +58,8 @@ public class chapterDetailServlet extends HttpServlet {
         TodoDAO todoDAO = new TodoDAO();
         todo.addAll(todoDAO.chapter_todoList(no));
         
+        
+        request.setAttribute("userid", 1); // 여기서 1은 테스트용 사용자 ID
         // 챕터 상세 조회 - todoList
         ChapterDTO chapter = new ChapterDTO();
         chapterDAO = new ChapterDAO();
@@ -67,6 +68,10 @@ public class chapterDetailServlet extends HttpServlet {
         // 챕터 정보를 JSP 페이지에 전달하고 포워딩
         request.setAttribute("chapter", chapter);
         request.setAttribute("todoArray", todo);
+     // 서블릿에서 사용자 ID 설정 및 JSP 페이지로 전달
+        
+        
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/chapterDetail.jsp");
         requestDispatcher.forward(request, response);
     }

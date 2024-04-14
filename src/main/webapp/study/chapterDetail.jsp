@@ -36,6 +36,7 @@
                     <th>todo 이름</th>
                     <th>기간</th>
                     <th>상태</th>
+                    
                 </tr>
             </thead>
 
@@ -63,6 +64,13 @@
                                 <td align="center">${todo.endDate}</td>
 
                                 <!-- 상태 -->
+                                <!-- 삭제 버튼 -->
+                                    <td align="center">
+                                        <!-- userid가 1인 경우에만 삭제 버튼 표시 -->
+                                        <c:if test="${userid == 1}">
+                                            <button onclick="deleteChapter(${chapter.no})">삭제</button>
+                                        </c:if>
+                                    </td>
                                 
                                 
                             </tr>

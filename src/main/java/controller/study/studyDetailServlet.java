@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
 import dto.ChapterDTO;
+import utils.SessionUtil;
 
 
 /**
@@ -62,9 +63,13 @@ public class studyDetailServlet extends HttpServlet {
         System.out.println("------");
         System.out.println(chapterList.get(0).getStudyName());
 
-
-		// chapterListServlet으로 전달할 studyNo와 chapterList를 request 속성으로 설정
-		//request.setAttribute("studyNo", 1);
+     // 세션에 id 가져오기
+     	//String id = SessionUtil.getID(request, response);
+     	//System.out.println(id);
+        request.setAttribute("userid", 1); // 여기서 1은 테스트용 사용자 ID
+        
+		// chapterListServlet으로 전달할chapterList와 studyName을 설정
+		
 		request.setAttribute("chapterList", chapterList);
 		request.setAttribute("studyName",chapterList.get(0).getStudyName());
 		// chapterListServlet으로 포워딩

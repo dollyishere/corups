@@ -21,18 +21,18 @@
 			// 사용자가 확인 버튼을 클릭했을 때
 			if (result2) {
 				// 추가 화면으로 이동
-				window.location.href = "${pageContext.request.contextPath}/chapter/chapterRegisterServlet";
+				window.location.href = "${pageContext.request.contextPath}/chapterRegister.jsp";
 
 			} else {
 				alert("목록으로 이동합니다.");
-				// 목록 화면으로 이동
-				window.location.href = "${pageContext.request.contextPath}/study/studyDetailServlet?studyNo=${studyNo}";
+				// 등록 후 새 챕터 생성 취소 선택시 목록 화면으로 이동
+				return false;
 			}
 		} else {
-			// 사용자가 취소 버튼을 클릭했을 때
+			// 사용자가 등록 취소 버튼을 클릭했을 때
 			// 목록 화면으로 이동
 			alert("등록이 취소되었습니다.");
-			history.back();
+			return false;
 		}
 	}
 </script>
