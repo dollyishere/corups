@@ -24,7 +24,7 @@
 				window.location.href = "${pageContext.request.contextPath}/chapter/chapterRegisterServlet";
 
 			} else {
-				alert("목록으로 이동합니.");
+				alert("목록으로 이동합니다.");
 				// 목록 화면으로 이동
 				window.location.href = "${pageContext.request.contextPath}/study/studyDetailServlet?studyNo=${studyNo}";
 			}
@@ -32,8 +32,7 @@
 			// 사용자가 취소 버튼을 클릭했을 때
 			// 목록 화면으로 이동
 			alert("등록이 취소되었습니다.");
-			window.location.href = "${pageContext.request.contextPath}/study/studyDetailServlet?studyNo=${studyNo}";
-
+			history.back();
 		}
 	}
 </script>

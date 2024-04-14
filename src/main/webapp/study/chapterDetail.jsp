@@ -19,9 +19,8 @@
         <table align="center" border="1" summary="챕터 상세">
             <tr>
                 <div style="display: inline-block;">
-                    <h3 align="center">chapter.name ${chapter.name} </h3>
-                    <input type="button" value="chapter 추가" onclick="location.href='/mgr/chapterRegisterServelet?&studyNo=${studyNo}&memberid=${memberId}'"/>
-                    
+                    <h3 align="center">${chapter.name} </h3>
+                    <input type="button" value="chapter 추가" onclick="location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'"/>
                 </div>
             </tr>
 
@@ -41,45 +40,48 @@
             </thead>
 
             <tbody>
+                <!-- 개인 할 일 목록-->
                 <c:choose>
-                    <c:when test="${todoCount == 0}">
+                    <c:when test="${empty todoArray}">
                         <tr>
-                            <td align="center" colspan="4">todo가 없습니다.</td>
+                            <td align="center" colspan="4">할 일이 없습니다.</td>
                         </tr>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach var="todo" items="${todoList}" varStatus="status">
+                        <c:forEach var="todo" items="${todoArray}" varStatus="status">
                             <tr>
                                 <!-- 할 일 번호 -->
                                 <td align="center">${status.index + 1}</td>
 
                                 <!-- 할 일 이름 -->
-                                <td><a href="<c:url value='todoDetailServlet?num=${todoNo}' />">
+                                <td><a href="<c:url value='todoDetailServlet?todoNo=${todo.no}' />">
                                         <c:out value="${todo.name}" />
-                                </a></td>
+                                    </a></td>
 
                                 <!-- 할 일 기간 -->
                                 <td align="center">${todo.startDate}</td>
                                 <td align="center">${todo.endDate}</td>
 
                                 <!-- 상태 -->
-                                <td align="center">${todo.status}</td>
+                                
+                                
                             </tr>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
+                <!-- 두 번째 파일의 개인 할 일 목록 코드 끝 -->
             </tbody>
 
             <tfoot>
                 <!-- 페이지 번호 -->
                 <tr>
-                    <td align="center" colspan="4"><c:out value="${pageNavigator}" escapeXml="false" /></td>
+                    <td align="center" colspan="4"><!-- 개인 할 일 목록의 페이지 번호를 여기에 추가 --></td>
                 </tr>
                 <tr>
                     <td colspan="4" align="center">
                         <input type="button" value="목록(뒤로가기)" onclick="location.href='<c:url value='/study/studyDetailServlet?studyNo=${chapter.studyNo}' />'" />
                     </td>
-                </tr>    
+                </tr>
             </tfoot>
         </table>
     </div>

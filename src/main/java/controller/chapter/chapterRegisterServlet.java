@@ -91,15 +91,12 @@ public class chapterRegisterServlet extends HttpServlet {
 		if (complete) {
 			// 등록 성공 시 챕터 목록 페이지로 이동
 			System.out.println(complete);
-			  
-			
-			response.getWriter().write("success," + studyNo);
+		
 			response.sendRedirect("../study/studyDetailServlet?studyNo=" + studyNo);
 
 		} else {
 		    response.sendRedirect(request.getContextPath() + "/errorLog.jsp");
 			System.err.println("등록error!!");
-			response.getWriter().write("fail");
 
 		}
 		// 서버에서 응답 데이터에 studyNo를 포함하여 전송

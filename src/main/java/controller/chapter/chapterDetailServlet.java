@@ -1,6 +1,7 @@
 package controller.chapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
+import dao.TodoDAO;
 import dto.ChapterDTO;
+import dto.TodoDTO;
 
 /**
  * /chapter/ChapterDetailServlet
- * 
  * @since 2024.04.09
  * @author cyb
  */
@@ -39,28 +41,35 @@ public class chapterDetailServlet extends HttpServlet {
 	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
-		// 파라미터
-		int no = Integer.parseInt(request.getParameter("no"));
-		int studyNo = Integer.parseInt(request.getParameter("studyNo"));
-		String pageNum = request.getParameter("pageNum");
-		ChapterDTO chapter = new ChapterDTO();
-		chapter.setNo(no);
-		chapter.setPageNum(pageNum); // pageNum 변수 수정 필요
-		chapter.setStudyNo(studyNo);
+        // 파라미터
+        String chapterNo = request.getParameter("no");
+        //String studyNoParam = request.getParameter("studyNo");
+        if (chapterNo == null || chapterNo.isEmpty()) {
+            // 적절한 파라미터가 없는 경우 에러 처리
+            response.sendRedirect(request.getContextPath() + "/errorLog.jsp");
+            return;
+        }
 
-		// 챕터 상세 조회
-		chapterDAO = new ChapterDAO();
-		chapter = chapterDAO.chapterDetail(no); 
+        int no = Integer.parseInt(chapterNo);
+        
+        ArrayList<TodoDTO> todo = new ArrayList<TodoDTO>();	
+        TodoDAO todoDAO = new TodoDAO();
+        todo.addAll(todoDAO.chapter_todoList(no));
+        
+        // 챕터 상세 조회 - todoList
+        ChapterDTO chapter = new ChapterDTO();
+        chapterDAO = new ChapterDAO();
+        chapter = chapterDAO.chapterDetail(no); 
 
-		request.setAttribute("chapter", chapter);
-
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./mgr/chapterDetail.jsp");
-		requestDispatcher.forward(request, response);
-
-	}
+        // 챕터 정보를 JSP 페이지에 전달하고 포워딩
+        request.setAttribute("chapter", chapter);
+        request.setAttribute("todoArray", todo);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/chapterDetail.jsp");
+        requestDispatcher.forward(request, response);
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -159,7 +159,7 @@ public class ChapterDAO {
 				chapter.setStudyNo(rs.getInt("study_no"));
 				chapter.setName(rs.getString("name"));
 				chapter.setCreatedDate(rs.getDate("created_date"));
-				chapter.setUpdateDate(rs.getDate("start_date"));
+				chapter.setUpdateDate(rs.getDate("update_date"));
 				chapter.setStartDate(rs.getDate("start_date"));
 				chapter.setEndDate(rs.getDate("end_date"));
 			}
