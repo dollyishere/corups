@@ -73,7 +73,7 @@
      			processData: false,
                  contentType: false,
                  success: function(fileCount) {
-                	 alert(todoNo);
+                	 alert("수정되었습니다.");
                  	document.location = "todoDetailServlet?todoNo=" + todoNo;
                  },
                  error: function() {
@@ -97,7 +97,7 @@
 	                },
 	                dataType: "text",
 	                success: function(response) {
-	                   	alert("할 일 삭제");
+	                   	alert("삭제되었습니다.");
 	                   	if(myTodoPage == true)
 	                       	document.location = "todoListServlet";
 	                       else
@@ -123,7 +123,6 @@
                 success: function(response) {
                     if (response === "success") {
                         row.remove(); // 해당 행 삭제
-                        alert("파일이 삭제되었습니다.");
                     } else {
                         alert("파일 삭제 실패");
                     }

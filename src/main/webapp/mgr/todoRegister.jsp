@@ -42,7 +42,7 @@
                         fileUpload(todoNo);
                     }
                     else{
-                    	alert("실패");
+                    	alert("등록에 실패하였습니다.");
                     }
                     
                 },
