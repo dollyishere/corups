@@ -53,7 +53,7 @@
 </script>
 </head>
 <body>
-	<form action="<c:url value="/member/signupServlet" />" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<table border="1" >
 			<colgroup>
 				<col width="150" />
@@ -157,7 +157,7 @@
 			<!-- 회원가입 버튼 -->
 			<tfoot>
 				<tr><th align="center" colspan="3">
-					<input type="submit" value="회원가입" id="form-submit" disabled />
+					<input type="button" value="회원가입" id="form-submit" disabled onclick="submit_form()"/>
 					&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="다시쓰기" />
 				</th></tr>

@@ -14,9 +14,10 @@
 		text-align: center;
 	}
 </style>
+<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
-	<form action="<c:url value="/member/loginServlet" />" method="post">
+	<form method="post">
 		<table border="1">
 			<tr>
 				<td colspan="2">로그인</td>
@@ -31,7 +32,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="login"/>
+					<input type="button" value="login" onclick="submit_login_form()"/>
 					<input type="reset" value="reset"/>
 				</td>
 			</tr>

@@ -41,6 +41,162 @@
 		})
 	}
 
+	/* 폼 데이터 제출 */
+	function submit_form() {
+	    // formData 객체 생성
+	    var formData = new FormData($("form")[0]);
+	    console.log(formData);
+	    
+	    // 요청 실행(회원가입)
+	    $.ajax({
+	        type: "POST",
+	        async: false,
+	        url: "http://localhost:9000/corups/member/signupServlet",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(data, textStatus) {
+	            if (data === "sign up complete!") {
+	                alert("회원 가입이 정상적으로 완료되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/mem/login.jsp")
+	            } else {
+	                alert("회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
+	/* 폼 데이터 제출(수정) */
+	function submit_update_form() {
+	    // formData 객체 생성
+	    var formData = new FormData($("form")[0]);
+	    console.log(formData);
+	    
+	    // 요청 실행(정보수정)
+	    $.ajax({
+	        type: "POST",
+	        async: false,
+	        url: "http://localhost:9000/corups/member/updateServlet",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function(data, textStatus) {
+	            if (data === "update complete!") {
+	            	console.log(textStatus, data);
+	                alert("수정이 정상적으로 완료되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/mem/main.jsp")
+	            } else {
+	                alert("정보 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
+	/* 로그인 */
+	function submit_login_form() {
+    	// 폼 데이터 직렬화
+	    var formData = $("form").serialize();
+	    
+	    // 요청 실행(로그인)
+	    $.ajax({
+	        type: "POST",
+	        url: "http://localhost:9000/corups/member/loginServlet",
+	        data: formData,
+	        success: function(data, textStatus) {
+	            if (data === "login") {
+	                console.log(textStatus, data);
+	                alert("로그인 되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/mem/main.jsp")
+	            } else {
+	                alert("아이디나 비밀번호가 맞지 않습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
+	/* 관리자 로그인 */
+	function submit_a_login_form() {
+	    // formData 객체 생성
+	    var formData = $("form").serialize();
+	    
+	    // 요청 실행(로그인)
+	    $.ajax({
+	        type: "POST",
+	        async: false,
+	        url: "http://localhost:9000/corups/admin/adminLoginServlet",
+	        data: formData,
+	        success: function(data, textStatus) {
+	            if (data === "login") {
+	            	console.log(textStatus, data);
+	                alert("로그인 되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/admin/main.jsp")
+	            } else {
+	                alert("아이디나 비밀번호가 맞지 않습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
+	/* 로그아웃 */
+	function submit_logout() {
+	    // formData 객체 생성
+	    
+	    // 요청 실행(로그아웃)
+	    $.ajax({
+	        type: "POST",
+	        async: false,
+	        url: "http://localhost:9000/corups/member/logoutServlet",
+	        success: function(data, textStatus) {
+	            if (data === "logout_complete!") {
+	            	console.log(textStatus, data);
+	                alert("로그아웃 되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/index.jsp")
+	            } else {
+	                alert("로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
+	/* 관리자 로그아웃 */
+	function submit_a_logout() {
+	    // formData 객체 생성
+	    
+	    // 요청 실행(관리자 로그아웃)
+	    $.ajax({
+	        type: "POST",
+	        async: false,
+	        url: "http://localhost:9000/corups/admin/adminLogoutServlet",
+	        success: function(data, textStatus) {
+	            if (data === "logout_complete!") {
+	            	console.log(textStatus, data);
+	                alert("로그아웃 되었습니다.");
+	                window.location.replace("<%= request.getContextPath() %>/index.jsp")
+	            } else {
+	                alert("로그아웃 중 오류가 발생했습니다. 다시 시도해주세요.");
+	            }
+	        },
+	        error: function(data, textStatus) {
+	            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+	        },
+	    });
+	};
+	
 	/* 삭제 확인 및 삭제 */
 	function confirmDelete() {
 	    var _id = prompt("아이디를 입력해주세요.");
@@ -89,7 +245,7 @@
 	    		data: {id: _id, pwd: _pwd},
 	    		success: function(data, textStatus) {
 	    			alert("탈퇴 완료되었습니다.");
-	    			window.location.replace("<%= request.getContextPath() %>/getRedirect.jsp")
+	    			window.location.replace("http://localhost:9000/corups/member/memberListServlet");
 	    		},
 	    		error: function(data, textStatus) {
 	    			alert("다시 한 번 시도해주세요.");

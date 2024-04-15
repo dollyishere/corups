@@ -3,7 +3,6 @@ package servlet.member;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +32,7 @@ public class LogoutServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		// 세션 불러온 후 세션에 id 값 저장되어 있을 시, logout
-		 HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false);
         if (session.getAttribute("id") != null) {
             session.removeAttribute("id");
             session.removeAttribute("img");

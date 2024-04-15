@@ -20,7 +20,7 @@ th{
 	background-color: orange;
 }
 </style>
-
+<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
 	<table>
@@ -30,9 +30,7 @@ th{
 		    		<a href="<c:url value="/index.jsp"/>">Corups!</a>
 		    	</th>
 		      	<th>
-		    		<form action="<c:url value="/admin/adminLogoutServlet"/>" method="post">
-		    			<input type="submit" value="로그아웃" />
-		    		</form>
+		    		<input type="button" value="로그아웃" onclick="submit_a_logout()"/>
 		    	</th>
 		    </c:if>
 		</tr>

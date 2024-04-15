@@ -12,9 +12,10 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 로그인: admin/login.jsp </title>
+<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
-	<form action="<c:url value="/admin/adminLoginServlet" />" method="post">
+	<form method="post">
 		<table border="1">
 			<tr>
 				<td colspan="2">관리자 로그인</td>
@@ -29,7 +30,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="login"/>
+					<input type="button" value="login" onclick="submit_a_login_form()"/>
 					<input type="reset" value="reset"/>
 				</td>
 			</tr>

@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class AdminLogoutServlet extends HttpServlet {
 	 * POST 요청 수행(관리자 로그아웃)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/index.jsp";
+		PrintWriter out = response.getWriter();
 		
 		// 세션 불러온 후 세션에 adminId 값 저장되어 있을 시, logout
 		HttpSession session = request.getSession(false);
@@ -43,8 +44,8 @@ public class AdminLogoutServlet extends HttpServlet {
             session.removeAttribute("isAdmin");
         }
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
-		requestDispatcher.forward(request, response);
+     // 로그아웃 성공할 시 index.jsp로
+     out.write("logout_complete!");
 		
 	} // doPOST() END
 

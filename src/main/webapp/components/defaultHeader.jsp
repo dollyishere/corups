@@ -27,9 +27,7 @@ th{
 		<tr>
 		    <c:if test="${ not empty sessionScope.id }">
 		      	<th>
-		    		<form action="<c:url value="/member/logoutServlet"/>" method="post">
-		    			<input type="submit" value="로그아웃" />
-		    		</form>
+		    		<input type="button" value="로그아웃" onclick="submit_logout()"/>
 		    	</th>
 				<th><input type="button" value="회원수정" onclick="location.href='<c:url value="/member/updateServlet"/>'" /></th>
 				<th><input type="button" value="회원탈퇴" onclick="confirmDelete()"></th>

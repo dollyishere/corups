@@ -2,6 +2,7 @@ package servlet.member;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,9 +76,9 @@ public class UpdateServlet extends HttpServlet {
 	 * POST 요청 수행(회원 정보 수정 수행)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter(); 
 		request.setCharacterEncoding("utf-8");
 	     response.setContentType("text/html; charset=utf-8");
-	     nextPath = "/mem/main.jsp";
 	     String id = "";
 	     boolean resultQ = false;
 	     FileItem imgFile = null;
@@ -134,9 +135,7 @@ public class UpdateServlet extends HttpServlet {
 	    			    	 member.setBirthday(sqlDate);
 	    			     } catch (ParseException e) {
 	    			    	 System.out.println(e.getMessage());
-	    			    	 nextPath = "/errorLog.jsp";
-	    			    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    			    	 requestDispatcher.forward(request, response);
+	    			    	 out.write("birthday err");
 	    			     }
 	    			     // 이메일 저장
 	    			 } else if ("email".equals(item.getFieldName())) {
@@ -168,9 +167,7 @@ public class UpdateServlet extends HttpServlet {
 	    	 
 		} catch (Exception e) {
 			System.err.println("File Upload ERR : " + e.getMessage());
-	    	 nextPath = "/errorLog.jsp";
-	    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	 requestDispatcher.forward(request, response);
+	    	out.write("file upload err");
 		}
     	    
 	     // 관심사 이니셜 결합해서 추가
@@ -184,17 +181,10 @@ public class UpdateServlet extends HttpServlet {
 	     resultQ = memberDAO.update(member);
 
 	     if (!resultQ) {
-	    	 nextPath = "/errorLog.jsp";
+	    	 out.write("update error");
+	     } else {
+	    	 out.write("update complete!");
 	     }
-	     
-	     
-		if (nowPath != null) {
-			response.sendRedirect("../member/memberListServlet");
-			return;
-		} else {
-		     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	 requestDispatcher.forward(request, response);
-		}
 
 	} // doPOST() END
 

@@ -55,9 +55,9 @@ public class SignupServlet extends HttpServlet {
 	} // doPOST() END
 	
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 request.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter(); 
+		request.setCharacterEncoding("utf-8");
 	     response.setContentType("text/html; charset=utf-8");
-	     String nextPath = "/mem/login.jsp";
 	     String id = "";
 	     boolean resultQ = false;
 	     FileItem imgFile = null;
@@ -67,8 +67,6 @@ public class SignupServlet extends HttpServlet {
 	     System.out.println("action : " + action);
 	     
 	     if (action != null && action.equals("/confirmDuplicate.do")) { // 아이디 중복 조회
-	    	 PrintWriter out = response.getWriter();
-	    	 
 	    	 id = (String) request.getParameter("id");
 	    	 memberDAO = new MemberDAO();
 	    	 boolean result = memberDAO.confirmDuplicate(id);
@@ -131,9 +129,7 @@ public class SignupServlet extends HttpServlet {
 	    			    	 member.setBirthday(sqlDate);
 	    			     } catch (ParseException e) {
 	    			    	 System.out.println(e.getMessage());
-	    			    	 nextPath = "/errorLog.jsp";
-	    			    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    			    	 requestDispatcher.forward(request, response);
+	    			    	 out.write("birthday_err");
 	    			     }
 	    			     // email일 시
 	    			 } else if ("email".equals(item.getFieldName())) {
@@ -172,9 +168,7 @@ public class SignupServlet extends HttpServlet {
 	    	 
 		} catch (Exception e) {
 			System.err.println("File Upload ERR : " + e.getMessage());
-	    	 nextPath = "/errorLog.jsp";
-	    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	 requestDispatcher.forward(request, response);
+	    	out.write("file upload err");
 		}
     	    
 	     // 관심사 이니셜 결합해서 추가
@@ -187,11 +181,11 @@ public class SignupServlet extends HttpServlet {
 	     // 실제로 member 회원가입 실행
 	     memberDAO = new MemberDAO();
 	     resultQ = memberDAO.signup(member);
-	     System.out.println(resultQ);
+
 	     if (!resultQ) {
-	    	 nextPath = "/errorLog.jsp";
+	    	 out.write("sign up error");
+	     } else {
+	    	 out.write("sign up complete!");
 	     }
-	     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-    	 requestDispatcher.forward(request, response);
 	} // doPOST() END
 }

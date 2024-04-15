@@ -83,7 +83,9 @@ public class MemberDAO {
 			if (rs.next()) {
 				count = rs.getInt("count(*)");
 			}
-			
+			System.out.println(count);
+			System.out.println(id);
+			System.out.println(pwd);
 			if (count == 1) {
 				state = true;
 			}

@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>회원 정보 수정 화면: profileUpdate.jsp</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<c:import url="/components/jQuerys.jsp" />
 <script>
 	window.onload = function() {
 		// 이미지 파일 자동 배정
@@ -69,7 +70,7 @@
 </script>
 </head>
 <body>
-	<form action="<c:url value="/member/updateServlet" />" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<table border="1" >
 			<colgroup>
 				<col width="150" />
@@ -167,7 +168,7 @@
 			<!-- 회원 정보 수정 버튼 -->
 			<tfoot>
 				<tr><th align="center" colspan="2">
-					<input type="submit" value="수정완료" id="form-submit" />
+					<input type="button" value="수정완료" id="form-submit" onclick="submit_update_form()" />
 					&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="다시쓰기" />
 				</th></tr>

@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author 임주연
  * @since 2024-04-15
  */
-@WebFilter("/*")
-public class CacheControlFileter implements Filter {
+@WebFilter(description ="캐시 리셋 구현", urlPatterns = { "/*" })
+public class CacheControlFilter implements Filter {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -45,8 +45,17 @@ public class CacheControlFileter implements Filter {
 		httpResponse.setHeader("Pragma", "no-cache");
 		httpResponse.setDateHeader("Expires", 0);
 		
-		// 본래 타켓 servlet으로 요청 전달
+		// 요청에 따른 필터 시작 (처리하기 직전)
+		long begin = System.currentTimeMillis();
+		/*****/
+		
+		// 필터 처리
 		chain.doFilter(request, response);
+		
+		/*****/
+		// 요청에 따른 필터 시작 (처리한 후)
+		long end = System.currentTimeMillis();
+		System.out.println("필터 작업 시간: " + (end - begin));
 		
 	}
 
