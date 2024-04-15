@@ -11,53 +11,43 @@
 <title>landing page: index.jsp</title>
 <link rel="stylesheet"
 	href="resources/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="css/main.css">
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-    img {
-        width: 300px;
-    }
-    h5 {
-        color: #800020; /* 버건디 계열의 색상 */
-    }
-    h1 {
-        font-style: italic;
-        color: #800020; /* 버건디 계열의 색상 */
-    }
-    input[type="button"] {
-        margin: 10px;
-        padding: 10px 20px;
-        border: none;
-        background-color: #800020; /* 버건디 계열의 색상 */
-        color: white;
-        cursor: pointer;
-    }
-    input[type="button"]:hover {
-        background-color: #4B0082; /* 버건디 계열의 어두운 보색 */
-    }
+	body {
+    background-image: url('resources/imgs/snow.jpg');
+    background-size: cover; /* 이미지를 화면에 꽉 채우도록 설정 */
+    background-repeat: no-repeat; /* 이미지 반복 없음 */
+    background-position: center; /* 이미지를 가운데 정렬 */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
 </style>
 </head>
 <body>
-    <div class="container">
-        <img alt="main_img.jpg" src="resources/imgs/main_img.jpg"><br>
-        <h5>함께 만들어요</h5>
-        <h1>Corups!</h1>
-        <div>
-            <input type="button" value="로그인" onclick="location.href='<c:url value="/member/loginServlet"/>'" />
-            <input type="button" value="회원가입" onclick="location.href='<c:url value="/member/signupServlet"/>'" />
+<div class="row justify-content-center align-items-center">
+	    <div class="col-md-3">
+	    	<img alt="logo.png" src="resources/imgs/logo.png" class="mb-2">
+	    </div>
+	    <div class="col-md-4">
+	    </div>
+        <div class="col-md-5">
+            <!-- 입력 폼을 감싸는 테두리가 둥근 직사각형 -->
+            <div class="custom-form text-center" style="width: 20rem;"> <!-- text-center 클래스 추가 -->
+                <div class="mb-2">
+ 						<input type="button" value="로그인" class="btn" style="background-color:#D996B5; color:white;" onclick="location.href='<c:url value="/member/loginServlet"/>'" />
+                    </div>
+                    <div class="mb-2">
+                        <input type="button" value="회원가입" class="btn" style="background-color:#D2C1D9; color:white;" onclick="location.href='<c:url value="/member/signupServlet"/>'" />
+                    </div>
+                    <div class="mb-2">
+                    	<input type="button" value="관리자 모드" class="btn" style="background-color:#BAC2D9; color:white;" onclick="location.href='<c:url value="/admin/adminLoginServlet"/>'" />
+                    </div>
+            </div>
         </div>
-        <input type="button" value="관리자 모드" onclick="location.href='<c:url value="/admin/adminLoginServlet"/>'" />
-    </div>
+	 </div>
 </body>
 </html>
