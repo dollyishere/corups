@@ -2,6 +2,7 @@ package controller.study;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,7 +34,8 @@ public class StudyListServlet extends HttpServlet {
 		
 		ArrayList<StudyDTO> studyList = studyDAO.studyList();
 		request.setAttribute("studyList", studyList);
-		
+			
+		// View 보내기
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/studyList.jsp");
 		requestDispatcher.forward(request, response);
 	}
