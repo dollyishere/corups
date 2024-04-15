@@ -83,7 +83,7 @@ public class TodoDetailServlet extends HttpServlet {
 //		// 5. id 와 create_user_id 가 같다면
 //		//		-> mgr/todoDetail.jsp 로 이동
 		boolean mgr = false;
-//		if(id.equals(study.getCreateUserId()))
+		if(id.equals(study.getCreateUserId()))
 			mgr = true;
 		
 		request.setAttribute("study", study);
