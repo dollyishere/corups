@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <title>스터디 상세 - 챕터부분</title>
 <script>
-  
+
   <!-- 챕터 삭제 함수 -->
   function deleteChapter(chapterNo) {
       // 삭제 여부를 확인하는 알림 창 표시
@@ -78,7 +78,7 @@
 									<td align="center">${status.index + 1}</td>
 									<!-- 챕터 제목 -->
 									<td><a
-										href="<c:url value="/chapter/chapterDetailServlet?no=${chapter.no}" />">
+										href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />">
 											<c:out value="${chapter.name}" />
 									</a></td>
 									<!-- 챕터 기간 -->

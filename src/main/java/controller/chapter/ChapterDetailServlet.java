@@ -44,7 +44,8 @@ public class ChapterDetailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // 파라미터
-        String chapterNo = request.getParameter("no");
+        String chapterNo = request.getParameter("chapterNo");
+        System.out.println(chapterNo);
         //String studyNoParam = request.getParameter("studyNo");
         if (chapterNo == null || chapterNo.isEmpty()) {
             // 적절한 파라미터가 없는 경우 에러 처리

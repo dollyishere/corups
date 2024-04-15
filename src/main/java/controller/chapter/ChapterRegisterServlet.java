@@ -47,7 +47,7 @@ public class ChapterRegisterServlet extends HttpServlet {
 
 		// 파라미터
 		String studyNoParam ="1";
-		//String studyNoParam = request.getParameter("studyNo");
+//		String studyNoParam = request.getParameter("studyNo");
 		int studyNo = 0;
 		if (studyNoParam != null && !studyNoParam.isEmpty()) {
 		    studyNo = Integer.parseInt(studyNoParam);

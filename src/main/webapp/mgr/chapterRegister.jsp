@@ -41,6 +41,7 @@
 					<td>마감 날짜 :</td>
 					<td><input type="date" name="endDate" /></td>
 
+					<input type="hidden" name="studyNo" value="${studyNo }" />
 
 				</tr>
 				<tr>
