@@ -27,6 +27,7 @@ public class StudyDTO {
 	/** 스터디 카테고리 */
 	private String category;
 	
+	/** 페이징 **/
 	/** 스터디 페이지 번호 */
 	private String pageNum = "1";
 	/** 검색 항목 */
