@@ -73,6 +73,7 @@ public class SignupServlet extends HttpServlet {
 	    	 memberDAO = new MemberDAO();
 	    	 boolean result = memberDAO.confirmDuplicate(id);
 	    	 
+	    	 // 아이디 중복됐을 시 사용할 수 없다고 넘겨주고, 중복 아닐 시 사용 가능하다고 설정
 	    	 if (result) {
 	    		 out.write("not_usable");
 	    	 } else {
@@ -81,23 +82,13 @@ public class SignupServlet extends HttpServlet {
 	    	 return;
 	     }
 	     
+	     
+	     // member 객체 생성
 	     member = new MemberDTO();
 	     
 	     // 관심사 이니셜만 뽑아내서 join으로 결합
 	     List<String> interests = new ArrayList<>();
-	     List<String> interestsName = new ArrayList<>();
 	     String joinedInterests = "";
-	     
-	     interestsName.add("reading");
-	     interestsName.add("travel");
-	     interestsName.add("gaming");
-	     interestsName.add("movie");
-	     interestsName.add("exercise");
-	     interestsName.add("cooking");
-	     interestsName.add("programming");
-	     interestsName.add("song");
-	     interestsName.add("language");
-	     interestsName.add("others");
 	     
 	     // 이미지 파일 업로드 위한 파일 객체 설정
 	     ServletContext context = getServletContext();
@@ -117,17 +108,21 @@ public class SignupServlet extends HttpServlet {
 	    	 for (FileItem item : itemsList) {
 	    		 if (item.isFormField()) { 
 	    			 // 관심사일 시
-	    			 if (interestsName.contains(item.getFieldName())) {
+	    			 if ("interests".equals(item.getFieldName())) {
 	    				 interests.add(item.getString("utf-8"));
+	    				 // id
 	    			 } else if ("id".equals(item.getFieldName())) {
 	    				 member.setId(item.getString("utf-8"));
 	    				 id = item.getString("utf-8");
+	    				 // pwd
 	    			 } else if ("pwd".equals(item.getFieldName())) {
 	    				 member.setPwd(item.getString("utf-8"));
+	    				 // name
 	    			 }  else if ("name".equals(item.getFieldName())) {
 	    				 member.setName(item.getString("utf-8"));
+	    				// birthday
 	    			 } else if ("birthday".equals(item.getFieldName())) {
-	    			     // birthday date 속성으로 변환
+	    			     // birthday java.sql.date 속성으로 변환
 	    			     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	    			     java.util.Date utilDate = new Date(System.currentTimeMillis());
 	    			     try {
@@ -140,29 +135,38 @@ public class SignupServlet extends HttpServlet {
 	    			    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
 	    			    	 requestDispatcher.forward(request, response);
 	    			     }
+	    			     // email일 시
 	    			 } else if ("email".equals(item.getFieldName())) {
 	    				 member.setEmail(item.getString("utf-8"));
+	    				 // job일 시
 	    			 } else if ("job".equals(item.getFieldName())) {
 	    				 member.setJob(item.getString("utf-8"));
 	    			 }
+	    			 // 만약 파일일 시, 해당 item 일단 imgFile에 저장
 	    		 } else if (item.getSize() > 0) {
 	    			 imgFile = item;
 	    		 }
 	    	 }
 	    	 
+	    	 // imgFile이 null이 아니라면, 즉 사용자가 업로드한 파일이 존재한다면, 파일 업로드 실행
 	    	 if (imgFile != null) {
+	    		 // 앞에서 구했던 실제 경로를 통해 파일 객체 생성
 	    		 File currentPath = new File(realPath);
-    		     
+    		     // file 이름 구하기
     			 int idx = imgFile.getName().lastIndexOf("\\");
     			 if (idx == -1) {
     				 idx = imgFile.getName().lastIndexOf("/");
     			 }
     			 String fileName = imgFile.getName().substring(idx + 1);
+    			 // 파일 확장자가 어떻게 되는지 구한 뒤, id_p_img.확장자 명으로 db에 저장
     			 int lastDotIndex = fileName.lastIndexOf(".");
     			 member.setImage(id + "_p_img" + fileName.substring(lastDotIndex));
+    			 // 같은 이름으로 파일 경로 생성
     			 uploadFile = new File(currentPath + "\\" + id + "_p_img" + fileName.substring(lastDotIndex));
+    			 // 경로에 저장함
 	 			imgFile.write(uploadFile);
 	    	 } else {
+	    		 // 만약 사용자가 업로드 하지 않았다면, 기본 이미지 설정
 	    		 member.setImage("0_p_img.jpg");
 	    	 }
 	    	 
@@ -180,7 +184,7 @@ public class SignupServlet extends HttpServlet {
 	    
 	     member.setInterest(joinedInterests);
 
-	     System.out.println(member.toString());
+	     // 실제로 member 회원가입 실행
 	     memberDAO = new MemberDAO();
 	     resultQ = memberDAO.signup(member);
 	     System.out.println(resultQ);

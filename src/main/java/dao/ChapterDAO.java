@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import db.MySQLConnector;
 import dto.ChapterDTO;
-import util.PageInfo;
+
 
 /**
  * Chapter DAO

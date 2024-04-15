@@ -149,17 +149,17 @@
 				<tr>
 					<td>관심사</td>
 					<td>
-						<label><input type="checkbox" name="reading" value="r" ${fn:contains(member.interest, 'r') ? 'checked' : '' }>독서</label>
-						<label><input type="checkbox" name="travel" value="t"  ${fn:contains(member.interest, 't') ? 'checked' : '' }>여행</label>
-						<label><input type="checkbox" name="gaming" value="g"  ${fn:contains(member.interest, 'g') ? 'checked' : '' }>게임</label>
-						<label><input type="checkbox" name="movie" value="m"  ${fn:contains(member.interest, 'm') ? 'checked' : '' }>영화</label>
-						<label><input type="checkbox" name="exercise" value="e"  ${fn:contains(member.interest, 'e') ? 'checked' : '' }>운동</label>
+						<label><input type="checkbox" name="interests" value="r" ${fn:contains(member.interest, 'r') ? 'checked' : '' }>독서</label>
+						<label><input type="checkbox" name="interests" value="t"  ${fn:contains(member.interest, 't') ? 'checked' : '' }>여행</label>
+						<label><input type="checkbox" name="interests" value="g"  ${fn:contains(member.interest, 'g') ? 'checked' : '' }>게임</label>
+						<label><input type="checkbox" name="interests" value="m"  ${fn:contains(member.interest, 'm') ? 'checked' : '' }>영화</label>
+						<label><input type="checkbox" name="interests" value="e"  ${fn:contains(member.interest, 'e') ? 'checked' : '' }>운동</label>
 						<br>
-						<label><input type="checkbox" name="cooking" value="c"  ${fn:contains(member.interest, 'c') ? 'checked' : '' }>요리</label>
-						<label><input type="checkbox" name="programming" value="p"  ${fn:contains(member.interest, 'p') ? 'checked' : '' }>프로그래밍</label>
-						<label><input type="checkbox" name="song" value="s"  ${fn:contains(member.interest, 's') ? 'checked' : '' }>노래</label>
-						<label><input type="checkbox" name="language" value="l"  ${fn:contains(member.interest, 'l') ? 'checked' : '' }>어학</label>
-						<label><input type="checkbox" name="others" value="o"  ${fn:contains(member.interest, 'o') ? 'checked' : '' }>기타</label>
+						<label><input type="checkbox" name="interests" value="c"  ${fn:contains(member.interest, 'c') ? 'checked' : '' }>요리</label>
+						<label><input type="checkbox" name="interests" value="p"  ${fn:contains(member.interest, 'p') ? 'checked' : '' }>프로그래밍</label>
+						<label><input type="checkbox" name="interests" value="s"  ${fn:contains(member.interest, 's') ? 'checked' : '' }>노래</label>
+						<label><input type="checkbox" name="interests" value="l"  ${fn:contains(member.interest, 'l') ? 'checked' : '' }>어학</label>
+						<label><input type="checkbox" name="interests" value="o"  ${fn:contains(member.interest, 'o') ? 'checked' : '' }>기타</label>
 					</td>
 				</tr>
 

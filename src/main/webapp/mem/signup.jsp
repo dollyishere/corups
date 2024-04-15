@@ -177,17 +177,17 @@
 				<tr>
 					<td>관심사</td>
 					<td>
-						<label><input type="checkbox" name="reading" value="r">독서</label>
-						<label><input type="checkbox" name="travel" value="t">여행</label>
-						<label><input type="checkbox" name="gaming" value="g">게임</label>
-						<label><input type="checkbox" name="movie" value="m">영화</label>
-						<label><input type="checkbox" name="exercise" value="e">운동</label>
+						<label><input type="checkbox" name="interests" value="r">독서</label>
+						<label><input type="checkbox" name="interests" value="t">여행</label>
+						<label><input type="checkbox" name="interests" value="g">게임</label>
+						<label><input type="checkbox" name="interests" value="m">영화</label>
+						<label><input type="checkbox" name="interests" value="e">운동</label>
 						<br>
-						<label><input type="checkbox" name="cooking" value="c">요리</label>
-						<label><input type="checkbox" name="programming" value="p">프로그래밍</label>
-						<label><input type="checkbox" name="song" value="s">노래</label>
-						<label><input type="checkbox" name="language" value="l">어학</label>
-						<label><input type="checkbox" name="others" value="o">기타</label>
+						<label><input type="checkbox" name="interests" value="c">요리</label>
+						<label><input type="checkbox" name="interests" value="p">프로그래밍</label>
+						<label><input type="checkbox" name="interests" value="s">노래</label>
+						<label><input type="checkbox" name="interests" value="l">어학</label>
+						<label><input type="checkbox" name="interests" value="o">기타</label>
 					</td>
 					<td>관심사를 선택하세요.</td>
 				</tr>
