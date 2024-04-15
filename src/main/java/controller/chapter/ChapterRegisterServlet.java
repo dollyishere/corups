@@ -22,12 +22,12 @@ import dto.ChapterDTO;
  * @author cyb
  */
 @WebServlet("/chapter/chapterRegisterServlet")
-public class chapterRegisterServlet extends HttpServlet {
+public class ChapterRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ChapterDAO chapterDAO = null;
 
-	public chapterRegisterServlet() {
+	public ChapterRegisterServlet() {
 		super();
 
 	}
@@ -46,7 +46,6 @@ public class chapterRegisterServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// 파라미터
-		//int studyNo = 1;// 임시로 넣어줌 나중에 삭제~!~!~!
 		String studyNoParam ="1";
 		//String studyNoParam = request.getParameter("studyNo");
 		int studyNo = 0;
@@ -91,8 +90,7 @@ public class chapterRegisterServlet extends HttpServlet {
 		if (complete) {
 			// 등록 성공 시 챕터 목록 페이지로 이동
 			System.out.println(complete);
-		
-			response.sendRedirect("../study/studyDetailServlet?studyNo=" + studyNo);
+			   response.sendRedirect(request.getContextPath() + "/study/studyDetailServlet?studyNo=" + studyNo);
 
 		} else {
 		    response.sendRedirect(request.getContextPath() + "/errorLog.jsp");

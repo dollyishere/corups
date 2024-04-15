@@ -60,6 +60,7 @@
                                     <td align="center">
                                         <!-- userid가 1인 경우에만 삭제 버튼 표시 -->
                                         <c:if test="${userid == 1}">
+                                         <button onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>/
                                             <button onclick="deleteChapter(${chapter.no})">삭제</button>
                                         </c:if>
                                     </td>
@@ -78,17 +79,34 @@
             </table>
         </div>
     </div>
-    <!-- 챕터 삭제 함수 -->
+    
+    
+  
     <script>
-        function deleteChapter(chapterNo) {
-            // 삭제 여부를 확인하는 알림 창 표시
-            var result = confirm("챕터를 삭제하시겠습니까?");
-            // 사용자가 확인 버튼을 클릭했을 때
-            if (result) {
-                // 삭제를 수행하는 서블릿으로 이동
-                window.location.href = "${contextPath}/chapter/deletechapterServlet?no=" + chapterNo;
-            }
+    
+    <!-- 챕터 삭제 함수 -->
+    function deleteChapter(chapterNo) {
+        // 삭제 여부를 확인하는 알림 창 표시
+        var result = confirm("챕터를 삭제하시겠습니까?");
+        // 사용자가 확인 버튼을 클릭했을 때
+        if (result) {
+            // form 엘리먼트 동적으로 생성
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '<c:url value="/chapter/chapterDeleteServlet"/>');
+
+            // 챕터 번호를 전송하는 hidden input 추가
+            var inputChapterNo = document.createElement('input');
+            inputChapterNo.setAttribute('type', 'hidden');
+            inputChapterNo.setAttribute('name', 'chapterNo');
+            inputChapterNo.setAttribute('value', chapterNo);
+            form.appendChild(inputChapterNo);
+
+            // form을 body에 추가하고 자동으로 전송
+            document.body.appendChild(form);
+            form.submit();
         }
+    }
     </script>
 </body>
 </html>

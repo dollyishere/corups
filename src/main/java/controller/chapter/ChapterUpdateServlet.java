@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author cyb
  */
 @WebServlet("/chapter/chapterUpdateServlet")
-public class chapterUpdateServlet extends HttpServlet {
+public class ChapterUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
    
-    public chapterUpdateServlet() {
+    public ChapterUpdateServlet() {
         super();
         
     }

@@ -22,12 +22,12 @@ import dto.TodoDTO;
  */
 
 @WebServlet("/chapter/chapterDetailServlet")
-public class chapterDetailServlet extends HttpServlet {
+public class ChapterDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ChapterDAO chapterDAO = null;
 
-	public chapterDetailServlet() {
+	public ChapterDetailServlet() {
 		super();
 
 	}

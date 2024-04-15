@@ -17,35 +17,37 @@ import dto.ChapterDTO;
  * @author cyb
  */
 @WebServlet("/chapter/chapterDeleteServlet")
-public class chapterDeleteServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-	private ChapterDAO chapterDAO = null;
- 
-    public chapterDeleteServlet() {
+public class ChapterDeleteServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    private ChapterDAO chapterDAO;
+
+    public ChapterDeleteServlet() {
         super();
-       
+        chapterDAO = new ChapterDAO(); // ChapterDAO 객체 초기화
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// x		
-	}
 
-	/** studyDAO에서 챕터 삭제 => error.jsp나 studyDetail.jsp로 이동 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// chapterUpdate에서 삭제 버튼 클릭시 
-		
-		int no = Integer.parseInt(request.getParameter("no"));
-		
-		ChapterDTO chapter = new ChapterDTO();
-		chapter.setNo(no);
-		
-		// 챕터 삭제
-		chapterDAO = new ChapterDAO();
-		
-		// error.jsp 또는 chapterDetailServlet으로 이동
-		response.sendRedirect("/mgr/studyDetailServlet");
-	
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
+        // 삭제할 챕터 번호 파라미터 가져오기
+        int chapterNo = Integer.parseInt(request.getParameter("chapterNo"));
+        
+        // 해당 챕터에 속한 스터디 번호 가져오기
+        ChapterDTO chapter = chapterDAO.chapterDetail(chapterNo);
+        int studyNo = chapter.getStudyNo();
+
+        // 챕터 삭제
+        boolean success = chapterDAO.deleteChapter(chapterNo);
+        System.out.println(success);
+
+        if (success) {
+            // 챕터 삭제 성공 시 해당 스터디의 상세 페이지로 이동
+            response.sendRedirect(request.getContextPath() + "/study/studyDetailServlet?studyNo=" + studyNo);
+        } else {
+            // 챕터 삭제 실패 시 에러 페이지로 이동
+            response.sendRedirect(request.getContextPath() + "/error.jsp");
+        }
+    }
 }

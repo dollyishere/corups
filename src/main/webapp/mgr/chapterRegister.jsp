@@ -11,29 +11,7 @@
 <meta charset="UTF-8">
 <script>
 	function confirmRegister() {
-		// 등록 여부를 확인하는 알림 창 표시
-		var result = confirm("등록하시겠습니까?");
-
-		// 사용자가 확인 버튼을 클릭했을 때
-		if (result) {
-			// 추가 또는 목록으로 이동 여부를 묻는 알림 창 표시
-			var result2 = confirm("챕터를 계속 생성하시겠습니까?");
-			// 사용자가 확인 버튼을 클릭했을 때
-			if (result2) {
-				// 추가 화면으로 이동
-				window.location.href = "${pageContext.request.contextPath}/chapterRegister.jsp";
-
-			} else {
-				alert("목록으로 이동합니다.");
-				// 등록 후 새 챕터 생성 취소 선택시 목록 화면으로 이동
-				return false;
-			}
-		} else {
-			// 사용자가 등록 취소 버튼을 클릭했을 때
-			// 목록 화면으로 이동
-			alert("등록이 취소되었습니다.");
-			return false;
-		}
+		alert("등록되었습니다.");
 	}
 </script>
 <title>챕터 추가 화면 - 스터디 방장</title>
@@ -66,10 +44,9 @@
 
 				</tr>
 				<tr>
-					<td colspan="2" align="center">
-					<input type="submit"
-						name="insertChpater" value="등록" onclick="confirmRegister()" />
-					<input type="button" name="cancelUpdate" value="취소"
+					<td colspan="2" align="center"><input type="submit"
+						name="insertChpater" value="등록" onclick="confirmRegister()" /> <input
+						type="button" name="cancelUpdate" value="취소"
 						onclick="location.href='${contextPath}/study/studyDetailServlet?no=${studyNo}'" />
 
 					</td>

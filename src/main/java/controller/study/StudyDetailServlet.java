@@ -22,11 +22,11 @@ import utils.SessionUtil;
  * @author cyb
  */
 @WebServlet("/study/studyDetailServlet")
-public class studyDetailServlet extends HttpServlet {
+public class StudyDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ChapterDAO chapterDAO = null;
 
-	public studyDetailServlet() {
+	public StudyDetailServlet() {
 		super();
 	}
 
