@@ -68,7 +68,7 @@
 	})
 	
 </script>
-	<c:import url="/components/deleteMember.jsp" />
+	<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
 

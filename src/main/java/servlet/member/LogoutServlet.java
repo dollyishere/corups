@@ -1,6 +1,7 @@
 package servlet.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,17 +30,18 @@ public class LogoutServlet extends HttpServlet {
 
 	/** POST 요청: 로그아웃 요청 실행 **/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/index.jsp";
+		PrintWriter out = response.getWriter();
 		
 		// 세션 불러온 후 세션에 id 값 저장되어 있을 시, logout
 		 HttpSession session = request.getSession(false);
-	        if (session.getAttribute("id") != null) {
-	            session.removeAttribute("id");
-	        }
+        if (session.getAttribute("id") != null) {
+            session.removeAttribute("id");
+            session.removeAttribute("img");
+            session.removeAttribute("name");
+        }
 		
 		// 로그아웃 성공할 시 index.jsp로
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
-		requestDispatcher.forward(request, response);
+		out.write("logout_complete!");
 	} // doPOST() END
 
 }
