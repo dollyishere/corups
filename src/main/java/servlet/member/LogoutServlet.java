@@ -31,8 +31,9 @@ public class LogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nextPage = "/index.jsp";
 		
+		// 세션 불러온 후 세션에 id 값 저장되어 있을 시, logout
 		 HttpSession session = request.getSession(false);
-	        if (session != null) {
+	        if (session.getAttribute("id") != null) {
 	            session.removeAttribute("id");
 	        }
 		

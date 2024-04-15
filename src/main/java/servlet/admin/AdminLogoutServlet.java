@@ -36,9 +36,9 @@ public class AdminLogoutServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nextPage = "/index.jsp";
 		
-		// 기존 session 계속 사용
+		// 세션 불러온 후 세션에 adminId 값 저장되어 있을 시, logout
 		HttpSession session = request.getSession(false);
-        if (session != null) {
+        if (session.getAttribute("adminId") != null) {
             session.removeAttribute("adminId");
             session.removeAttribute("isAdmin");
         }
