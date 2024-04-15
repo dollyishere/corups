@@ -20,7 +20,7 @@ th{
 	background-color: orange;
 }
 </style>
-<c:import url="/components/deleteMember.jsp" />
+<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
 	<table>
