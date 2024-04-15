@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js" />"></script>
 
 <style>
     tfoot td {
@@ -22,13 +23,15 @@
         	   var name = $("#name").val();
                var startDate = $("#startDate").val();
                var endDate = $("#endDate").val();
-               var content = $("#content").val();
-
+               var content = CKEDITOR.instances.content.getData();
+               var chapterNo = $("#chapterNo").val();
+               
                var data = {
                    name: name,
                    startDate: startDate,
                    endDate: endDate,
-                   content: content
+                   content: content,
+                   chapterNo : chapterNo
                };
             $.ajax({
                 url: "${contextPath}/todoRegisterServlet",
@@ -108,7 +111,7 @@
 				<td><input type="date" id="endDate" name="endDate"></td>
 			<tr>
 				<th>내용</th>
-				<td><textarea id="content" name="content" rows="4" cols="50"></textarea></td>
+				<td><textarea id="content" name="content" class="ckeditor"  rows="4" cols="50"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="file" id="file" name="file" multiple></td>
@@ -117,6 +120,7 @@
 		<tfoot>
 			<tr >
 				<td colspan="2">
+				<input type="hidden" id="chapterNo" value="${chapterNo}">
 				<input type="button" id="addBtn" value="추가">
 				<input type="button" value="취소">
 				</td>

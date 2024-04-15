@@ -80,8 +80,6 @@ public class TodoRegisterServlet extends HttpServlet {
 
 	}
 	
-
-	
 	private Date parseDate(String dateStr) {
 		Date date = null;
 		if (dateStr != null && !dateStr.isEmpty()) {

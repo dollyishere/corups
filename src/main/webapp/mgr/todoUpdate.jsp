@@ -26,7 +26,7 @@
                 var name = $("#name").val();
                 var startDate = $("#startDate").val();
                 var endDate = $("#endDate").val();
-                var content = $("#content").val();
+                var content = CKEDITOR.instances.content.getData();
                 var todoNo = $("#todoNo").val();
                 
                 $.ajax({
@@ -139,7 +139,7 @@
 		 window.history.back();
 	}
 </script>
-
+<script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js" />"></script>
 </head>
 <body>    
 <form method="post" id="myForm">
@@ -159,7 +159,7 @@
 				<td><input type="date" id="endDate" name="endDate" value="${todo.endDate}"></td>
 			<tr>
 				<th>내용</th>
-				<td><textarea id="content" id="content" name="content" value="${todo.detail}" rows="4" cols="50">${todo.detail}</textarea></td>
+				<td><textarea id="content" name="content" class="ckeditor" value="${todo.detail}" rows="4" cols="50">${todo.detail}</textarea></td>
 			</tr>
 			
 			<c:forEach var="file" items="${files}">
