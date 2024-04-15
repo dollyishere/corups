@@ -88,6 +88,9 @@
 	            	console.log(textStatus, data);
 	                alert("수정이 정상적으로 완료되었습니다.");
 	                window.location.replace("<%= request.getContextPath() %>/mem/main.jsp")
+	            } else if (data == "update complete admin!") {
+	            	alert("수정이 정상적으로 완료되었습니다.");
+	            	window.location.replace("http://localhost:9000/corups/member/memberListServlet");
 	            } else {
 	                alert("정보 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
 	            }

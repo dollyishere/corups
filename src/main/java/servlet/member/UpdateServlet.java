@@ -182,6 +182,8 @@ public class UpdateServlet extends HttpServlet {
 
 	     if (!resultQ) {
 	    	 out.write("update error");
+	     } else if (nowPath != null) {
+	    	 out.write("update complete admin!");
 	     } else {
 	    	 out.write("update complete!");
 	     }
