@@ -44,7 +44,9 @@ public class StudyDetailServlet extends HttpServlet {
 		
 		// studyNo 매개변수 가져오기
 		//int studyNo = Integer.parseInt(request.getParameter("studyNo"));
-		int studyNo=1;
+		
+int studyNo=1;
+System.out.println("studyNo : =====>" + studyNo);
 		/* pageNum 매개변수 가져오기
 		String pageNum = request.getParameter("pageNum");
 		if (pageNum == null) {
@@ -70,6 +72,9 @@ public class StudyDetailServlet extends HttpServlet {
         
 		// chapterListServlet으로 전달할chapterList와 studyName을 설정
 		
+
+		// chapterListServlet으로 전달할 studyNo와 chapterList를 request 속성으로 설정
+		request.setAttribute("studyNo", studyNo);
 		request.setAttribute("chapterList", chapterList);
 		request.setAttribute("studyName",chapterList.get(0).getStudyName());
 		// chapterListServlet으로 포워딩

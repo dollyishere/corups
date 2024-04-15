@@ -85,7 +85,7 @@ public class StudyDAO {
 	 * **/
 	
 	public ArrayList<StudyDTO> myStudyList(String id) {
-		ArrayList<StudyDTO> studyList = new ArrayList<StudyDTO>();
+		ArrayList<StudyDTO> myStudyList = new ArrayList<StudyDTO>();
 		try {
 			connect = dataFactory.connection();
 			String query = "select * from study where id=? order by no desc";
@@ -109,13 +109,13 @@ public class StudyDAO {
 				study.setCreateUserId(rs.getString("create_user_id"));
 				study.setCategory(rs.getString("category"));
 				
-				studyList.add(study);
+				myStudyList.add(study);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return studyList;
+		return myStudyList;
 	}
 	
 	
@@ -219,7 +219,8 @@ public class StudyDAO {
 		try {
 			connect = dataFactory.connection();
 
-			String query = "INSERT INTO study (name, detail, study_pwd, max_num, category, created_date, update_date, create_user_id)" + " VALUES (?, ?, ?, ?, ?, now(), now(), 1)";
+			String query = "INSERT INTO study (name, detail, study_pwd, max_num, category, created_date, update_date, create_user_id)" + " VALUES (?, ?, ?, ?, ?, now(), now(), ?)";
+			
 			
 			String name = s.getName();
 			String detail = s.getDetail();
@@ -234,6 +235,7 @@ public class StudyDAO {
 			pstmt.setString(3, studyPwd);
 			pstmt.setInt(4, maxNum);
 			pstmt.setString(5, category);
+			pstmt.setString(6, s.getCreateUserId());
 //			System.out.println(pstmt);
 			int rowsAffected = pstmt.executeUpdate();
 			
