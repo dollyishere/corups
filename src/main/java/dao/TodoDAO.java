@@ -33,7 +33,7 @@ public class TodoDAO extends MySQLConnector{
 	 * @return ArrayList<TodoDTO>
 	 */
 	public ArrayList<TodoDTO> todoList(int chapter_no) {
-		ArrayList<TodoDTO> todoArray = null;
+		ArrayList<TodoDTO> todoArray = new ArrayList<TodoDTO>();
 		conn = connection();
 		
 		try {
