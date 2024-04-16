@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FileDAO;
 import dao.StatusDAO;
 import dao.TodoDAO;
-import utils.SessionUtil;
 
 /**
  * /todo/TodoDeleteServlet
@@ -50,7 +50,10 @@ public class TodoDeleteServlet extends HttpServlet {
 		
 		// statusDAO.deleteStatus();
 		StatusDAO statusDAO = new StatusDAO();
-		boolean success = statusDAO.deleteStatus(todoNo, SessionUtil.getID(request, response));
+		boolean success = statusDAO.deleteStatus(todoNo);
+		
+		FileDAO fileDAO = new FileDAO();
+		success = fileDAO.deleteFiles(todoNo);
 		
 		// todoDAO.deleteTodo();
 		if(success) {			

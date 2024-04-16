@@ -6,14 +6,6 @@
 <!-- TodoListServlet -> statusArray, todoArray -->
 <!-- TodoSearchServlet -> statusArray, todoArray, searchText, searchStatus -->
 
-<script type="text/javascript">
-    function gotoDetail(todo_no) {
-    	// 세션 변수 설정
-        <% session.setAttribute("myTodoPage", "true"); %>
-        document.location = "${contextPath}/todoDetailServlet?todo_no="+todo_no;
-    }
-    
-</script>
 
 		
 <!DOCTYPE html>
@@ -21,6 +13,14 @@
 <head>
 <meta charset="UTF-8">
 <title>나의 모든 할 일 화면</title>
+<script type="text/javascript">
+    function gotoDetail(todoNo) {
+    	// 세션 변수 설정
+        <% session.setAttribute("myTodoPage", "true"); %>
+        document.location = "${contextPath}/todoDetailServlet?todoNo="+todoNo;
+    }
+    
+</script>
 </head>
 <body>
 
@@ -37,7 +37,7 @@
     </form>
     <br>
     
-    <table border="1px">
+    <table border="1">
     	<tbody>
     		<c:choose>
     		<c:when test="${empty todoArray}">

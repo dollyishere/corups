@@ -50,38 +50,38 @@ public class TodoRegisterServlet extends HttpServlet {
 		Date startDate = parseDate(request.getParameter("startDate"));
 		Date  endDate = parseDate(request.getParameter("endDate"));
 		String content = request.getParameter("content");
+		String chapterNoStr = request.getParameter("chapterNo");
+		int chapterNo = Integer.parseInt(chapterNoStr);
+		
 		
 		// TodoDTO
 		TodoDTO todo = new TodoDTO();
-		todo.setChapterNo(1);
+		todo.setChapterNo(chapterNo);
 		todo.setDetail(content);
 		todo.setEndDate(endDate);
 		todo.setName(name);
 		todo.setStartDate(startDate);
 		
+		
 		// Insert todo
 		TodoDAO todoDAO = new TodoDAO();
 		int todoNo = todoDAO.insertTodo(todo);
-		boolean success = (todoNo > 0);
-		if(success) {
+		System.out.println("서블릿에 todoNO  " + todoNo);
+		if(todoNo > 0) {
 			// StatusDTO
 			StatusDTO status = new StatusDTO();
 			status.setMemberId(SessionUtil.getID(request, response));
+//			status.setMemberId("lasolim");
 			status.setStatus("P");
 			status.setTodoNo(todoNo);
 			
 			// Insert status
 			StatusDAO statusDAO = new StatusDAO();
-			success = statusDAO.insertStatus(status);			
+			statusDAO.insertStatus(status);
 		}
 		
-		String result = "실패";
-		if(success) {
-			result = "성공";
-			System.out.println("성공");
-		}
+		response.getWriter().write(String.valueOf(todoNo));
 
-		response.getWriter().write(result);
 	}
 	
 	private Date parseDate(String dateStr) {
