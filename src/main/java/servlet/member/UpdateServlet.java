@@ -185,6 +185,10 @@ public class UpdateServlet extends HttpServlet {
 	     } else if (nowPath != null) {
 	    	 out.write("update complete admin!");
 	     } else {
+	    	 HttpSession session = request.getSession();
+			session.setAttribute("id", id);
+			session.setAttribute("img", member.getImage());
+			session.setAttribute("name", member.getName());
 	    	 out.write("update complete!");
 	     }
 

@@ -47,10 +47,8 @@ public class LoginServlet extends HttpServlet {
 		memberDAO = new MemberDAO();
 		status = memberDAO.login(id, pwd);
 		member = memberDAO.detail(id);
-		System.out.println("호호");
 		// 로그인 가능 시, 세션에 정보 저장(아이디, 프사, 이름)
 		if (status) {
-			System.out.println("히히");
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("img", member.getImage());
@@ -58,7 +56,6 @@ public class LoginServlet extends HttpServlet {
 			out.write("login");
 		} else {
 			out.write("login_error");
-			System.out.println("하하");
 		}
 		
 		
