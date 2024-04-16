@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.StudyDAO;
 import dto.StudyDTO;
+import utils.SessionUtil;
 
 /**
  * 게시판 등록폼, 등록처리 서블릿 클래스
@@ -54,6 +55,8 @@ public class StudyRegisterServlet extends HttpServlet {
 		studyDTO.setStudyPwd(studyPwd);
 		studyDTO.setMaxNum(maxNum);
 		studyDTO.setCategory(category);
+		studyDTO.setCreateUserId(SessionUtil.getID(request, response));
+		
 		
 		// 게시물 등록
 		this.studyDAO = new StudyDAO();

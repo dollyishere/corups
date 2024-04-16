@@ -33,7 +33,7 @@ public class TodoDAO extends MySQLConnector{
 	 * @return ArrayList<TodoDTO>
 	 */
 	public ArrayList<TodoDTO> todoList(int chapter_no) {
-		ArrayList<TodoDTO> todoArray = null;
+		ArrayList<TodoDTO> todoArray = new ArrayList<TodoDTO>();
 		conn = connection();
 		
 		try {
@@ -137,7 +137,7 @@ public class TodoDAO extends MySQLConnector{
 	public int insertTodo(TodoDTO todo) {
 		int todo_no = -1;
 		conn = connection();
-		  
+		  System.out.println(todo);
 		try {
 			
 			String query = "INSERT INTO todo (name, chapter_no, detail, created_date, update_date, start_date, end_date) VALUES (?, ?, ?, now(), now(), ?, ?)";
