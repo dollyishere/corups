@@ -37,7 +37,7 @@
 					<option value="C">C</option>		
 				</select>
 			</p><br>
-			<a href="studyList.jsp"><input type="submit" value="생성하기"></a>
+			<input type="submit" value="생성하기">
 			<a href="studyList.jsp"><input type="button" value="취소"></a>
 		</form>
 </body>

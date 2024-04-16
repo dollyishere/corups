@@ -1,8 +1,6 @@
 package controller.study;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,10 +46,7 @@ public class StudyRegisterServlet extends HttpServlet {
 		String studyPwd = request.getParameter("studyPwd");
 		int maxNum = Integer.parseInt(request.getParameter("maxNum"));
 		String category = request.getParameter("category");
-//		int no;
-//		Date createdDate;              
-//		Date updatedDate;
-//		String createUserId;
+
 		// 모델
 		StudyDTO studyDTO = new StudyDTO();
 		studyDTO.setName(name);

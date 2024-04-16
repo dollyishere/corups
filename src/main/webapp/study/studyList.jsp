@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -13,11 +14,12 @@
 		height: 100px;
 		border: 1px solid black;
 	}
-/* 	section { */
-/* 		float: left; */
-/* 		text-align : center; */
-/* 	} */
 </style>
+<script>
+	function gotoDetail(no){
+		document.location = "${contextPath}/study/studyDetailServlet?studyNo=" + no;
+	}
+</script>
 </head>
 <body>
 	<form action="" method="get">
@@ -41,8 +43,10 @@
 	<c:when test="${!empty studyList }">
 		<c:forEach var="study" items="${studyList }">
 			<div align="center" class="rect">
-				<p><a>${study.name}</a></p>
+			<button type="button" onclick="gotoDetail(${study.no })">
+				<p>${study.name}</p>
 				<p>${study.category}</p>
+			</button>
 			</div>
 		</c:forEach>
 	</c:when>
