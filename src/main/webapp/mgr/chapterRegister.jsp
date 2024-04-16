@@ -19,14 +19,10 @@
 <body>
 	<h2 align="center">study.name${study.name}</h2>
 	<div align="center" border="1">
-
-		<form
-			action="${pageContext.request.contextPath}/chapter/chapterRegisterServlet"
-			method="post">
-
+		<form action="${pageContext.request.contextPath}/chapter/chapterRegisterServlet" method="post">
 			<table align="center" border="1" summary="챕터 추가">
 				<tr>
-					<th colspan="2" align="center">chapter 등록</th>
+					<th colspan="2" align="center">새 chapter 등록</th>
 				</tr>
 				<tr>
 					<td>챕터 이름 :</td>

@@ -76,9 +76,14 @@ public class ChapterRegisterServlet extends HttpServlet {
 		ChapterDTO chapter = new ChapterDTO();
 		chapter.setStudyNo(studyNo);
 		chapter.setName(name);
-
 		chapter.setStartDate((java.sql.Date) startDate);
 		chapter.setEndDate((java.sql.Date) endDate);
+		
+		// session에 챕터 정보 저장
+		request.getSession().setAttribute("chapterToUpdate", chapter);
+
+		// chapterNo도 hidden input으로 추가
+		request.setAttribute("chapterNo", chapter.getNo());
 
 		// 챕터 추가
 		chapterDAO = new ChapterDAO();

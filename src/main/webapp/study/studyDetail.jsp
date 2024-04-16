@@ -57,6 +57,9 @@
 						<th>챕터 이름</th>
 						<th>StartDate</th>
 						<th>EndDate</th>
+						<c:if test="${userid == 1}">
+						<th>관리</th>
+					</c:if>
 						<th></th>
 					</tr>
 				</thead>
@@ -88,7 +91,7 @@
 									<td align="center">
 										<!-- userid가 1인 경우에만 수정,삭제 버튼 표시 --> <c:if test="${userid == 1}">
 											<button
-												onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>/
+												onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>
                                             <button
 												onclick="deleteChapter(${chapter.no})">삭제</button>
 										</c:if>

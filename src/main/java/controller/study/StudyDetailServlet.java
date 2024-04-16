@@ -46,23 +46,13 @@ public class StudyDetailServlet extends HttpServlet {
 
 		int studyNo = 1;
 		System.out.println("studyNo : =====>" + studyNo);
-		/*
-		 * pageNum 매개변수 가져오기 String pageNum = request.getParameter("pageNum"); if
-		 * (pageNum == null) { pageNum = "1"; }
-		 */
 
-		// ChapterDAO 인스턴스 생성
 		this.chapterDAO = new ChapterDAO();
 
-		/*
-		 * 페이지 정보를 담고 있는 PageInfo 객체를 생성하고 초기화 PageInfo pageInfo = new
-		 * PageInfo(Integer.parseInt(pageNum), 10, 10); // listCount와 pagePerBlock 값은
-		 * 임의로 설정
-		 */
+		
 		// 해당 스터디에 대한 챕터 목록과 스터디 이름 가져오기
 		ArrayList<ChapterDTO> chapterList = this.chapterDAO.chapterListWithStudyName(studyNo);
 		chapterList.get(0).getStudyName();
-		System.out.println("------");
 		System.out.println(chapterList.get(0).getStudyName());
 
 		// 세션에 id 가져오기
