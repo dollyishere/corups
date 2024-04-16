@@ -13,6 +13,11 @@
 	href="../resources/css/bootstrap.css">
 <link rel="stylesheet"
 	href="../css/main.css">
+<style>
+	body {
+	    align-items: flex-start;
+	}
+</style>
 </head>
 <body>
 	<c:import url="/components/defaultHeader.jsp" />

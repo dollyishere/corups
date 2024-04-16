@@ -153,7 +153,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
-		                   	<div class="mb-2 row  justify-content-start align-items-center">
+		                   	<div class="mb-2 row justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputEmail" class="form-label" style="color:#292929;"><b>Email</b></label>
 		                        </div>

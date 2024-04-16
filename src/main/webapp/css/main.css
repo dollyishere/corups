@@ -10,9 +10,12 @@ body {
     background-position: center; /* 이미지를 가운데 정렬 */
     text-align: center;
     display: flex;
-    align-items: center;
     background-color: transparent;
     height: 100vh;
+}
+
+body, p, b, h1, h2, h3, h4, h5, h6 {
+    color: #292929;
 }
 
 /* form {
