@@ -16,8 +16,8 @@
 		<div class="container mt-5">
 			<div class="row justify-content-center align-items-flex-center mt-5">
 				<div class="col-md-auto mb-3">
-					<div class="custom-form text-center" style="width: 50rem; min-height: 30rem;">
-						<table summary="회원목록"  style="width: 46rem; class="table-light">
+					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
+						<table summary="회원목록" class="table-light">
 							<colgroup>
 								<col width="40" />
 								<col width="80" />
@@ -51,7 +51,7 @@
 									<c:otherwise>
 										<%-- else 부분 --%>
 										<c:forEach var="member" items="${ memberList }" varStatus="status">
-											<tr>
+											<tr class="mt-5">
 												<!-- 인덱스 번호 -->
 												<td align="center" scope="row"><c:out value="${ status.index }" /></td>
 												<!-- 회원 이름 -->
@@ -66,7 +66,7 @@
 												<td align="center"><c:out value="${ member.email }" /></td>
 												<!-- 수정 -->
 												<td>
-													<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;nowPath=a" /> ">
+													<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;nowPath=a" /> "  class="btn" style="background-color:#D996B5; color:white;">
 														수정
 													</a>
 												</td>
