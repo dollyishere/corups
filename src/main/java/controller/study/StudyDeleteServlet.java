@@ -33,7 +33,6 @@ public class StudyDeleteServlet extends HttpServlet {
 		
 		// 파라미터
 		int no = Integer.parseInt(request.getParameter("no"));
-	System.out.println("noooooo ==== > " + no);
 		StudyDAO studyDAO = new StudyDAO();
 		boolean state = studyDAO.deleteStudy(no);
 		
