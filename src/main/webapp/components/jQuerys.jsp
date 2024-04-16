@@ -115,7 +115,7 @@
 	            if (data === "login") {
 	                console.log(textStatus, data);
 	                alert("로그인 되었습니다.");
-	                window.location.replace("<%= request.getContextPath() %>/mem/main.jsp")
+	                window.location.replace("http://localhost:9000/corups/member/memberDetailServlet");
 	            } else {
 	                alert("아이디나 비밀번호가 맞지 않습니다. 다시 시도해주세요.");
 	            }
