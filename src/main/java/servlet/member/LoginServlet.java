@@ -1,6 +1,7 @@
 package servlet.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.MemberDAO;
+import dto.MemberDTO;
 
 /**
  * 로그인 controller
@@ -21,6 +23,7 @@ import dao.MemberDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberDAO memberDAO = null;
+	private MemberDTO member = null;
     
     public LoginServlet() {
         super();
@@ -35,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
 	/** POST 요청 수행(로그인 로직 수행) **/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/mem/main.jsp";
+		PrintWriter out = response.getWriter();
 		boolean status = false;
 		
 		String id = request.getParameter("id");
@@ -43,17 +46,22 @@ public class LoginServlet extends HttpServlet {
 		
 		memberDAO = new MemberDAO();
 		status = memberDAO.login(id, pwd);
-		
-		// 로그인 가능 시, 세션에 정보 저장
+		member = memberDAO.detail(id);
+		System.out.println("호호");
+		// 로그인 가능 시, 세션에 정보 저장(아이디, 프사, 이름)
 		if (status) {
+			System.out.println("히히");
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
+			session.setAttribute("img", member.getImage());
+			session.setAttribute("name", member.getName());
+			out.write("login");
 		} else {
-			nextPage = "/logError.jsp?mod=0";
+			out.write("login_error");
+			System.out.println("하하");
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
-		requestDispatcher.forward(request, response);
+		
 	} // doPOST() END
 
 }

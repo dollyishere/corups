@@ -11,7 +11,7 @@ import dao.MemberDAO;
 import dto.MemberDTO;
 
 /**
- * 회원 상세 조회 controller
+ * 회원 상세 조회(main.jsp) controller
  * @author 임주연
  * @since 2024-04-09
  */
@@ -24,11 +24,10 @@ public class MemberDetailServlet extends HttpServlet {
     } // 생성자 END
 
 	/**
-	 * GET 요청 수행(회원가입 페이지로 이동)
+	 * GET 요청 수행(메인 화면으로 이동)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	} // doGET() END
 
 	/**

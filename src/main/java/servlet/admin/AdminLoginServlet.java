@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,12 +40,12 @@ public class AdminLoginServlet extends HttpServlet {
 	 * POST 요청 수행(관리자 로그인)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nextPage = "/admin/main.jsp";
+		PrintWriter out = response.getWriter();
 		boolean status = false;
 		
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		
+		System.out.println(id);
 		adminDAO = new AdminDAO();
 		status = adminDAO.adminLogin(id, pwd);
 		
@@ -53,13 +54,10 @@ public class AdminLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("adminId", id);
 			session.setAttribute("isAdmin", true);
+			out.write("login");
 		} else {
-			nextPage = "/logError.jsp?mod=0";
+			out.write("login_error");
 		}
-		
-		// 성공할 시 admin/index.jsp로
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPage);
-		requestDispatcher.forward(request, response);
 	} // doPOST() END
 
 }

@@ -20,18 +20,18 @@ th{
 	background-color: orange;
 }
 </style>
-
+<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
 	<table>
 		<tr>
 		    <c:if test="${ not empty sessionScope.adminId }">
-		      	<th>
-		    		<form action="<c:url value="/admin/adminLogoutServlet"/>" method="post">
-		    			<input type="submit" value="로그아웃" />
-		    		</form>
+		   		<th>
+		    		<a href="<c:url value="/index.jsp"/>">Corups!</a>
 		    	</th>
-				<th><input type="button" value="회원관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" /></th>
+		      	<th>
+		    		<input type="button" value="로그아웃" onclick="submit_a_logout()"/>
+		    	</th>
 		    </c:if>
 		</tr>
 	</table>

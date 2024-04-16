@@ -10,6 +10,16 @@
 <meta charset="UTF-8">
 <title>회원 정보 수정 화면: profileUpdate.jsp</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../css/main.css">
+<style>
+	body {
+	    background-image: url('../resources/imgs/milky-way.jpg');
+	}
+</style>
+<c:import url="/components/jQuerys.jsp" />
 <script>
 	window.onload = function() {
 		// 이미지 파일 자동 배정
@@ -33,7 +43,7 @@
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					$("#imagePreview").html('');
-					$("#imagePreview").html('<img alt="imagePreview" src="'+ e.target.result + '" />');
+					$("#imagePreview").html('<img alt="imagePreview" src="'+ e.target.result + '" class="img-fluid" />');
 					console.log($("#imgPreview"));
 				};
 				reader.readAsDataURL(this.files[0]);
@@ -68,116 +78,138 @@
 	})
 	
 </script>
-	<c:import url="/components/deleteMember.jsp" />
+	<c:import url="/components/jQuerys.jsp" />
 </head>
 <body>
-
-	<form action="<c:url value="/member/updateServlet" />" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-		<input type="hidden" name="nowPath" value="a"/>
-		<input type="hidden" name="nowCase" value="r"/>
-		<table border="1" >
-			<colgroup>
-				<col width="150" />
-				<col width="400" />
-				<col width="200" />
-			</colgroup>
-			<!-- 회원수정 제목 -->
-			<thead>
-				<tr><th align="center" colspan="2">${ member.name } 회원님의 정보를 수정합니다.</th></tr>
-			</thead>
-			<!-- 회원수정 입력 -->
-			<tbody>
-				<tr>
-					<td>프로필 사진</td>
-					<td>
-						<div style="width='400px';"  id="imagePreview">
-							<img alt="imagePreview" id="imagePreview" src="${pageContext.request.contextPath}/uploads/profile_img/${ member.image }" />
-						</div>
-						<input type="file" name="image" id="image" accept="image/*" value="${ member.image }">
-						<div id="preImg">
-							<input type="hidden" name="preImg" value="${ member.image }">
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>아이디</td>
-					<td>
-						<input type="text" size="20" maxlength="20" value="${ member.id }" readonly disabled />
-						<input type="hidden" name="id" id="id" size="20" maxlength="20" value="${ member.id }" />
-					</td>
-				</tr>
-				<tr>
-					<td>패스워드</td>
-					<td>
-						<input type="password" name="pwd" id="pwd" size="20" maxlength="20" value="${ member.pwd }" required/>
-					</td>
-				</tr>
-				<tr>
-					<td>패스워드 확인</td>
-					<td>
-						<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" disabled />
-						&nbsp;
-						<span id="pwd_message"></span>
-					</td> 
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>
-						<input type="text" name="name" size="20" maxlength="20" value="${ member.name }" required />
-					</td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td>
-						<input type="date" name="birthday" size="10" value="${ member.birthday }" required />
-					</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>
-						<input type="email" name="email" size="30" maxlength="30" value="${ member.email }" required />
-					</td>
-				</tr>
-				<tr>
-					<td>직업</td>
-					<td>
-						<select name="job" required >
-						  <option value="" disabled>선택하세요</option>
-						  <option value="unemployed" ${ member.job eq 'unemployed' ? selected : '' }>무직</option>
-						  <option value="student" ${ member.job eq 'student' ? selected : '' }>교직학생</option>
-						  <option value="homemaker" ${ member.job eq 'homemaker' ? selected : '' }>주부</option>
-						  <option value="employee" ${ member.job eq 'employee' ? selected : '' }>직장인</option>
-						  <option value="entrepreneur" ${ member.job eq 'entrepreneur' ? selected : '' }>사업가</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>관심사</td>
-					<td>
-						<label><input type="checkbox" name="reading" value="r" ${fn:contains(member.interest, 'r') ? 'checked' : '' }>독서</label>
-						<label><input type="checkbox" name="travel" value="t"  ${fn:contains(member.interest, 't') ? 'checked' : '' }>여행</label>
-						<label><input type="checkbox" name="gaming" value="g"  ${fn:contains(member.interest, 'g') ? 'checked' : '' }>게임</label>
-						<label><input type="checkbox" name="movie" value="m"  ${fn:contains(member.interest, 'm') ? 'checked' : '' }>영화</label>
-						<label><input type="checkbox" name="exercise" value="e"  ${fn:contains(member.interest, 'e') ? 'checked' : '' }>운동</label>
-						<br>
-						<label><input type="checkbox" name="cooking" value="c"  ${fn:contains(member.interest, 'c') ? 'checked' : '' }>요리</label>
-						<label><input type="checkbox" name="programming" value="p"  ${fn:contains(member.interest, 'p') ? 'checked' : '' }>프로그래밍</label>
-						<label><input type="checkbox" name="song" value="s"  ${fn:contains(member.interest, 's') ? 'checked' : '' }>노래</label>
-						<label><input type="checkbox" name="language" value="l"  ${fn:contains(member.interest, 'l') ? 'checked' : '' }>어학</label>
-						<label><input type="checkbox" name="others" value="o"  ${fn:contains(member.interest, 'o') ? 'checked' : '' }>기타</label>
-					</td>
-				</tr>
-
-			</tbody>
-			<!-- 회원 정보 수정 버튼 -->
-			<tfoot>
-				<tr><th align="center" colspan="2">
-					<input type="submit" value="수정완료" id="form-submit" />
-					&nbsp;&nbsp;&nbsp;
-					<input type="button" value="삭제하기" onclick="aConfirmDelete()"/>
-				</th></tr>
-			</tfoot>
-		</table>
-	</form>
+		<div class="container-fluid h-100">
+			<div class="row justify-content-center align-items-center h-100">
+		    	<div class="col-md-auto">
+		    		<img alt="logo.png" src="../resources/imgs/logo_dark.png" class="mb-2">
+		   		</div>
+			   <div class="col-md-1">
+		       </div>
+		        <div class="col-md-auto">
+		            <div class="custom-form text-center" style="width: 30rem;"> <!-- text-center 클래스 추가 -->
+		                <form enctype="multipart/form-data" accept-charset="UTF-8">
+		                 	<div class="mb-2">
+		                 			<div class="rounded-circle d-inline-block overflow-hidden p-0" style="width: 160px; height:160px; border: none; background-color: black;" id="imagePreview">
+										<img alt="imagePreview" id="imagePreview" src="${pageContext.request.contextPath}/uploads/profile_img/${ member.image }" class="img-fluid" />
+									</div>
+									<input type="file" name="image" id="image" accept="image/*" class="form-control" >
+									<div id="preImg">
+										<input type="hidden" name="preImg" value="${ member.image }">
+									</div>
+		                    </div>
+		                     <div class="mb-2 row  justify-content-start align-items-center">
+							    <div class="col-md-3">
+							        <label for="exampleInputId" class="form-label" style="color:#292929;"><b>Id</b></label>
+							    </div>
+							    <div class="col-md-auto">
+							        	<input type="text" size="20" maxlength="20" value="${ member.id }" class="form-control" readonly disabled />
+										<input type="hidden" name="id" id="id" size="20" maxlength="20" value="${ member.id }" />
+							    </div>
+							    <div class="col-md-3">
+							   
+							    </div>
+							</div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                        <label for="exampleInputPassword1" class="form-label" style="color:#292929;"><b>Password</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="password" name="pwd" id="pwd" size="20" maxlength="20" value="${ member.pwd }" class="form-control" required/>
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Password Check</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                       		<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" class="form-control" disabled />
+		                        </div>
+		                        <div class="col-md-3">
+		                        	<span id="pwd_message"></span>
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Name</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="text" name="name" size="20" maxlength="20" value="${ member.name }" class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Birthday</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        		<input type="date" name="birthday" size="10" value="${ member.birthday }" class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                   	<div class="mb-2 row justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputEmail" class="form-label" style="color:#292929;"><b>Email</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="email" name="email" size="30" maxlength="30" value="${ member.email }" class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputJob" class="form-label" style="color:#292929;"><b>Job</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+			                        <select name="job" class="form-select" required >
+										<option value="" disabled>선택하세요</option>
+							 	 		<option value="unemployed" ${ member.job eq 'unemployed' ? selected : '' }>무직</option>
+							  			<option value="student" ${ member.job eq 'student' ? selected : '' }>교직학생</option>
+							  			<option value="homemaker" ${ member.job eq 'homemaker' ? selected : '' }>주부</option>
+							 			<option value="employee" ${ member.job eq 'employee' ? selected : '' }>직장인</option>
+							  			<option value="entrepreneur" ${ member.job eq 'entrepreneur' ? selected : '' }>사업가</option>
+									</select>
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+	
+		                   <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Interests</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        		<label><input type="checkbox" class="form-check-input" name="interests" value="r" ${fn:contains(member.interest, 'r') ? 'checked' : '' }>독서</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="t"  ${fn:contains(member.interest, 't') ? 'checked' : '' }>여행</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="g"  ${fn:contains(member.interest, 'g') ? 'checked' : '' }>게임</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="m"  ${fn:contains(member.interest, 'm') ? 'checked' : '' }>영화</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="e"  ${fn:contains(member.interest, 'e') ? 'checked' : '' }>운동</label>
+										<br>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="c"  ${fn:contains(member.interest, 'c') ? 'checked' : '' }>요리</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="p"  ${fn:contains(member.interest, 'p') ? 'checked' : '' }>프로그래밍</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="s"  ${fn:contains(member.interest, 's') ? 'checked' : '' }>노래</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="l"  ${fn:contains(member.interest, 'l') ? 'checked' : '' }>어학</label>
+										<label><input type="checkbox" class="form-check-input" name="interests" value="o"  ${fn:contains(member.interest, 'o') ? 'checked' : '' }>기타</label>
+		                        </div>
+		                    </div>
+		                    <div class="mb-2 d-flex justify-content-end">
+		                        <input type="button" value="update" class="btn" style="background-color:#B9A4BF; color:white;" id="form-submit" onclick="submit_update_form()" />
+		                        &nbsp;
+		                        <input type="reset" value="reset" class="btn btn-secondary"/>
+		                        &nbsp;
+		                        <input type="button" value="delete" class="btn btn-danger" onclick="aConfirmDelete()"/>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		 </div>
+	</div>
 </body>
 </html>

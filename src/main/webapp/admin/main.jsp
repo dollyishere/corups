@@ -10,6 +10,8 @@
 </head>
 <body>
 	<c:import url="/components/adminHeader.jsp" />
-	하이~
+	<h1>${ session.adminID } 관리자님, 접속을 환영합니다.</h1>
+	<input type="button" value="회원관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" />
+	<input type="button" value="스터디관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" />
 </body>
 </html>

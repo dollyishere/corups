@@ -2,6 +2,7 @@ package servlet.member;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,8 +38,6 @@ public class UpdateServlet extends HttpServlet {
     HttpSession session = null;
     private String nowPath;
     private String nextPath;
-    private String nowCase;
-       
     public UpdateServlet() {
         super();
     } // 생성자 END
@@ -77,9 +76,9 @@ public class UpdateServlet extends HttpServlet {
 	 * POST 요청 수행(회원 정보 수정 수행)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter(); 
 		request.setCharacterEncoding("utf-8");
 	     response.setContentType("text/html; charset=utf-8");
-	     nextPath = "/mem/main.jsp";
 	     String id = "";
 	     boolean resultQ = false;
 	     FileItem imgFile = null;
@@ -89,19 +88,7 @@ public class UpdateServlet extends HttpServlet {
 	     
 	     // 관심사 이니셜만 뽑아내서 join으로 결합
 	     List<String> interests = new ArrayList<>();
-	     List<String> interestsName = new ArrayList<>();
 	     String joinedInterests = "";
-	     
-	     interestsName.add("reading");
-	     interestsName.add("travel");
-	     interestsName.add("gaming");
-	     interestsName.add("movie");
-	     interestsName.add("exercise");
-	     interestsName.add("cooking");
-	     interestsName.add("programming");
-	     interestsName.add("song");
-	     interestsName.add("language");
-	     interestsName.add("others");
 	     
 	     // 이미지 파일 업로드 위한 파일 객체 설정
 	     ServletContext context = getServletContext();
@@ -121,15 +108,19 @@ public class UpdateServlet extends HttpServlet {
 	    	 for (FileItem item : itemsList) {
 	    		 if (item.isFormField()) { 
 	    			 // 관심사일 시
-	    			 if (interestsName.contains(item.getFieldName())) {
+	    			 if ("interests".equals(item.getFieldName())) {
 	    				 interests.add(item.getString("utf-8"));
+	    				 // 파일 현재 경로 저장
 	    			 } else if ("nowPath".equals(item.getFieldName())) {
 	    				 nowPath = item.getString("utf-8");
+	    				 // 이전 이미지 명 가져옴
 	    			 } else if ("preImg".equals(item.getFieldName())) {
 	    				 member.setImage(item.getString("utf-8"));
+	    				 // 아이디 저장
 	    			 } else if ("id".equals(item.getFieldName())) {
 	    				 member.setId(item.getString("utf-8"));
 	    				 id = item.getString("utf-8");
+	    				 // 비밀번호 저장
 	    			 } else if ("pwd".equals(item.getFieldName())) {
 	    				 member.setPwd(item.getString("utf-8"));
 	    			 }  else if ("name".equals(item.getFieldName())) {
@@ -144,21 +135,21 @@ public class UpdateServlet extends HttpServlet {
 	    			    	 member.setBirthday(sqlDate);
 	    			     } catch (ParseException e) {
 	    			    	 System.out.println(e.getMessage());
-	    			    	 nextPath = "/errorLog.jsp";
-	    			    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    			    	 requestDispatcher.forward(request, response);
+	    			    	 out.write("birthday err");
 	    			     }
+	    			     // 이메일 저장
 	    			 } else if ("email".equals(item.getFieldName())) {
 	    				 member.setEmail(item.getString("utf-8"));
+	    				 // 직장 저장
 	    			 } else if ("job".equals(item.getFieldName())) {
 	    				 member.setJob(item.getString("utf-8"));
 	    			 }
 	    		 } else if (item.getSize() > 0) {
 	    			 imgFile = item;
-	    			 System.out.println(imgFile);
 	    		 }
 	    	 }
 	    	 
+	    	 // 만약 img 파일은 null이 아니고, member.getImage는 null일 시
 	    	 if (imgFile != null && member.getImage() == null) {
 	    		 File currentPath = new File(realPath);
     		     
@@ -171,13 +162,12 @@ public class UpdateServlet extends HttpServlet {
     			 member.setImage(id + "_p_img" + fileName.substring(lastDotIndex));
     			 uploadFile = new File(currentPath + "\\" + id + "_p_img" + fileName.substring(lastDotIndex));
     			 imgFile.write(uploadFile);
+    			 
 	    	 }
 	    	 
 		} catch (Exception e) {
 			System.err.println("File Upload ERR : " + e.getMessage());
-	    	 nextPath = "/errorLog.jsp";
-	    	 RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	 requestDispatcher.forward(request, response);
+	    	out.write("file upload err");
 		}
     	    
 	     // 관심사 이니셜 결합해서 추가
@@ -187,22 +177,16 @@ public class UpdateServlet extends HttpServlet {
 	     
 	     member.setInterest(joinedInterests);
 
-	     member.toString();
 	     memberDAO = new MemberDAO();
 	     resultQ = memberDAO.update(member);
 
 	     if (!resultQ) {
-	    	 nextPath = "/errorLog.jsp";
+	    	 out.write("update error");
+	     } else if (nowPath != null) {
+	    	 out.write("update complete admin!");
+	     } else {
+	    	 out.write("update complete!");
 	     }
-	     
-	     
-		if (nowPath != null) {
-			response.sendRedirect("../member/memberListServlet");
-			return;
-		} else {
-		     RequestDispatcher requestDispatcher = request.getRequestDispatcher(nextPath);
-	    	 requestDispatcher.forward(request, response);
-		}
 
 	} // doPOST() END
 

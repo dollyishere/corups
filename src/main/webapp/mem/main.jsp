@@ -9,9 +9,17 @@
 <head>
 <meta charset="UTF-8">
 <title>메인화면: main.jsp</title>
+<link rel="stylesheet"
+	href="../resources/css/bootstrap.css">
+<link rel="stylesheet"
+	href="../css/main.css">
+<style>
+	body {
+	    align-items: flex-start;
+	}
+</style>
 </head>
 <body>
 	<c:import url="/components/defaultHeader.jsp" />
-
 </body>
 </html>
