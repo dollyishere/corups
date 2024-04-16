@@ -85,4 +85,30 @@ public class MemberStudyDAO {
 		
 		return studyNoList;
 	} // studyNoList() END
+	
+	public boolean insertMemberStudy(MemberStudyDTO memStudy) {
+			boolean success = false;
+		
+		try {
+			connector = datasource.connection();
+			String query = "INSERT INTO member_study (member_id, join_date, study_no) VALUES (?, now(), ?)";
+			
+			pstmt = connector.prepareStatement(query);
+			pstmt.setString(1, memStudy.getMemberId());
+			pstmt.setInt(2, memStudy.getStudyNo());
+			int n = pstmt.executeUpdate();
+			
+			if(n > 0)
+				success = true;
+			
+		} catch (SQLException e) {
+			System.err.println("memberIdList(): " + e.getMessage());
+		} finally {
+			datasource.close(connector, pstmt, rs);
+		}
+		
+		return success;
+	}
+	
+	
 }
