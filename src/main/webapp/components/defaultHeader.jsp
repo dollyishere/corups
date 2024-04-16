@@ -27,11 +27,11 @@
     }
 </style>
 </head>
-<div class="container-fluid m-5">
+<div class="container-fluid m-3">
 	<div class="row justify-content-between align-items-center">
 	    <div class="col-md-4">
 	    	<a href="<c:url value="/member/memberDetailServlet" /> ">
-	    		<img alt="logo.png" src="../resources/imgs/logo.png" style="width:10rem"class="mb-2">
+	    		<img alt="logo.png" src="../resources/imgs/logo.png" style="width:10rem" class="mb-2">
 	    	</a>
 	    </div>
 	    <div class="col-md-4 column justify-content-center align-items-center">
