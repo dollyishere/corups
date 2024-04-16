@@ -26,11 +26,14 @@ import dto.StudyDTO;
 @WebServlet("/chapter/chapterUpdateServlet")
 public class ChapterUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	/** ChapterDAO */
 	private ChapterDAO chapterDAO = null;
+	private StudyDAO studyDAO = new StudyDAO();
 
 	public ChapterUpdateServlet() {
 		super();
+		chapterDAO = new ChapterDAO(); // ChapterDAO 객체 초기화
 
 	}
 
@@ -40,14 +43,24 @@ public class ChapterUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// 수정할 챕터 정보 가져오기
-		ChapterDTO chapter = new ChapterDTO();
-		int no = Integer.parseInt(request.getParameter("chapterNo"));
-		System.out.println("chapterNo =====> " + request.getParameter("chapterNo"));
-		chapter.setNo(no);
-
+		String chapterNoParam = request.getParameter("chapterNo");
+		if (chapterNoParam == null || chapterNoParam.isEmpty()) {
+			System.err.println("chapterNo NO!!");
+			return;
+		}
+		
+		int chapterNo = Integer.parseInt(chapterNoParam);
+		ChapterDTO chapter = chapterDAO.chapterDetail(chapterNo);
+		
+//		chapter.setNo(no);
+		
+		//study 정보 가져오기
+		int studyNo = chapter.getStudyNo();
+		StudyDTO study = studyDAO.studyDetail(studyNo);
+		
 		// View 사용될 객체 설정
 		request.setAttribute("chapter", chapter);
-//		request.setAttribute("studyName", studyName);
+		request.setAttribute("study", study);
 		
 
 		// View로 보내기
