@@ -60,8 +60,9 @@
 					<td colspan="2" align="center">
 						<input type="submit" name="updateChapter" value="수정" />
 						<button onclick="deleteChapter(${chapter.no})">삭제</button>
-						<input type="button" name="cancleUpdate" value="취소"
-							onclick="location.href='<c:url value='/mgr/chapterListServlet?studyNo=${studyNo}'/>'" />
+						<input type="button" name="cancelUpdate" value="취소"
+						onclick="location.href='${contextPath}/study/studyDetailServlet?no=${studyNo}'" />
+							
 					</td>
 				</tr>
 			</table>
