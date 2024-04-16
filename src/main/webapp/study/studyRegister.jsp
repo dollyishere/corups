@@ -25,7 +25,7 @@
 				<textarea name="detail" class="ckeditor" rows="5" cols="22"></textarea><br>
 			</p>
 			<p>패스워드 :
-				<input type="password" name="studyPwd" required><br>
+				<input type="password" name="studyPwd"><br>
 			</p>
 			<p>최대 인원 :
 				<input type="number" name="maxNum" value="1"><br>
