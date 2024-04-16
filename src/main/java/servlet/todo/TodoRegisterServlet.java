@@ -15,6 +15,7 @@ import dao.StatusDAO;
 import dao.TodoDAO;
 import dto.StatusDTO;
 import dto.TodoDTO;
+import utils.SessionUtil;
 
 /**
  * /todo/TodoRegisterServlet
@@ -49,10 +50,13 @@ public class TodoRegisterServlet extends HttpServlet {
 		Date startDate = parseDate(request.getParameter("startDate"));
 		Date  endDate = parseDate(request.getParameter("endDate"));
 		String content = request.getParameter("content");
+		String chapterNoStr = request.getParameter("chapterNo");
+		int chapterNo = Integer.parseInt(chapterNoStr);
+		
 		
 		// TodoDTO
 		TodoDTO todo = new TodoDTO();
-		todo.setChapterNo(1);
+		todo.setChapterNo(chapterNo);
 		todo.setDetail(content);
 		todo.setEndDate(endDate);
 		todo.setName(name);
@@ -66,8 +70,8 @@ public class TodoRegisterServlet extends HttpServlet {
 		if(todoNo > 0) {
 			// StatusDTO
 			StatusDTO status = new StatusDTO();
-//			status.setMemberId(SessionUtil.getID(request, response));
-			status.setMemberId("lasolim");
+			status.setMemberId(SessionUtil.getID(request, response));
+//			status.setMemberId("lasolim");
 			status.setStatus("P");
 			status.setTodoNo(todoNo);
 			

@@ -54,7 +54,7 @@ public class FileDownloadServlet extends HttpServlet {
 		response.setHeader("Cache-Control", "no-Cache");
 		
 		// 파일 다운로드 설정
-		response.setContentType("application/octet-stream");
+		response.setContentType(getContentTypeByFileName(fileName));
 		response.setHeader("Content-disposition", "attachment; fileName=" + fileName);
 		
 		OutputStream out = response.getOutputStream();
@@ -75,9 +75,7 @@ public class FileDownloadServlet extends HttpServlet {
 	}
 	
 	private String getContentTypeByFileName(String fileName) {
-		if (fileName.endsWith(".txt")) {
-			return "text/plain";
-		} else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+		if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
 			return "image/jpeg";
 		} else if (fileName.endsWith(".png")) {
 			return "image/png";
@@ -91,6 +89,9 @@ public class FileDownloadServlet extends HttpServlet {
 			return "application/vnd.ms-excel";
 		} else if (fileName.endsWith(".zip")) {
 			return "application/zip";
+//		}
+//		else if (fileName.endsWith(".txt")) {
+//			return "text/plain";
 		} else {
 			return "application/octet-stream";
 		}

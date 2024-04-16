@@ -80,8 +80,8 @@ public class TodoDetailServlet extends HttpServlet {
 		FileDAO fileDAO = new FileDAO();
 		ArrayList<FileDTO> files = fileDAO.fileList(todoNo);		
 		
-//		// 5. id 와 create_user_id 가 같다면
-//		//		-> mgr/todoDetail.jsp 로 이동
+		// 5. id 와 create_user_id 가 같다면
+		//		-> mgr/todoDetail.jsp 로 이동
 		boolean mgr = false;
 		if(id.equals(study.getCreateUserId()))
 			mgr = true;
