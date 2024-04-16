@@ -64,12 +64,13 @@
 					</c:choose>
 				</tbody>
 
-				<tfoot>
+					<tfoot>
 					<!-- 페이지 번호 -->
 					<tr>
 						<td align="center" colspan="4">페이지 네비<c:out
 								value="${pageNavigator}" escapeXml="false" /></td>
 					</tr>
+					<input type="button" onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'" value="스터디 수정하기">							
 				</tfoot>
 			</table>
 		</div>
