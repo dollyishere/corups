@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<h2 align="center">${studyName} 수정</h2>	
+	<h2 align="center">${study.name} 수정</h2>	
 	<div align="center" border="1">
 		<form action="${contextPath}/chapter/chapterUpdateServlet" method="post">
             <input type="hidden" name="chapterNo" value="${chapter.no}">

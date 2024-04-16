@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<h2 align="center">study.name ${study.name}</h2>
+	<h2 align="center">study.name${study.name}</h2>
 
 	<div align="center">
 		<table align="center" border="1" summary="챕터 상세">
@@ -69,10 +69,11 @@
 
 			<tbody>
 				<!-- 개인 할 일 목록-->
+				<input type="hidden" name="chapterNo" value="${chapter.no}">
 				<c:choose>
 					<c:when test="${empty todoArray}">
 						<tr>
-							<td align="center" colspan="4">할 일이 없습니다.</td>
+							<td align="center" colspan="5">할 일이 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>

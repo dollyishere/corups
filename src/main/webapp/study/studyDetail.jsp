@@ -17,7 +17,7 @@
 		<h1>${study.name}</h1>
 		<h3>${study.detail}</h3>
 		<input type="button"
-		onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'"
+		onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyno=${studyNo}'"
 		value="스터디 수정하기">
 	</div>
 
@@ -60,12 +60,15 @@
 						<th>챕터 이름</th>
 						<th>StartDate</th>
 						<th>EndDate</th>
+						<c:if test="${userid == 1}">
+						<th>관리</th>
+					</c:if>
 					</tr>
 				</thead>
 
 				<tbody>
 					<input type="button" value="chapter 추가"
-						onclick="location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'" />
+						onclick="window.location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'" />
 
 					<c:choose>
 						<c:when test="${chapterCount == 0}">
@@ -79,16 +82,26 @@
 								varStatus="status">
 								<tr>
 									<!-- 챕터 번호 -->
-									<td align="center">${chapter.no}</td>
+									<td align="center">${status.index +1}</td>
+									<input type="hidden" name="chapterNo" value="${chapter.no}" />
 									<!-- 챕터 제목 -->
 									<td><a
-										href="<c:url value="/study/chapterDetailServlet?no=${chapter.no}" />">
+										href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />">
 											<c:out value="${chapter.name}" />
 									</a></td>
 									<!-- 챕터 기간 -->
 									<td align="center"><c:out value="${chapter.startDate}" /></td>
 									<td align="center"><c:out value="${chapter.endDate}" /></td>
-								</tr>
+								
+								<!-- 삭제 버튼 -->
+								<td align="center">
+									<!-- userid가 1인 경우에만 삭제 버튼 표시 --> <c:if test="${userid == 1}">
+									 <button onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>
+                                            
+										<button onclick="deleteChapter(${chapter.no})">삭제</button>
+										</tr>
+									</c:if>
+								</td>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
