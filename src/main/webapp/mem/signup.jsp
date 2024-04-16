@@ -12,6 +12,10 @@
 <meta charset="UTF-8">
 <title>회원 가입 화면: signup.jsp</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../css/main.css">
 <c:import url="/components/jQuerys.jsp" />
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -21,7 +25,7 @@
 				console.log("성공!");
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					$("#imagePreview").html('<img alt="imagePreview" src="'+ e.target.result + '" />');
+					$("#imagePreview").html('<img alt="imagePreview" src="'+ e.target.result + '" class="img-fluid" />');
 					console.log($("#imgPreview"))
 				};
 				reader.readAsDataURL(this.files[0]);
@@ -53,116 +57,127 @@
 </script>
 </head>
 <body>
-	<form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-		<table border="1" >
-			<colgroup>
-				<col width="150" />
-				<col width="400" />
-				<col width="200" />
-			</colgroup>
-			<!-- 회원가입 제목 -->
-			<thead>
-				<tr><th align="center" colspan="3">회원 가입</th></tr>
-			</thead>
-			<!-- 회원가입 입력 -->
-			<tbody>
-				<tr>
-					<td>프로필 사진</td>
-					<td>
-						<div style="width='400px';"  id="imagePreview">
-							
-						</div>
-						<input type="file" name="image" id="image" accept="image/*">
-					</td>
-					<td>프로필 사진을 선택하세요.</td>
-				</tr>
-				<tr>
-					<td>아이디</td>
-					<td>
-						<input type="text" name="id" id="id" size="20" maxlength="20" required />
-						<input type="button" name="confirmDuplicate" id="double" onclick="fn_process()" value="ID중복확인" />
-					</td>
-					<td>아이디를 적어 주세요.</td>
-				</tr>
-				<tr>
-					<td>패스워드</td>
-					<td>
-						<input type="password" name="pwd" id="pwd" size="20" maxlength="20" required disabled />
-					</td>
-					<td>패스워드를 적어 주세요.</td>
-				</tr>
-				<tr>
-					<td>패스워드 확인</td>
-					<td>
-						<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" required disabled />
-						&nbsp;
-						<span id="pwd_message"></span>
-					</td> 
-					<td>패스워드를 확인합니다.</td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>
-						<input type="text" name="name" size="20" maxlength="20" required />
-					</td>
-					<td>고객실명을 적어주세요.</td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td>
-						<input type="date" name="birthday" size="10" required />
-					</td>
-					<td>생년월일을 입력해 주세요.</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>
-						<input type="email" name="email" size="30" maxlength="30" required />
-					</td>
-					<td>이메일을 적어주세요.</td>
-				</tr>
-				<tr>
-					<td>직업</td>
-					<td>
-						<select name="job" required >
-						  <option value="" selected disabled>선택하세요</option>
-						  <option value="unemployed">무직</option>
-						  <option value="student">교직학생</option>
-						  <option value="homemaker">주부</option>
-						  <option value="employee">직장인</option>
-						  <option value="entrepreneur">사업가</option>
-						</select>
-					</td>
-					<td>직업을 선택 하세요.</td>
-				</tr>
-				<tr>
-					<td>관심사</td>
-					<td>
-						<label><input type="checkbox" name="interests" value="r">독서</label>
-						<label><input type="checkbox" name="interests" value="t">여행</label>
-						<label><input type="checkbox" name="interests" value="g">게임</label>
-						<label><input type="checkbox" name="interests" value="m">영화</label>
-						<label><input type="checkbox" name="interests" value="e">운동</label>
-						<br>
-						<label><input type="checkbox" name="interests" value="c">요리</label>
-						<label><input type="checkbox" name="interests" value="p">프로그래밍</label>
-						<label><input type="checkbox" name="interests" value="s">노래</label>
-						<label><input type="checkbox" name="interests" value="l">어학</label>
-						<label><input type="checkbox" name="interests" value="o">기타</label>
-					</td>
-					<td>관심사를 선택하세요.</td>
-				</tr>
-
-			</tbody>
-			<!-- 회원가입 버튼 -->
-			<tfoot>
-				<tr><th align="center" colspan="3">
-					<input type="button" value="회원가입" id="form-submit" disabled onclick="submit_form()"/>
-					&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="다시쓰기" />
-				</th></tr>
-			</tfoot>
-		</table>
-	</form>
+	<div class="container-fluid h-100">
+			<div class="row justify-content-center align-items-center h-100">
+		    	<div class="col-md-auto">
+		    		<img alt="logo.png" src="../resources/imgs/logo.png" class="mb-2">
+		   		</div>
+			   <div class="col-md-1">
+		       </div>
+		        <div class="col-md-auto">
+		            <div class="custom-form text-center" style="width: 30rem;"> <!-- text-center 클래스 추가 -->
+		                <form enctype="multipart/form-data" accept-charset="UTF-8">
+		                 	<div class="mb-2">
+		                       	<div  class="rounded-circle d-inline-block overflow-hidden p-0" style="width: 160px; height:160px; border: none; background-color: black;" id="imagePreview"></div>
+		                        <input type="file" name="image" id="image" accept="image/*" class="form-control" >
+		                    </div>
+		                     <div class="mb-2 row  justify-content-start align-items-center">
+							    <div class="col-md-3">
+							        <label for="exampleInputId" class="form-label" style="color:#292929;"><b>Id</b></label>
+							    </div>
+							    <div class="col-md-auto">
+							        <input type="text" name="id" id="id" size="20" maxlength="20"  class="form-control" required />
+							    </div>
+							    <div class="col-md-3">
+							        <input type="button" name="confirmDuplicate" id="double" onclick="fn_process()" value="ID check" class="btn" style="background-color:#D996B5; color:white;" id="form-submit" />
+							    </div>
+							</div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                        <label for="exampleInputPassword1" class="form-label" style="color:#292929;"><b>Password</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="password" name="pwd" id="pwd" size="20" maxlength="20" class="form-control"  required disabled />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Password Check</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                       		<input type="password" name="pwd_check" id="pwd_check" size="20" maxlength="20" class="form-control" required disabled />
+		                        </div>
+		                        <div class="col-md-3">
+		                        	<span id="pwd_message"></span>
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Name</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="text" name="name" size="20" maxlength="20"  class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Birthday</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="date" name="birthday" size="10"  class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                   	<div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputEmail" class="form-label" style="color:#292929;"><b>Email</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<input type="email" name="email" size="30" maxlength="30" class="form-control" required />
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+		                    <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputJob" class="form-label" style="color:#292929;"><b>Job</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+			                        <select name="job" class="form-select" required >
+									  <option value="" selected disabled>선택하세요</option>
+									  <option value="unemployed">무직</option>
+									  <option value="student">교직학생</option>
+									  <option value="homemaker">주부</option>
+									  <option value="employee">직장인</option>
+									  <option value="entrepreneur">사업가</option>
+									</select>
+		                        </div>
+		                        <div class="col-md-3">
+							    </div>
+		                    </div>
+	
+		                   <div class="mb-2 row  justify-content-start align-items-center">
+		                    	<div class="col-md-3">
+		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Interests</b></label>
+		                        </div>
+		                        <div class="col-md-auto">
+		                        	<label><input type="checkbox" class="form-check-input"  name="interests" value="r">독서</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="t">여행</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="g">게임</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="m">영화</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="e">운동</label>
+									<br>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="c">요리</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="p">프로그래밍</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="s">노래</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="l">어학</label>
+									<label><input type="checkbox" class="form-check-input" name="interests" value="o">기타</label>
+		                        </div>
+		                    </div>
+		                    <div class="mb-2 d-flex justify-content-end">
+		                        <input type="button" value="signup" class="btn" style="background-color:#B9A4BF; color:white;" id="form-submit" disabled onclick="submit_form()"/>
+		                        &nbsp;
+		                        <input type="reset" value="reset" class="btn btn-secondary"/>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		 </div>
+	</div>
 </body>
 </html>

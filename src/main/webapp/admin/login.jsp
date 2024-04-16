@@ -17,16 +17,21 @@
 <link rel="stylesheet"
 	href="../css/main.css">
 <c:import url="/components/jQuerys.jsp" />
+<style>
+	body {
+	    background-image: url('../resources/imgs/milky-way.jpg');
+	}
+</style>
 </head>
 <body>
-	<div class="row justify-content-center align-items-center">
-	    <div class="col-md-3">
-	    	<img alt="logo.png" src="../resources/imgs/logo.png" class="mb-2">
+ <div class="container-fluid h-100">
+	<div class="row justify-content-center align-items-center h-100">
+	    <div class="col-md-auto">
+	    	<img alt="logo.png" src="../resources/imgs/logo_dark.png" class="mb-2">
 	    </div>
-	    <div class="col-md-4">
+	    <div class="col-md-2">
 	    </div>
-        <div class="col-md-5">
-            <!-- 입력 폼을 감싸는 테두리가 둥근 직사각형 -->
+        <div class="col-md-auto">
             <div class="custom-form text-center" style="width: 20rem;"> <!-- text-center 클래스 추가 -->
                 <form>
                     <div class="mb-2">
@@ -38,7 +43,7 @@
                         <input type="password" name="pwd" class="form-control" required />
                     </div>
                     <div class="mb-2 d-flex justify-content-end">
-                        <input type="button" value="login" class="btn" style="background-color:#D996B5; color:white;" onclick="submit_a_login_form()"/>
+                        <input type="button" value="login" class="btn" style="background-color:#B9A4BF; color:white;" onclick="submit_a_login_form()"/>
                         &nbsp;
                         <input type="reset" value="reset" class="btn btn-secondary"/>
                     </div>
@@ -46,5 +51,6 @@
             </div>
         </div>
 	 </div>
+</div>
 </body>
 </html>

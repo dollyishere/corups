@@ -39,13 +39,13 @@ public class MemberDAO {
 					+ "value (?, ?, ?, now(), ?, ?, ?, ?, ?)";
 			
 			pstmt = connector.prepareStatement(query);
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPwd());
-			pstmt.setString(3, member.getName());
+			pstmt.setString(1, member.getId().trim());
+			pstmt.setString(2, member.getPwd().trim());
+			pstmt.setString(3, member.getName().trim());
 			pstmt.setDate(4, member.getBirthday());
-			pstmt.setString(5, member.getEmail());
+			pstmt.setString(5, member.getEmail().trim());
 			pstmt.setString(6, member.getJob());
-			pstmt.setString(7, member.getInterest());
+			pstmt.setString(7, member.getInterest().trim());
 			pstmt.setString(8, member.getImage());
 			
 			int n = pstmt.executeUpdate();
@@ -252,14 +252,14 @@ public class MemberDAO {
 			pstmt = connector.prepareStatement(query);
 			
 			pstmt = connector.prepareStatement(query);
-			pstmt.setString(1, member.getPwd());
-			pstmt.setString(2, member.getName());
+			pstmt.setString(1, member.getPwd().trim());
+			pstmt.setString(2, member.getName().trim());
 			pstmt.setDate(3, member.getBirthday());
-			pstmt.setString(4, member.getEmail());
+			pstmt.setString(4, member.getEmail().trim());
 			pstmt.setString(5, member.getJob());
-			pstmt.setString(6, member.getInterest());
+			pstmt.setString(6, member.getInterest().trim());
 			pstmt.setString(7, member.getImage());
-			pstmt.setString(8, member.getId());
+			pstmt.setString(8, member.getId().trim());
 			int n = pstmt.executeUpdate();
 			
 			if (n >= 1) {
