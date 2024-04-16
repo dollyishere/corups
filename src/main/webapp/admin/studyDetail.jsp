@@ -10,84 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>스터디 상세 - 챕터부분</title>
-<style>
-	.grid-container {
-		display: grid;
-		grid-template-columns: 200px 200px;
-		grid-template-rows: 100px 100px;
-	}
-	#studyName {
-		margin-left: 50px;
-		border: 1px solid black;
-		width: 40%;
-	}
-	#studyDetail {
-		margin-right: 50px;
-		border: 1px solid black;
-		width: 40%
-	}
-	#studyMember {
-		border: 1px solid black;
-	}
-	#chapter {
-	}
-	.rect {
-		width: 200px;
-		height: 100px;
-		border: 1px solid black;
-	}
-	.item1 {
-		grid-column: 1;
-		grid-row: 1;
-	}
-	.item2 {
-		grid-column: 2; /* 두 번째 열 */
-		grid-row: 1; /* 두 번째 행 */
-	}
-	.item3 {
-		grid-column: 1;
-		grid-row: 2;
-	}
-	.item4 {
-		grid-column: 2;
-		grid-row: 2;
-	}
-</style>
 </head>
 <body>
-<div class="grid-container">
-	<div id="studyName" class="item1">
-		<p>
-			${studyName}
-		</p>
-	</div>
-	<div id="studyDetail" class="item2">
-		<p>
-			${study.detail}
-		</p>
-	</div>
-<c:choose>
-	<c:when test="${empty memberStudyList}">
-		<div class="rect" class="item3">
-			<p>등록된 참여자가 없습니다.</p>
-		</div>
-	</c:when>
-	<c:when test="${!empty memberStudyList }">
-		<section id="studyMember">
-			<c:forEach var="member" items="${memberStudyList}">	
-				<div class="item3">	
-					<p style="border: 1px solid blue">
-						${member.id}	
-					</p>
-					<p style="border: 1px solid blue">
-						${member.image} 
-					</p>
-				</div>
-			</c:forEach>
-		</section>
-	</c:when>
-</c:choose>	
-	<div id="chapter" class="item4" align="center" style="border: 0.5px solid black;">
+	<div align="center" style="border: 0.5px solid black;">
 
 		<h4>${studyName} 의 챕터</h4>
 		<div align="center">
@@ -149,7 +74,7 @@
 			</table>
 		</div>
 	</div>
-</div> <!-- grid container 끝 -->
-					<input type="button" onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'" value="스터디 수정하기">							
+					<input type="button" onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'" value="스터디 수정하기">
+					<input type="button" onclick="window.location.href='${contextPath}/study/studyListServlet?no=${studyNo}'" value="확인">
 </body>
 </html>

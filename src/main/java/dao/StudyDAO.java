@@ -68,6 +68,9 @@ public class StudyDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			dataFactory.close(connect, pstmt, rs);
+		}
 		return studyList;
 	}
 	
@@ -115,6 +118,9 @@ public class StudyDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			dataFactory.close(connect, pstmt, rs);
+		}
 		return myStudyList;
 	}
 	
@@ -127,13 +133,13 @@ public class StudyDAO {
 	 * **/
 	public ArrayList<StudyDTO> searchStudy(String searchText, String searchCategory) {
 		ArrayList<StudyDTO> studySearch = new ArrayList<StudyDTO>();
-		
+		System.out.println(searchText + " " +  searchCategory);
 		
 		studySearch = new ArrayList<StudyDTO>();
 		
 		try {
 			connect = dataFactory.connection();
-			String query = "select * from study where name LIKE ? AND detail LIKE ? ";
+			String query = "select * from study where name LIKE ? OR detail LIKE ? ";
 			if(searchCategory != "ALL")
 				query += "AND category = ? ";
 			query += "order by no desc";
@@ -166,7 +172,10 @@ public class StudyDAO {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("searchStudy() ERR : " + e.getMessage());
+		}
+		finally {
+			dataFactory.close(connect, pstmt, rs);
 		}
 		
 		return studySearch;
@@ -203,6 +212,9 @@ public class StudyDAO {
 			
 		} catch (SQLException e) {
 			System.err.println("studyDetail ERR : " + e.getMessage());
+		}
+		finally {
+			dataFactory.close(connect, pstmt, null);
 		}
 		
 		return studyDetail;
@@ -244,6 +256,9 @@ public class StudyDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			dataFactory.close(connect, pstmt, null);
 		} 
 		return state;
 	}	
@@ -278,6 +293,9 @@ public class StudyDAO {
 		} catch (SQLException e) {
 			System.err.println("updateStudy ERR : " + e.getMessage());
 		}
+		finally {
+			dataFactory.close(connect, pstmt, null);
+		}
 		return state;
 	}
 	
@@ -295,7 +313,6 @@ public class StudyDAO {
 		try {
 			pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, no);
-			pstmt.executeUpdate();
 			int n = pstmt.executeUpdate();
 			
 			if(n > 0) {
@@ -304,6 +321,9 @@ public class StudyDAO {
 			
 		} catch (SQLException e) {
 			System.err.println("deleteStudy ERR : " + e.getMessage());
+		}
+		finally {
+			dataFactory.close(connect, pstmt, null);
 		}
 		
 		return state;

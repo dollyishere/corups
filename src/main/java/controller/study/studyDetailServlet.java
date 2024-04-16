@@ -2,6 +2,7 @@ package controller.study;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,9 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ChapterDAO;
+import dao.MemberDAO;
+import dao.MemberStudyDAO;
+import dao.StudyDAO;
 import dto.ChapterDTO;
+import dto.MemberDTO;
+import dto.MemberStudyDTO;
+import dto.StudyDTO;
 
 
 /**
@@ -59,20 +67,43 @@ public class studyDetailServlet extends HttpServlet {
 		*/
 		 // 해당 스터디에 대한 챕터 목록과 스터디 이름 가져오기
         ArrayList<ChapterDTO> chapterList = this.chapterDAO.chapterListWithStudyName(studyNo);
-        chapterList.get(0).getStudyName();
-        System.out.println("------");
-        System.out.println(chapterList.get(0).getStudyName());
-
+        
+        StudyDAO studyDAO = new StudyDAO();
+        StudyDTO study = studyDAO.studyDetail(studyNo);
 
 		// chapterListServlet으로 전달할 studyNo와 chapterList를 request 속성으로 설정
 		request.setAttribute("studyNo", studyNo);
 		request.setAttribute("chapterList", chapterList);
-		request.setAttribute("studyName",chapterList.get(0).getStudyName());
+		request.setAttribute("studyName",study.getName());
+		request.setAttribute("study", study);
 		// chapterListServlet으로 포워딩
-		request.getRequestDispatcher("/study/studyDetail.jsp").forward(request, response);
 		
-
+		// member_study
+		MemberStudyDAO memberStudyDAO = new MemberStudyDAO();
+		List<String> memberIdList = memberStudyDAO.memberIdList(studyNo);
+		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		MemberDAO memberDAO = new MemberDAO();
+		for(int i=0; i < memberIdList.size(); i++) {
+			memberList.add(memberDAO.detail(memberIdList.get(i)));
+		}
+		request.setAttribute("memberStudyList", memberList);
+		
+		
+		HttpSession session = request.getSession();
+//		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
+		boolean  isAdmin = false; // << 이 코드 나중에 삭제(관리자 로그인 연결되면)
+	if( isAdmin ) {	
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/studyDetail.jsp");
+		requestDispatcher.forward(request, response);
+	}else {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/studyDetail.jsp");
+		requestDispatcher.forward(request, response);
 	}
+		
+			
+	}
+		
+		 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
