@@ -10,59 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>스터디 상세 - 챕터부분</title>
-<style>
-	#studyName {
-		margin-left: 50px;
-		border: 1px solid black;
-		width: 40%;
-	}
-	#studyDetail {
-		margin-right: 50px;
-		border: 1px solid black;
-		width: 40%
-	}
-	#studyMember {
-		margin-top: 300px;
-		border: 1px solid black;
-	}
-	#chapter {
-	}
-	.rect {
-		width: 200px;
-		height: 100px;
-		border: 1px solid black;
-	}
-</style>
 </head>
 <body>
-	<div id="studyName">
-		<p>
-			${studyName}
-		</p>
-	</div>
-	<div id="studyDetail">
-		<p>
-			${study.detail}
-		</p>
-	</div>
-<c:choose>
-	<c:when test="${empty memberStudyList}" >
-		<div class="rect">
-			<p>등록된 참여자가 없습니다.</p>
-		</div>
-	</c:when>
-	<c:when test="${!empty memberStudyList }">
-		<c:forEach var="member" items="${memberStudyList}">	
-			<div id="studyMember">	
-				<p>
-					${member.id}	
-					${member.image} 
-				</p>
-			</div>
-		</c:forEach>
-	</c:when>
-</c:choose>	
-	<div id="chapter" align="center" style="border: 0.5px solid black;">
+	<div align="center" style="border: 0.5px solid black;">
 
 		<h4>${studyName} 의 챕터</h4>
 		<div align="center">
@@ -124,6 +74,7 @@
 			</table>
 		</div>
 	</div>
-					<input type="button" onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'" value="스터디 수정하기">							
+					<input type="button" onclick="window.location.href='${contextPath}/study/studyUpdateServlet?no=${studyNo}'" value="스터디 수정하기">
+					<input type="button" onclick="window.location.href='${contextPath}/study/studyListServlet?no=${studyNo}'" value="확인">
 </body>
 </html>

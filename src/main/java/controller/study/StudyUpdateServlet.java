@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.StudyDAO;
 import dto.StudyDTO;
@@ -51,9 +52,21 @@ public class StudyUpdateServlet extends HttpServlet {
 		// View 사용될 객체 설정
 		request.setAttribute("studyDTO", studyOne);
 		
-		// View로 보내기
+//		// View로 보내기
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/studyUpdate.jsp");
+//		requestDispatcher.forward(request, response);
+		
+		// View 보내기
+		HttpSession session = request.getSession();
+//		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
+		boolean  isAdmin = true; // << 이 코드 나중에 삭제(관리자 로그인 연결되면)
+	if( isAdmin ) {	
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/studyUpdate.jsp");
+		requestDispatcher.forward(request, response);
+	}else {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/studyUpdate.jsp");
 		requestDispatcher.forward(request, response);
+	}
 	}
 
 
@@ -61,6 +74,7 @@ public class StudyUpdateServlet extends HttpServlet {
 		// 인코딩
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
+//		System.out.println("들어왔나");
 		
 		// 파라미터
 		String name = request.getParameter("name");
@@ -68,6 +82,7 @@ public class StudyUpdateServlet extends HttpServlet {
 		String studyPwd = request.getParameter("studyPwd");
 		int maxNum = Integer.parseInt(request.getParameter("maxNum"));
 		String category = request.getParameter("category");
+		String studyNo = request.getParameter("no");
 		
 		// 모델
 		StudyDTO studyDTO = new StudyDTO();
@@ -76,6 +91,8 @@ public class StudyUpdateServlet extends HttpServlet {
 		studyDTO.setStudyPwd(studyPwd);
 		studyDTO.setMaxNum(maxNum);
 		studyDTO.setCategory(category);
+		studyDTO.setNo(Integer.parseInt(studyNo));
+		System.out.println(studyDTO);
 		
 		// 게시물 등록
 		this.studyDAO = new StudyDAO();

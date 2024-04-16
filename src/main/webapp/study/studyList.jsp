@@ -22,18 +22,18 @@
 </script>
 </head>
 <body>
-	<form action="" method="get">
-		<p>
-			<select name="searchType">
-				<option value="ALL" selected="selected">전체검색</option>
-				<option value="SUBJECT">제목</option>
-				<option value="WRITER">작성자</option>
-				<option value="CONTENTS">내용</option>
-			</select> 
-			<input type="text" name="searchText">
-			<input type="submit" value="검색" />
-		</p>
-	</form>
+	<form action="studySearchServlet" method="post">
+    <select name="searchStatus" id="searchStatus">
+    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
+        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
+        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
+        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
+        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
+    </select>
+    <input type="text" id="searchText" name="searchText" placeholder="검색어를 입력하세요" value="${searchText}">
+    <input type="submit" value="검색">
+    </form>
+    
 <c:choose>
 	<c:when test="${empty studyList}" >
 		<div class="rect">
