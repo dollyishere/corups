@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ page import="java.util.Map, java.util.HashMap" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,7 @@
 	    align-items: flex-start;
 	}
 </style>
+
 </head>
 <body>
 	<div class="container-fluid m-5">
@@ -32,10 +33,68 @@
 					</a>
 					<div class="custom-form text-center" style="width: 30rem;  min-height: 30rem;">
 						<form action="<c:url value="/study/studyListServlet" />" method="get">
-						    <button type="submit" style="background-color: #B9A4BF; color:white;" class="btn">
+						    <button type="submit" style="background-color: #B9A4BF; color:white;" class="btn my-3">
 						        <b style="color:white;">스터디 참여</b>
 						    </button>
-						</form>
+						</form><br>
+						<div class="containter">
+							<c:choose>
+								<c:when test="${ empty myStudyList }">
+									<%-- if() 부분 --%>
+									<tr>
+										<td class="my-5" valign="middle" align="center" colspan="7">진행 중인 study가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<%-- else 부분 --%>
+									<c:forEach var="study" items="${ myStudyList }" varStatus="status">
+										<div class="row justify-content-center">
+										    <div class="col-auto">
+												<div class="card border-light text-center mb-3" style="width: 10rem;">
+												  <div class="card-header"><b>${ study.name }</b></div>
+												  <div class="card-body">
+												    <p class="card-text"><b>${ myStudyMemberNumList.get(status.index) }/${ study.maxNum }</b></p>
+												    <c:choose>
+													    <c:when test="${study.category eq 'r'}">
+													        <p class="card-text"><span class="badge text-bg-primary">독서</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 't'}">
+													        <p class="card-text"><span class="badge text-bg-primary">여행</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'g'}">
+													        <p class="card-text"><span class="badge text-bg-primary">게임</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'm'}">
+													        <p class="card-text"><span class="badge text-bg-primary">영화</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'e'}">
+													        <p class="card-text"><span class="badge text-bg-primary">운동</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'c'}">
+													        <p class="card-text"><span class="badge text-bg-primary">요리</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'p'}">
+													        <p class="card-text"><span class="badge text-bg-primary">프로그래밍</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 's'}">
+													        <p class="card-text"><span class="badge text-bg-primary">노래</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'l'}">
+													        <p class="card-text"><span class="badge text-bg-primary">어학</span></p>
+													    </c:when>
+													    <c:when test="${study.category eq 'o'}">
+													        <p class="card-text"><span class="badge text-bg-primary">기타</span></p>
+													    </c:when>
+													</c:choose>
+												    <a href="#" class="btn btn-primary btn-sm">상세보기</a>
+												  </div>
+												</div>
+										    </div>
+									  </div>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 				</div>
 				<!-- 내 todo 리스트 -->
@@ -61,7 +120,7 @@
 								<c:when test="${ empty todoList }">
 									<%-- if() 부분 --%>
 									<tr>
-										<td class="m-5" valign="middle" align="center" colspan="7">진행 중인 todo가 없습니다.</td>
+										<td class="my-5" valign="middle" align="center" colspan="7">진행 중인 todo가 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -81,7 +140,7 @@
 											<!-- 상태 -->
 											<td align="center"><c:out value="${ statusList.get(status.index).getStatus() }" /></td>
 											<td>
-												<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;nowPath=a" /> ">
+												<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;" /> ">
 													상세보기
 												</a>
 											</td>
