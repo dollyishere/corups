@@ -54,6 +54,8 @@
 		})
 	})
 	
+	
+	
 </script>
 </head>
 <body>
@@ -65,12 +67,15 @@
 			   <div class="col-md-1">
 		       </div>
 		        <div class="col-md-auto">
-		            <div class="custom-form text-center" style="width: 30rem;"> <!-- text-center 클래스 추가 -->
+		        	<!-- 회원가입 폼 -->
+		            <div class="custom-form text-center" style="width: 30rem;">
 		                <form enctype="multipart/form-data" accept-charset="UTF-8">
+		                	<!-- 프로필 이미지 -->
 		                 	<div class="mb-2">
 		                       	<div  class="rounded-circle d-inline-block overflow-hidden p-0" style="width: 160px; height:160px; border: none; background-color: black;" id="imagePreview"></div>
 		                        <input type="file" name="image" id="image" accept="image/*" class="form-control" >
 		                    </div>
+		                    <!-- id -->
 		                     <div class="mb-2 row  justify-content-start align-items-center">
 							    <div class="col-md-3">
 							        <label for="exampleInputId" class="form-label" style="color:#292929;"><b>Id</b></label>
@@ -78,10 +83,12 @@
 							    <div class="col-md-auto">
 							        <input type="text" name="id" id="id" size="20" maxlength="20"  class="form-control" required />
 							    </div>
+							    <!-- id 중복 체크 -->
 							    <div class="col-md-3">
 							        <input type="button" name="confirmDuplicate" id="double" onclick="fn_process()" value="ID check" class="btn" style="background-color:#D996B5; color:white;" id="form-submit" />
 							    </div>
 							</div>
+							<!-- 비밀번호 -->
 		                    <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                        <label for="exampleInputPassword1" class="form-label" style="color:#292929;"><b>Password</b></label>
@@ -92,6 +99,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
+		                    <!-- 비밀번호 체크 -->
 		                    <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Password Check</b></label>
@@ -103,6 +111,7 @@
 		                        	<span id="pwd_message"></span>
 							    </div>
 		                    </div>
+		                    <!-- 이름 -->
 		                    <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Name</b></label>
@@ -113,6 +122,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
+		                    <!-- 생일 -->
 		                    <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputName" class="form-label" style="color:#292929;"><b>Birthday</b></label>
@@ -123,6 +133,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
+		                    <!-- 이메일 -->
 		                   	<div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputEmail" class="form-label" style="color:#292929;"><b>Email</b></label>
@@ -133,6 +144,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
+		                    <!-- 직업 선택 -->
 		                    <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputJob" class="form-label" style="color:#292929;"><b>Job</b></label>
@@ -150,7 +162,7 @@
 		                        <div class="col-md-3">
 							    </div>
 		                    </div>
-	
+							<!-- 흥미 -->
 		                   <div class="mb-2 row  justify-content-start align-items-center">
 		                    	<div class="col-md-3">
 		                         <label for="exampleInputPassword2" class="form-label" style="color:#292929;"><b>Interests</b></label>
@@ -169,6 +181,7 @@
 									<label><input type="checkbox" class="form-check-input" name="interests" value="o">기타</label>
 		                        </div>
 		                    </div>
+		                    <!-- 제출 버튼 or 리셋 버튼 -->
 		                    <div class="mb-2 d-flex justify-content-end">
 		                        <input type="button" value="signup" class="btn" style="background-color:#B9A4BF; color:white;" id="form-submit" disabled onclick="submit_form()"/>
 		                        &nbsp;

@@ -21,12 +21,14 @@
 </head>
 <body>
 	<div class="container-fluid m-5">
+	<!-- 헤터 -->
 		<c:import url="/components/defaultHeader.jsp" />
 		<div class="container-fluid m-5">
 			<div class="row justify-content-evenly align-items-flex-start">
+				<!-- 내 study 리스트 -->
 				<div class="col-md-auto mb-3">
 					<a href="<c:url value="/study/myStudyServlet" />" style="text-decoration: none;">
-					<h2 class="mb-3">My Study</h2>
+						<h2 class="mb-3">My Study</h2>
 					</a>
 					<div class="custom-form text-center" style="width: 30rem;  min-height: 30rem;">
 						<form action="<c:url value="/study/studyListServlet" />" method="get">
@@ -36,6 +38,7 @@
 						</form>
 					</div>
 				</div>
+				<!-- 내 todo 리스트 -->
 				<div class="col-md-auto  mb-3">
 					<h2 class="mb-3">My Todo</h2>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
@@ -90,6 +93,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </body>
 </html>
