@@ -91,7 +91,7 @@ public class StudyDAO {
 		ArrayList<StudyDTO> myStudyList = new ArrayList<StudyDTO>();
 		try {
 			connect = dataFactory.connection();
-			String query = "select * from study where id=? order by no desc";
+			String query = "SELECT * FROM study INNER JOIN member_study ON study.no = member_study.study_no ORDER BY study.no DESC";
 			System.out.println(query);
 			
 			pstmt = connect.prepareStatement(query);

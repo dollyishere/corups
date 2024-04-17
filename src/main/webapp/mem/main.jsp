@@ -25,7 +25,9 @@
 		<div class="container-fluid m-5">
 			<div class="row justify-content-evenly align-items-flex-start">
 				<div class="col-md-auto mb-3">
+					<a href="<c:url value="/study/myStudyServlet" />" style="text-decoration: none;">
 					<h2 class="mb-3">My Study</h2>
+					</a>
 					<div class="custom-form text-center" style="width: 30rem;  min-height: 30rem;">
 						<form action="<c:url value="/study/studyListServlet" />" method="get">
 						    <button type="submit" style="background-color: #B9A4BF; color:white;" class="btn">
