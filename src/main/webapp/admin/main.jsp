@@ -23,12 +23,14 @@
 <body>
 	<div class="container-fluid m-5">
 		<c:import url="/components/adminHeader.jsp" />
+		<!-- 환영인사 -->
 		<h3><b style="color:#F0EAEA;">관리자님, 접속을 환영합니다.</b></h3>
 		<h5 style="color:#E7DFDD;" class="mb-5">원하시는 작업을 선택해주세요.</h5>
 		<div class="container mt-5">
 			<div class="row justify-content-center align-items-flex-center mt-5">
 				<div class="col-md-auto mb-3">
 				    <div class="custom-form d-flex justify-content-center align-items-center" style="width: 20rem; height: 20rem;">
+				    <!-- 회원 관리 페이지 이동 버튼 -->
 				    	<div class="col-md-auto m-3">
 					    	<div class="material-symbols-outlined">
 								manage_accounts
@@ -42,6 +44,7 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-auto mb-3">
+					<!-- 스터디 관리 페이지 이동 버튼 -->
 				    <div class="custom-form d-flex justify-content-center align-items-center" style="width: 20rem; height: 20rem;">
 				    	<div class="col-md-auto m-3">
 					    	<div class="material-symbols-outlined">

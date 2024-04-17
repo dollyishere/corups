@@ -74,8 +74,10 @@
 </script>
 </head>
 <body>
-		<div class="container-fluid h-100">
-			<div class="row justify-content-center align-items-center h-100">
+		<div class="container-fluid m-5">
+			<c:import url="/components/defaultHeader.jsp" />
+			<div class="container-fluid m-5">
+			<div class="row justify-content-center align-items-center">
 		    	<div class="col-md-auto">
 		    		<img alt="logo.png" src="../resources/imgs/logo.png" class="mb-2">
 		   		</div>
@@ -201,6 +203,7 @@
 		            </div>
 		        </div>
 		 </div>
+			</div>
 	</div>
 </body>
 </html>
