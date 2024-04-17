@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<c:if test="${ not empty sessionScope.id  }">
+	<% response.sendRedirect(request.getContextPath() + "/member/memberDetailServlet"); %>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
