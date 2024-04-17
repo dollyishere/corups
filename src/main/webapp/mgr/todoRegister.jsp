@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>todo 등록</title>
 <script type="text/javascript" src="<c:url value="/ckeditor5/build/ckeditor.js" />"></script>
 <style>
     tfoot td {
