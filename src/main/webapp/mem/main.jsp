@@ -52,7 +52,7 @@
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
 												  <div class="card-header"><b>${ study.name }</b></div>
 												  <div class="card-body">
-												    <p class="card-text"><b style="font-size: 14px;">${ myStudyMemberNumList.get(status.index) }/${ study.maxNum }</b></p>
+												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
 													        <p class="card-text"><span class="badge text-bg-success">독서</span></p>
