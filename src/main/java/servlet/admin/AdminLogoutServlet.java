@@ -41,7 +41,7 @@ public class AdminLogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
         if (session.getAttribute("adminId") != null) {
             session.removeAttribute("adminId");
-            session.removeAttribute("isAdmin");
+			session.setAttribute("isAdmin", false);
         }
 
      // 로그아웃 성공할 시 index.jsp로
