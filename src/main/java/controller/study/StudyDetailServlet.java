@@ -19,6 +19,7 @@ import dao.StudyDAO;
 import dto.ChapterDTO;
 import dto.MemberDTO;
 import dto.StudyDTO;
+import utils.SessionUtil;
 
 /**
  * /chapter/ChapterListServlet
@@ -49,9 +50,9 @@ public class StudyDetailServlet extends HttpServlet {
 
 		
 		// studyNo 매개변수 가져오기
-		// int studyNo = Integer.parseInt(request.getParameter("studyNo"));
+		 int studyNo = Integer.parseInt(request.getParameter("studyNo"));
 
-		int studyNo = 1;
+//		int studyNo = 1;
 		System.out.println("studyNo : =====>" + studyNo);
 
 		// ChapterDAO 인스턴스 생성
@@ -59,19 +60,19 @@ public class StudyDetailServlet extends HttpServlet {
 
 		// 해당 스터디에 대한 챕터 목록과 스터디 이름 가져오기
 		ArrayList<ChapterDTO> chapterList = this.chapterDAO.chapterListWithStudyName(studyNo);
-		chapterList.get(0).getStudyName();
-		System.out.println(chapterList.get(0).getStudyName());
+//		chapterList.get(0).getStudyName();
+//		System.out.println(chapterList.get(0).getStudyName());
 
 		StudyDAO studyDAO = new StudyDAO();
 		StudyDTO study = studyDAO.studyDetail(studyNo);
 
 		// 세션에 id 가져오기
-		// String id = SessionUtil.getID(request, response);
-		// System.out.println(id);
-		request.setAttribute("userid", 1); // 여기서 1은 테스트용 사용자 ID
+		 String id = SessionUtil.getID(request, response);
+		 System.out.println(id);
+		request.setAttribute("userid", id); // 여기서 1은 테스트용 사용자 ID
 
 		// chapterListServlet으로 전달할 studyNo와 chapterList를 request 속성으로 설정
-		request.setAttribute("studyNo", studyNo);
+//		request.setAttribute("studyNo", studyNo);
 		request.setAttribute("chapterList", chapterList);
 		request.setAttribute("study", study);
 

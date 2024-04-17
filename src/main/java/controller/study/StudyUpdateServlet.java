@@ -41,8 +41,8 @@ public class StudyUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// dto
 		StudyDTO studyDTO = new StudyDTO();
-		int n = Integer.parseInt(request.getParameter("no"));
-		System.out.println("studyNo =====> " + request.getParameter("no"));
+		int n = Integer.parseInt(request.getParameter("studyNo"));
+		System.out.println("studyNo =====> " + request.getParameter("studyNo"));
 		studyDTO.setNo(n);
 		
 		// 게시물 상세 조회
