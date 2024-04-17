@@ -11,9 +11,9 @@
 <meta charset="UTF-8">
 <title>default header</title>
 <link rel="stylesheet"
-	href="../resources/css/bootstrap.min.css">
+	href="<c:url value="/resources/css/bootstrap.min.css" />">
 <link rel="stylesheet"
-	href="../css/main.css">
+	href="<c:url value="/css/main.css" />">
 <c:import url="/components/jQuerys.jsp" />
  <style>
     /* 이미지를 둥근 원으로 만들기 */
@@ -32,7 +32,7 @@
 	    <div class="col-md-4">
 	    	<!-- 로고(메인 화면으로 이동) -->
 	    	<a href="<c:url value="/member/memberDetailServlet" /> ">
-	    		<img alt="logo.png" src="../resources/imgs/logo.png" style="width:10rem" class="mb-2">
+	    		<img alt="logo.png" src="<c:url value="/resources/imgs/logo.png" />" style="width:10rem" class="mb-2">
 	    	</a>
 	    </div>
 	    <div class="col-md-4 column justify-content-center align-items-center">

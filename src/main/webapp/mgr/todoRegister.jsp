@@ -9,6 +9,19 @@
 <meta charset="UTF-8">
 <title>todo 등록</title>
 <script type="text/javascript" src="<c:url value="/ckeditor5/build/ckeditor.js" />"></script>
+<style>
+    tfoot td {
+        text-align: center;
+    }   
+    .ck.ck-editor{
+    	width:440px;
+    }
+    .ck-editor__editable {
+        max-height: 200px;
+        min-height: 200px;
+    }
+
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -17,7 +30,7 @@
 		<div class="container-fluid m-5">
 		<div class="row justify-content-center align-items-center">
 	    	<div class="col-md-auto">
-		    		<img alt="logo.png" src="../resources/imgs/logo.png" class="mb-2">
+		    		<img alt="logo.png" src="<c:url value="/resources/imgs/logo.png" />" class="mb-2">
 		   		</div>
 			   <div class="col-md-1">
 		       </div>
@@ -31,7 +44,7 @@
 	                         <label for="exampleInputClassName" class="form-label" style="color:#292929;"><b>Class name</b></label>
 	                        </div>
 	                        <div class="col-md-auto">
-	                        	클래스 이름
+	                        	${ study.name }
 	                        </div>
 	                        <div class="col-md-3">
 						    </div>
@@ -42,7 +55,7 @@
 	                         <label for="exampleInputChapterName" class="form-label" style="color:#292929;"><b>Chapter name</b></label>
 	                        </div>
 	                        <div class="col-md-auto">
-	                        	챕터이름
+	                        	${ chapter.name }
 	                        </div>
 	                        <div class="col-md-3">
 						    </div>

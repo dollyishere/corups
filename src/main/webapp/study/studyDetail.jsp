@@ -71,6 +71,7 @@
 
 </head>
 <body>
+	<c:import url="/components/defaultHeader.jsp" />
    <div>
       <h1>${study.name}</h1>
       <h3>${study.detail}</h3>

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="java.util.Map, java.util.HashMap" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,51 +46,57 @@
 								</c:when>
 								<c:otherwise>
 									<%-- else 부분 --%>
+									<div class="row justify-content-evenly">
 									<c:forEach var="study" items="${ myStudyList }" varStatus="status">
-										<div class="row justify-content-center">
 										    <div class="col-auto">
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
 												  <div class="card-header"><b>${ study.name }</b></div>
 												  <div class="card-body">
-												    <p class="card-text"><b>${ myStudyMemberNumList.get(status.index) }/${ study.maxNum }</b></p>
+												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
-													        <p class="card-text"><span class="badge text-bg-primary">독서</span></p>
+													        <p class="card-text"><span class="badge text-bg-success">독서</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 't'}">
-													        <p class="card-text"><span class="badge text-bg-primary">여행</span></p>
+													        <p class="card-text"><span class="badge text-bg-info">여행</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'g'}">
-													        <p class="card-text"><span class="badge text-bg-primary">게임</span></p>
+													        <p class="card-text"><span class="badge text-bg-danger">게임</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'm'}">
-													        <p class="card-text"><span class="badge text-bg-primary">영화</span></p>
+													        <p class="card-text"><span class="badge text-bg-warning">영화</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'e'}">
-													        <p class="card-text"><span class="badge text-bg-primary">운동</span></p>
+													        <p class="card-text"><span class="badge text-bg-info">운동</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'c'}">
-													        <p class="card-text"><span class="badge text-bg-primary">요리</span></p>
+													        <p class="card-text"><span class="adge text-bg-danger">요리</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'p'}">
-													        <p class="card-text"><span class="badge text-bg-primary">프로그래밍</span></p>
+													        <p class="card-text"><span class="badge text-bg-dark">프로그래밍</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 's'}">
 													        <p class="card-text"><span class="badge text-bg-primary">노래</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'l'}">
-													        <p class="card-text"><span class="badge text-bg-primary">어학</span></p>
+													        <p class="card-text"><span class="badge text-bg-success">어학</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'o'}">
-													        <p class="card-text"><span class="badge text-bg-primary">기타</span></p>
+													        <p class="card-text"><span class="badge text-bg-light">기타</span></p>
 													    </c:when>
 													</c:choose>
-												    <a href="#" class="btn btn-primary btn-sm">상세보기</a>
+													<form action="<c:url value="/study/studyDetailServlet" />" method="get">
+														<input type="hidden" value="${ study.no }" name="studyNo">
+													    <button type="submit" style="background-color: #D996B5; color:white;" class="btn btn-sm">
+													        <b style="color:white;">상세보기</b>
+													    </button>
+													</form><br>
 												  </div>
 												</div>
 										    </div>
-									  </div>
+									 
 									</c:forEach>
+									 </div>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -128,7 +133,7 @@
 									<c:forEach var="todo" items="${ todoList }" varStatus="status">
 										<tr>
 											<!-- 인덱스 번호 -->
-											<td align="center"><c:out value="${ status.index + 1 }" /></td>
+											<td align="center"><b><c:out value="${ status.index + 1 }" /></b></td>
 											<!-- todo 이름 -->
 											<td align="center"><c:out value="${ todo.name }" /></td>
 											<!-- study 이름 -->
@@ -140,7 +145,7 @@
 											<!-- 상태 -->
 											<td align="center"><c:out value="${ statusList.get(status.index).getStatus() }" /></td>
 											<td>
-												<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;" /> ">
+												<a href="<c:url value="/todoDetailServlet?todoNo=${ todo.no }&amp;" /> ">
 													상세보기
 												</a>
 											</td>
@@ -154,7 +159,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>
