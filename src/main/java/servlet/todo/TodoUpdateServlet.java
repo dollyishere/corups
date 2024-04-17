@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ChapterDAO;
 import dao.FileDAO;
+import dao.StudyDAO;
 import dao.TodoDAO;
+import dto.ChapterDTO;
 import dto.FileDTO;
+import dto.StudyDTO;
 import dto.TodoDTO;
 
 /**
@@ -48,7 +52,16 @@ public class TodoUpdateServlet extends HttpServlet {
 		// todoNo 으로 fileDTO 배열 가져오기
 		FileDAO fileDAO = new FileDAO();
 		ArrayList<FileDTO> files = fileDAO.fileList(todoNo);
+		
+		// Chapter 와 Study 정보 조회
+		ChapterDAO chapterDAO = new ChapterDAO();
+		ChapterDTO chapter = chapterDAO.chapterDetail(todo.getChapterNo());
+		
+		StudyDAO studyDAO = new StudyDAO();
+		StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
 
+		request.setAttribute("study", study);
+		request.setAttribute("chapter", chapter);
 		request.setAttribute("todo", todo);
 		request.setAttribute("files", files);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/todoUpdate.jsp");

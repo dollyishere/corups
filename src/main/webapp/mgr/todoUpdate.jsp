@@ -144,8 +144,8 @@
 <body>    
 <form method="post" id="myForm">
 	<table border="1">
-		<caption><b>스터디 이름</b></caption>
-		<caption>챕터 이름</caption>
+		<caption><b>${study.name}</b></caption>
+		<caption>${chapter.name}</caption>
 		<tbody>
 			<tr>
 				<th>할 일</th>

@@ -26,7 +26,7 @@ import dto.StudyDTO;
 @WebServlet("/chapter/chapterUpdateServlet")
 public class ChapterUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/** ChapterDAO */
 	private ChapterDAO chapterDAO = null;
 	private StudyDAO studyDAO = new StudyDAO();
@@ -48,20 +48,19 @@ public class ChapterUpdateServlet extends HttpServlet {
 			System.err.println("chapterNo NO!!");
 			return;
 		}
-		
+
 		int chapterNo = Integer.parseInt(chapterNoParam);
 		ChapterDTO chapter = chapterDAO.chapterDetail(chapterNo);
-		
+
 //		chapter.setNo(no);
-		
-		//study 정보 가져오기
+
+		// study 정보 가져오기
 		int studyNo = chapter.getStudyNo();
 		StudyDTO study = studyDAO.studyDetail(studyNo);
-		
+
 		// View 사용될 객체 설정
 		request.setAttribute("chapter", chapter);
 		request.setAttribute("study", study);
-		
 
 		// View로 보내기
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/chapterUpdate.jsp");
@@ -81,7 +80,7 @@ public class ChapterUpdateServlet extends HttpServlet {
 		} else {
 			// 스터디 번호가 없는 경우에 대한 에러 처리
 			response.sendRedirect(request.getContextPath() + "/errorLog.jsp");
-			System.err.println("등록error!!");
+			System.err.println("등록error!! : studyNo 없음");
 			return;
 		}
 		int chapterNo = Integer.parseInt(request.getParameter("chapterNo"));
@@ -125,11 +124,8 @@ public class ChapterUpdateServlet extends HttpServlet {
 		} else {
 			response.sendRedirect(request.getContextPath() + "/errorLog.jsp");
 			System.err.println("등록error!!");
-
-			// error.jsp 또는 chapterDetailServlet으로 이동
-			response.sendRedirect("/mgr/chapterDetailServlet");
-
 		}
 
 	}
+
 }

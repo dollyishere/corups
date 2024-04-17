@@ -53,7 +53,8 @@ function gotoUpdate(todoNo){
                 <td>${todo.name}</td>
             </tr>
             <tr>
-                <th>상태</th>
+                <th>상태
+                ${status}</th>
                 <td>
                 <input type="radio" id="status" name="status" value="D" ${status == 'D' ? 'checked' : ''}>완료
                 <input type="radio" id="status" name="status" value="P" ${status == 'P' ? 'checked' : ''}>진행중

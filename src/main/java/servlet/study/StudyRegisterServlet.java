@@ -1,6 +1,7 @@
 package servlet.study;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberStudyDAO;
+import dao.StatusDAO;
 import dao.StudyDAO;
+import dao.TodoDAO;
 import dto.MemberStudyDTO;
 import dto.StudyDTO;
 import utils.SessionUtil;
@@ -77,6 +80,7 @@ public class StudyRegisterServlet extends HttpServlet {
 			MemberStudyDAO memStudyDAO = new MemberStudyDAO();
 			memStudyDAO.insertMemberStudy(memberStudyDTO);
 		}
+		
 		
 		
 		// 페이지 이동
