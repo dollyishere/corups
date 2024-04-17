@@ -27,8 +27,8 @@
 	            	if(response == "success"){
 	                	alert("참여하였습니다.");
 	            	var joinButton = document.getElementById("joinButton");
-                    joinButton.innerHTML = '<button onclick="gotoStudyOut(${study.no})">나가기 버튼</button>';
-                    
+                    joinButton.innerHTML = '<button onclick="gotoStudyOut(${study.no})" class="btn btn-danger my-3">나가기</button>';
+                    window.location.replace("http://localhost:9000/corups//study/studyDetailServlet?studyNo=" + studyNo);
 	            	}else
 	                	alert("참여실패.");
 	            },
@@ -54,7 +54,8 @@
 	                	alert("나갔습니다.");
 	            	
 	            	 var joinButton = document.getElementById("joinButton");
-	                    joinButton.innerHTML = '<button onclick="gotoStudyRegister(${study.no})">참여하기 버튼</button>';
+	                    joinButton.innerHTML = '<button onclick="gotoStudyRegister(${study.no})" style="background-color: #B9A4BF; color:white;" class="btn my-3">참여하기</button>';
+	                    window.location.replace("http://localhost:9000/corups//study/studyDetailServlet?studyNo=" + studyNo);
 	                } else {
 	                	alert("나가기실패.");
 	                }
@@ -71,131 +72,143 @@
 
 </head>
 <body>
-	<c:import url="/components/defaultHeader.jsp" />
-   <div>
-      <h1>${study.name}</h1>
-      <h3>${study.detail}</h3>
-      <h4>참여자(${studyMemberCount}/${study.maxNum})</h4>
-      <input type="button"
-      onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyNo=${study.no}'"
-      value="스터디 수정하기">
-   </div>
-
-   <div align="center" style="border: 0.5px solid black;">
-      <c:choose>
-         <c:when test="${empty memberStudyList}">
-            <div>
-               <p>등록된 참여자가 없습니다.</p>
-            </div>
-         </c:when>
-         <c:when test="${!empty memberStudyList }">
-            <section id="studyMember">
-               <c:forEach var="member" items="${memberStudyList}">
-                  <div>
-                     <p>${member.id}</p>
-                     <p>${member.image}</p>
-                  </div>
-               </c:forEach>
-            </section>
-         </c:when>
-      </c:choose>
-   </div>
-   <br>
-
-   <div id="chapter" align="center" style="border: 0.5px solid black;">
-
-      <h3>${study.name}의 챕터</h3>
-      <div align="center">
-         <table border="1" summary="챕터 상세 - 목록">
-
-            <colgroup>
-               <col width="50" />
-               <col width="300" />
-               <col width="250" />
-               
-            </colgroup>
-            <thead>
-               <tr>
-                  <th>번호</th>
-                  <th>챕터 이름</th>
-                  <th>기간</th>
-                  <c:if test="${userid == study.createUserId}">
-                  <th>관리</th>
-               </c:if>
-               </tr>
-            </thead>
-
-            <tbody>
-            	
-               <c:choose>
-                  <c:when test="${chapterCount == 0}">
-                     <tr>
-                        <td align="center" colspan="4">등록된 챕터가 없습니다.</td>
-
-                     </tr>
-                  </c:when>
-                  <c:otherwise>
-                     <c:forEach var="chapter" items="${chapterList}"
-                        varStatus="status">
-                        <tr>
-                           <!-- 챕터 번호 -->
-                           <td align="center">${status.index +1}</td>
-                           <input type="hidden" name="chapterNo" value="${chapter.no}" />
-                           <!-- 챕터 제목 -->
-                           <td align="center"><a
-                              href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />">
-                                 <c:out value="${chapter.name}" />
-                           </a></td>
-                           <!-- 챕터 기간 -->
-                           <td align="center"><c:out value="${chapter.startDate}" /> ~ <c:out value="${chapter.endDate}" /></td>
-                           
-                        
-                        <!-- 삭제 버튼 -->
-                        <td align="center">
-                           <!-- userid가 1인 경우에만 삭제 버튼 표시 --> <c:if test="${userid == study.createUserId}">
-                            <button onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>
-                                            
-                              <button onclick="deleteChapter(${chapter.no})">삭제</button>
-                              </tr>
+	<div class="container-fluid m-5">
+			<c:import url="/components/defaultHeader.jsp" />
+			<div class="container-fluid">
+			<div class="row justify-content-center align-items-center">
+		    	<div class="col-md-auto">
+		    		    <div class="">
+					     <h1><b>${study.name}</b></h1>
+					      <h3>${study.detail}</h3>
+					       <c:if test="${userid == study.createUserId}">
+					       		<div class="btn-group">
+					       			<input type="button"
+								      	onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyNo=${study.no}'"
+								      	value="스터디 수정" style="background-color: #B9A4BF; color:white;" class="btn btn-sm">
+								        <button onclick="window.location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'"  style="background-color: #D996B5; color:white;" class="btn btn-sm">
+								            챕터 추가
+								        </button>
+					       		</div>
+					       </c:if>
+					   </div>
+				<div class="row justify-content-evenly align-items-flex-start mt-3">
+				<!-- study 참가자 리스트 -->
+				<div class="col-md-auto mb-3">
+					<h3 class="mb-3"><b>참여자</b></h3>
+					<div class="custom-form text-center" style="width: 10rem;  min-height: 30rem;">
+						<b style="font-size: 12px;">참여자(${studyMemberCount}/${study.maxNum})</b>
+						<c:choose>
+						    <c:when test="${userid != study.createUserId}">
+						        <c:set var="join" value="false"/>
+						        <c:forEach var="member" items="${memberStudyList}">
+						            <c:if test="${member.id == userid}">
+						                <c:set var="join" value="true"/>
+						            </c:if>
+						        </c:forEach>
+						        <span id="joinButton">
+						            <c:choose>
+						                <c:when test="${join}">
+						                    <button onclick="gotoStudyOut(${study.no})" class="btn btn-danger my-3">나가기</button>
+						                </c:when>
+						                <c:otherwise>
+						                    <button onclick="gotoStudyRegister(${study.no})" style="background-color: #B9A4BF; color:white;" class="btn my-3">참여하기</button>
+						                </c:otherwise>
+						            </c:choose>
+						        </span>
+						    </c:when>
+						    
+						</c:choose>
+						
+						<div class="containter">
+							<c:choose>
+								 <c:when test="${empty memberStudyList}">
+									<%-- if() 부분 --%>
+									<tr>
+										<td class="my-5" valign="middle" align="center" colspan="7">참가자가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<%-- else 부분 --%>
+									<div class="row justify-content-evenly">
+									<c:forEach var="member" items="${memberStudyList}">
+						                  <div class="m-2">
+									       	<button type="button" class="rounded-circle d-inline-block overflow-hidden p-0 mb-2" style="width: 40px; height: 40px; border: none; background-color: ${member.image == '0_p_img.jpg' ? '#292929' : 'transparent'};" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									  			<img src="${pageContext.request.contextPath}/uploads/profile_img/${ member.image }" alt="" class="img-fluid">
+											</button>
+											<b>${ member.id }</b>
+						                  </div>
+						               </c:forEach>
+									 </div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+				</div>
+				<!-- 스터디 챕터 리스트 -->
+				<div class="col-md-auto text-center  mb-3">
+					<h3 class="mb-3"><b>${study.name}의 챕터</b></h3>
+					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
+					<table class="m-3" style="width: 40rem;">
+					  <thead>
+					    <tr>
+					    <th scope="col">#</th>
+					      <th scope="col">Chapter명</th>
+					      <th scope="col">시작일</th>
+					      <th scope="col">종료일</th>
+					      <th scope="col">상세보기</th>
+					      <c:if test="${userid == study.createUserId}">
+                           	<th scope="col" >관리</th>
                            </c:if>
-                           
-                        </td>
-                     </c:forEach>
-                  </c:otherwise>
-              </c:choose>	
-              	<c:choose>
-				    <c:when test="${userid != study.createUserId}">
-				        <c:set var="join" value="false"/>
-				        <c:forEach var="member" items="${memberStudyList}">
-				            <c:if test="${member.id == userid}">
-				                <c:set var="join" value="true"/>
-				            </c:if>
-				        </c:forEach>
-				        <span id="joinButton">
-				            <c:choose>
-				                <c:when test="${join}">
-				                    <button onclick="gotoStudyOut(${study.no})">나가기 버튼</button>
-				                </c:when>
-				                <c:otherwise>
-				                    <button onclick="gotoStudyRegister(${study.no})">참여하기 버튼</button>
-				                </c:otherwise>
-				            </c:choose>
-				        </span>
-				    </c:when>
-				    <c:otherwise>
-				        <button onclick="window.location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'">
-				            chapter 추가
-				        </button>
-				    </c:otherwise>
-				</c:choose>
-				              	
-            </tbody>
-         </table>
-         <br>
-      </div>
-   </div>
-
-
+					    </tr>
+					  </thead>
+						  <tbody class="table-group-divider">
+						  	<c:choose>
+								<c:when test="${ empty chapterList }">
+									<%-- if() 부분 --%>
+									<tr>
+										<td class="my-5" valign="middle" align="center" colspan="7">등록된 Chapter가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<%-- else 부분 --%>
+									<c:forEach var="chapter" items="${chapterList}" varStatus="status">
+										<tr>
+											<!-- 인덱스 번호 -->
+											<td align="center"><b><c:out value="${ status.index + 1 }" /></b></td>
+											<!-- chapter 이름 -->
+											<td align="center"><c:out value="${ chapter.name }" /></td>
+											<!-- 시작일 -->
+											<td align="center"><c:out value="${ chapter.startDate }" /></td>
+											<!-- 종료일 -->
+											<td align="center"><c:out value="${ chapter.endDate }" /></td>
+											<td>
+												<a href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />">
+													상세보기
+												</a>
+											</td>
+											<!-- 수정 & 삭제 버튼 -->
+				                           <c:if test="${userid == study.createUserId}">
+				                           		<td align="center">
+				                           		<div class="btn-group" role="group">
+					                           		<button class="btn btn-warning  btn-sm" onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" />수정</button>  
+					                              	<button class="btn btn-danger  btn-sm" onclick="deleteChapter(${chapter.no})">삭제</button>
+				                           		</div>
+				                            	
+				                              </td>
+				                           </c:if>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		    	</div>
+		  </div>
+		  </div>
+	</div>
 </body>
 <script>
 <!-- 챕터 삭제 함수 -->

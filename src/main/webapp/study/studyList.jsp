@@ -24,17 +24,23 @@
 <body>
 	<div class="container-fluid m-5">
 		<c:import url="/components/defaultHeader.jsp" />
-		<form action="studySearchServlet" method="post">
-		    <select name="searchStatus" id="searchStatus">
-		    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
-		        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
-		        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
-		        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
-		        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
-		    </select>
-		    <input type="text" id="searchText" name="searchText" placeholder="검색어를 입력하세요" value="${searchText}">
-		    <input type="submit" value="검색"  style="background-color: #D996B5; color:white;"  class="btn btn-sm">
-		 </form>
+			<form action="studySearchServlet" method="post" class="row justify-content-center align-items-center">
+			    <div class="col-md-auto">
+			    	<select class="form-select" name="searchStatus" id="searchStatus">
+				    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
+				        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
+				        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
+				        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
+				        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
+				    </select>
+			    </div>
+			    <div class="col-md-auto">
+			    	  <input type="text" id="searchText" name="searchText" max="100" size="20" placeholder="검색어를 입력하세요" class="form-control" value="${searchText}">
+			    </div>
+			    <div class="col-md-auto">
+			    	<input type="submit" value="검색"  style="background-color: #D996B5; color:white;"  class="btn btn-sm">
+			    </div>
+			 </form>
 		<div class="container-fluid m-5">
 			<div class="row justify-content-center align-items-center">
 		    	<div class="col-md-auto">
