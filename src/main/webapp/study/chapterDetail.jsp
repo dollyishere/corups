@@ -45,111 +45,97 @@
 </script>
 </head>
 <body>
-	<h2 align="center">
-	<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
-	${study.name}
-	</a>
-	</h2>
-
-	<div align="center">
-		<table align="center" border="1" summary="챕터 상세">
-			<tr>
-				<div style="display: inline-block;">
-					<h3 align="center">${chapter.name}</h3>
-					<c:choose>
-						<c:when test="${userid == study.createUserId}">
-						<input type="button" value="todo 추가"
-						onclick="location.href='${contextPath}/todoRegisterServlet?chapterNo=${chapter.no}'" />
-						</c:when>
-					</c:choose>
+	<div class="container-fluid m-5">
+			<c:import url="/components/defaultHeader.jsp" />
+			<div class="container-fluid">
+			<div class="row justify-content-center align-items-center">
+		    	<div class="col-md-auto">
+		    		    <div class="">
+		    		     <h1><b>${chapter.name}</b></h1>
+					     <h5 align="center">
+							<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
+								<b>${study.name}</b>
+								</a>
+							</h5>
+					     
+					       <c:if test="${userid == study.createUserId}">
+					       		<div class="btn-group">
+					       			<input type="button"
+								      	 onclick="location.href='${contextPath}/chapter/chapterUpdateServlet?chapterNo=${chapter.no}'" 
+								      	value="챕터 수정" style="background-color: #B9A4BF; color:white;" class="btn btn-sm">
+								        <input type="button" value="Todo 추가"
+											onclick="location.href='${contextPath}/todoRegisterServlet?chapterNo=${chapter.no}'"   style="background-color: #D996B5; color:white;" class="btn btn-sm">
+					       		</div>
+					       </c:if>
+					   </div>
+				<!-- 스터디 챕터 리스트 -->
+				<div class="col-md-auto text-center my-3">
+					<h3 class="mb-3"><b>${chapter.name}의 Todo</b></h3>
+					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
+					<table class="m-3" style="width: 40rem;">
+					  <thead>
+					    <tr>
+					    <th scope="col">#</th>
+					      <th scope="col">Todo명</th>
+					      <th scope="col">시작일</th>
+					      <th scope="col">종료일</th>
+					      <th scope="col">상세보기</th>
+					      <c:if test="${userid == study.createUserId}">
+                           	<th scope="col" >관리</th>
+                           </c:if>
+					    </tr>
+					  </thead>
+						  <tbody class="table-group-divider">
+						  <input type="hidden" name="chapterNo" value="${chapter.no}">
+						  	<c:choose>
+						  		
+								<c:when test="${empty todoArray}">
+									<%-- if() 부분 --%>
+									<tr>
+										<td class="my-5" valign="middle" align="center" colspan="7">등록된 Todo가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<%-- else 부분 --%>
+									<c:forEach var="todo" items="${todoArray}" varStatus="status">
+										<tr>
+											<!-- 인덱스 번호 -->
+											<td align="center"><b><c:out value="${ status.index + 1 }" /></b></td>
+											<!-- todo 이름 -->
+											<td align="center"><c:out value="${ todo.name }" /></td>
+											<!-- 시작일 -->
+											<td align="center"><c:out value="${ todo.startDate }" /></td>
+											<!-- 종료일 -->
+											<td align="center"><c:out value="${ todo.endDate }" /></td>
+											<td>
+												<a href="<c:url value='/todoDetailServlet?todoNo=${todo.no}' />">
+													상세보기
+												</a>
+											</td>
+											<!-- 수정 & 삭제 버튼 -->
+				                           <c:if test="${userid == study.createUserId}">
+				                           		<td align="center">
+				                           		<div class="btn-group" role="group">
+					                           		<button class="btn btn-warning  btn-sm" onclick="location.href='${contextPath}/todoUpdateServlet?todoNo=${todo.no}'" />수정</button>  
+					                              	<button class="btn btn-danger  btn-sm" onclick="deleteTodo(${todo.no})">삭제</button>
+				                           		</div>
+				                            	
+				                              </td>
+				                           </c:if>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						  </tbody>
+						</table>
+					</div>
 				</div>
-			</tr>
-
-			<colgroup>
-				<col width="50" />
-				<col width="300" />
-				<col width="200" />
-				<col width="200" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th>순번</th>
-					<th>todo 이름</th>
-					<th>시작일</th>
-					<th>마감일</th>
-					<c:if test="${userid == study.createUserId}">
-						<th>관리</th>
-					</c:if>
-
-				</tr>
-			</thead>
-
-			<tbody>
-				<!-- 개인 할 일 목록-->
-				<input type="hidden" name="chapterNo" value="${chapter.no}">
-				<c:choose>
-					<c:when test="${empty todoArray}">
-						<tr>
-							<td align="center" colspan="5">할 일이 없습니다.</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="todo" items="${todoArray}" varStatus="status">
-							<tr>
-								<!-- 할 일 번호 -->
-								<td align="center">${status.index + 1}</td>
-
-								<!-- 할 일 이름 -->
-								<td><a
-									href="<c:url value='/todoDetailServlet?todoNo=${todo.no}' />">
-										<c:out value="${todo.name}" />
-								</a></td>
-
-								<!-- 할 일 기간 -->
-								<td align="center">${todo.startDate}</td>
-								<td align="center">${todo.endDate}</td>
-
-								<!-- 상태 -->
-								<!-- 삭제 버튼 -->
-								<td align="center">
-									<c:if test="${userid == study.createUserId}">
-									 <button onclick="location.href='${contextPath}/todoUpdateServlet?todoNo=${todo.no}'" />수정</button>
-                                           
-										<button onclick="deleteTodo(${todo.no})">삭제</button>
-										
-									</c:if>
-								</td>
-
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-				<!-- 두 번째 파일의 개인 할 일 목록 코드 끝 -->
-			</tbody>
-
-			<tfoot>
-				<tr>
-					<!-- userid가 study.createUserId인 경우에만 삭제 버튼 표시 - colspan5 -->
-					<c:choose>
-						<c:when test="${userid == study.createUserId}">
-							<td colspan="5" align="center"><input type="button"
-								value="목록(뒤로가기)"
-								onclick="location.href='<c:url value='/study/studyDetailServlet?studyNo=${chapter.studyNo}' />'" />
-							</td>
-						</c:when>
-						<c:otherwise>
-							<td colspan="4" align="center"><input type="button"
-								value="목록(뒤로가기)"
-								onclick="location.href='<c:url value='/study/studyDetailServlet?studyNo=${chapter.studyNo}' />'" />
-							</td>
-						</c:otherwise>
-					</c:choose>
-
-
-				</tr>
-			</tfoot>
-		</table>
+			</div>
+		    	</div>
+		  </div>
+		  </div>
 	</div>
-
+</body>
+</html>
 </body>
 </html>
