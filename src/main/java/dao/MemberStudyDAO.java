@@ -104,7 +104,33 @@ public class MemberStudyDAO {
 		} catch (SQLException e) {
 			System.err.println("memberIdList(): " + e.getMessage());
 		} finally {
-			datasource.close(connector, pstmt, rs);
+			datasource.close(connector, pstmt, null);
+		}
+		
+		return success;
+	}
+	
+	
+	
+	public boolean deleteMemberStudy(String id, int studyNo) {
+		boolean success = false;
+		
+		try {
+			connector = datasource.connection();
+			String query = "DELETE FROM member_study WHERE member_id=? AND study_no=?";
+			
+			pstmt = connector.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, studyNo);
+			int n = pstmt.executeUpdate();
+			System.out.println(n);
+			if(n > 0)
+				success = true;
+			
+		} catch (SQLException e) {
+			System.err.println("deleteMemberStudy(): " + e.getMessage());
+		} finally {
+			datasource.close(connector, pstmt, null);
 		}
 		
 		return success;

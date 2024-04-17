@@ -10,12 +10,71 @@
 <head>
 <meta charset="UTF-8">
 <title>스터디 상세 - 챕터부분</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script type="text/javascript">
+	function gotoStudyRegister(studyNo){
+		var result = confirm("참여하시겠습니까?");
+		if(result){
+			$.ajax({
+	            url: "${contextPath}/studyMemberRegisterServlet",
+	            type: "POST",
+	            data: {
+	            	studyNo : studyNo
+	            },		
+	            dataType: "text",  // 응답 데이터 타입 지정
+	            success: function(response){
+	            	if(response == "success"){
+	                	alert("참여하였습니다.");
+	            	var joinButton = document.getElementById("joinButton");
+                    joinButton.innerHTML = '<button onclick="gotoStudyOut(${study.no})">나가기 버튼</button>';
+                    
+	            	}else
+	                	alert("참여실패.");
+	            },
+	            error: function(error){
+	                alert("Error: " + error);  // 에러 처리
+	            }
+	        });
+		}
+	}
+	
+	function gotoStudyOut(studyNo){
+		var result = confirm("나가시겠습니까?");
+		if(result){
+			$.ajax({
+	            url: "${contextPath}/studyMemberDeleteServlet",
+	            type: "POST",
+	            data: {
+	            	studyNo : studyNo
+	            },		
+	            dataType: "text",  // 응답 데이터 타입 지정
+	            success: function(response){
+	            	if(response == "success"){
+	                	alert("나갔습니다.");
+	            	
+	            	 var joinButton = document.getElementById("joinButton");
+	                    joinButton.innerHTML = '<button onclick="gotoStudyRegister(${study.no})">참여하기 버튼</button>';
+	                } else {
+	                	alert("나가기실패.");
+	                }
+	            },
+	            error: function(error){
+	                alert("Error: " + error);  // 에러 처리
+	            }
+	        });
+		}
+	}
+	
+</script>
+
 
 </head>
 <body>
    <div>
       <h1>${study.name}</h1>
       <h3>${study.detail}</h3>
+      <h4>참여자(${studyMemberCount}/${study.maxNum})</h4>
       <input type="button"
       onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyNo=${study.no}'"
       value="스터디 수정하기">
@@ -66,9 +125,7 @@
             </thead>
 
             <tbody>
-               <input type="button" value="chapter 추가"
-                  onclick="window.location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'" />
-
+            	
                <c:choose>
                   <c:when test="${chapterCount == 0}">
                      <tr>
@@ -104,24 +161,33 @@
                         </td>
                      </c:forEach>
                   </c:otherwise>
-               </c:choose>
-	              <c:if test="${userid != study.createUserId}">
-				    <c:set var="join" value="false"/>
-				    <c:forEach var="member" items="${memberStudyList}">
-				        <c:if test="${member.id == userid}">
-				            <c:set var="join" value="true"/>
-				        </c:if>
-				    </c:forEach>
-				    
-				    <c:choose>
-				        <c:when test="${join}">
-				            <button onclick="">나가기 버튼</button>
-				        </c:when>
-				        <c:otherwise>
-				            <button onclick="">참여하기 버튼</button>
-				        </c:otherwise>
-				    </c:choose>
-				</c:if>
+              </c:choose>	
+              	<c:choose>
+				    <c:when test="${userid != study.createUserId}">
+				        <c:set var="join" value="false"/>
+				        <c:forEach var="member" items="${memberStudyList}">
+				            <c:if test="${member.id == userid}">
+				                <c:set var="join" value="true"/>
+				            </c:if>
+				        </c:forEach>
+				        <span id="joinButton">
+				            <c:choose>
+				                <c:when test="${join}">
+				                    <button onclick="gotoStudyOut(${study.no})">나가기 버튼</button>
+				                </c:when>
+				                <c:otherwise>
+				                    <button onclick="gotoStudyRegister(${study.no})">참여하기 버튼</button>
+				                </c:otherwise>
+				            </c:choose>
+				        </span>
+				    </c:when>
+				    <c:otherwise>
+				        <button onclick="window.location.href='${contextPath}/chapter/chapterRegisterServlet?studyNo=${study.no}'">
+				            chapter 추가
+				        </button>
+				    </c:otherwise>
+				</c:choose>
+				              	
             </tbody>
          </table>
          <br>

@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("id", id);
 			session.setAttribute("img", member.getImage());
 			session.setAttribute("name", member.getName());
+			session.setAttribute("isAdmin", false);
 			out.write("login");
 		} else {
 			out.write("login_error");

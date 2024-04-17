@@ -1,4 +1,4 @@
-package controller.chapter;
+package servlet.chapter;
 
 import java.io.IOException;
 
