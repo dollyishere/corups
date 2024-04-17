@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MemberStudyDAO;
 import dao.StudyDAO;
+import dto.MemberStudyDTO;
 import dto.StudyDTO;
 import utils.SessionUtil;
 
@@ -48,6 +50,9 @@ public class StudyRegisterServlet extends HttpServlet {
 		int maxNum = Integer.parseInt(request.getParameter("maxNum"));
 		String category = request.getParameter("category");
 
+		// 세션에서 id 가져오기
+		String id = SessionUtil.getID(request, response);
+		
 		// 모델
 		StudyDTO studyDTO = new StudyDTO();
 		studyDTO.setName(name);
@@ -55,12 +60,24 @@ public class StudyRegisterServlet extends HttpServlet {
 		studyDTO.setStudyPwd(studyPwd);
 		studyDTO.setMaxNum(maxNum);
 		studyDTO.setCategory(category);
-		studyDTO.setCreateUserId(SessionUtil.getID(request, response));
+		studyDTO.setCreateUserId(id);
 		
 		
 		// 게시물 등록
 		this.studyDAO = new StudyDAO();
-		this.studyDAO.insertStudy(studyDTO);
+		int studyNo = this.studyDAO.insertStudy(studyDTO);
+		
+		MemberStudyDTO memberStudyDTO = new MemberStudyDTO();
+		System.err.println(studyNo);
+		if(studyNo > 0) {
+			// memberStudyDTO 생성
+			memberStudyDTO.setMemberId(id);
+			memberStudyDTO.setStudyNo(studyNo);			
+			// studyDAO.insertStudy()
+			MemberStudyDAO memStudyDAO = new MemberStudyDAO();
+			memStudyDAO.insertMemberStudy(memberStudyDTO);
+		}
+		
 		
 		// 페이지 이동
 		response.sendRedirect("studyListServlet");

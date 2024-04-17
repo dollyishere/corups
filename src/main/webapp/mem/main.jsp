@@ -37,7 +37,9 @@
 					</div>
 				</div>
 				<div class="col-md-auto  mb-3">
+					<a href="<c:url value="../todoListServlet" />" style="text-decoration: none;">
 					<h2 class="mb-3">My Todo</h2>
+					</a>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
 					<table class="m-3" style="width: 40rem;">
 					  <thead>
@@ -64,17 +66,17 @@
 									<c:forEach var="todo" items="${ todoList }" varStatus="status">
 										<tr>
 											<!-- 인덱스 번호 -->
-											<td align="center"><c:out value="${ todo.index + 1 }" /></td>
+											<td align="center"><c:out value="${ status.index + 1 }" /></td>
 											<!-- todo 이름 -->
 											<td align="center"><c:out value="${ todo.name }" /></td>
 											<!-- study 이름 -->
-											<td align="center"><c:out value="${ todoStudyList.get(todo.index).getName() }" /></td>
+											<td align="center"><c:out value="${ todoStudyList.get(status.index).getName() }" /></td>
 											<!-- 시작일 -->
 											<td align="center"><c:out value="${ todo.startDate }" /></td>
 											<!-- 종료일 -->
 											<td align="center"><c:out value="${ todo.endDate }" /></td>
 											<!-- 상태 -->
-											<td align="center"><c:out value="${ statusList.get(todo.index).getStatus() }" /></td>
+											<td align="center"><c:out value="${ statusList.get(status.index).getStatus() }" /></td>
 											<td>
 												<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;nowPath=a" /> ">
 													상세보기

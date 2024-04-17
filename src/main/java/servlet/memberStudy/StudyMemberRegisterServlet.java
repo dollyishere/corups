@@ -12,7 +12,7 @@ import dao.MemberStudyDAO;
 import dto.MemberStudyDTO;
 import utils.SessionUtil;
 
-@WebServlet("/StudyMemberServlet")
+@WebServlet("/studyMemberRegisterServlet")
 public class StudyMemberRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,6 +34,8 @@ public class StudyMemberRegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		System.out.println("멤버스터디 등록 서블릿 들어옴");
+		
 		// 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
@@ -50,9 +52,15 @@ public class StudyMemberRegisterServlet extends HttpServlet {
 		
 		// studyDAO.insertStudy()
 		MemberStudyDAO memStudyDAO = new MemberStudyDAO();
+		boolean success = memStudyDAO.insertMemberStudy(memberStudyDTO);
 		
-		
-		
+		if(success) {
+			request.setAttribute("join", true);
+			response.getWriter().write("success");
+//			response.sendRedirect("/mgr/chapterDetailServlet");
+		}
+		else
+			response.getWriter().write("fail");
 		
 	}
 

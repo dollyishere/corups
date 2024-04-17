@@ -37,6 +37,7 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("id");
             session.removeAttribute("img");
             session.removeAttribute("name");
+            session.removeAttribute("isAdmin");
         }
 		
 		// 로그아웃 성공할 시 index.jsp로

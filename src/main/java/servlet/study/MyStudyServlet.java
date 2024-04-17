@@ -47,6 +47,7 @@ public class MyStudyServlet extends HttpServlet {
 		// 2. id로 나의 myStudyList 조회
 		StudyDAO studyDAO = new StudyDAO();
 		ArrayList<StudyDTO> myStudyList = studyDAO.myStudyList(id);
+		System.out.println(id);
 		
 		// 3. myStudyList 리스트 보내기 -> myStudyList.jsp
 		request.setAttribute("myStudyList", myStudyList);

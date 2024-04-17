@@ -98,6 +98,10 @@ public class StudyDetailServlet extends HttpServlet {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/studyDetail.jsp");
 			requestDispatcher.forward(request, response);
 		} else {
+			System.out.println("===================");
+			System.out.println(study.getCreateUserId());
+			System.out.println(id);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/studyDetail.jsp");
 			requestDispatcher.forward(request, response);
 		}
