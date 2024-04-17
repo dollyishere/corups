@@ -9,19 +9,6 @@
 <meta charset="UTF-8">
 <title>todo 등록</title>
 <script type="text/javascript" src="<c:url value="/ckeditor5/build/ckeditor.js" />"></script>
-<style>
-    tfoot td {
-        text-align: center;
-    }   
-    .ck.ck-editor{
-    	width:440px;
-    }
-    .ck-editor__editable {
-        max-height: 200px;
-        min-height: 200px;
-    }
-
-</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
