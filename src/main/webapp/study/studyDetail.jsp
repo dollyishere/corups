@@ -16,6 +16,7 @@
    <div>
       <h1>${study.name}</h1>
       <h3>${study.detail}</h3>
+      <h4>참여자(${studyMemberCount}/${study.maxNum})</h4>
       <input type="button"
       onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyNo=${study.no}'"
       value="스터디 수정하기">
