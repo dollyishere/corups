@@ -2,6 +2,7 @@ package servlet.todo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,12 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.FileDAO;
+import dao.ChapterDAO;
+import dao.MemberStudyDAO;
 import dao.StatusDAO;
+import dao.StudyDAO;
 import dao.TodoDAO;
+import dto.ChapterDTO;
 import dto.StatusDTO;
+import dto.StudyDTO;
 import dto.TodoDTO;
 import utils.SessionUtil;
 
@@ -54,19 +58,36 @@ public class TodoListServlet extends HttpServlet {
 		// 2. id로 나의 status 조회
 		StatusDAO statusDAO = new StatusDAO();
 		ArrayList<StatusDTO> statusArray = statusDAO.todoNoList(id);
-		System.out.println("statusArray ===> ");
-		for(int i = 0; i < statusArray.size(); i++) {
-			System.out.println(statusArray.get(i));
-		}
+		
 		
 		// 3. 나의 status의 todo_no 으로 나의 todo 리스트 만들기
+		StudyDAO studyDAO = new StudyDAO();
+		ChapterDAO chapterDAO = new ChapterDAO();
 		TodoDAO todoDAO = new TodoDAO();
+		MemberStudyDAO memberStudyDAO = new MemberStudyDAO();
 		ArrayList<TodoDTO> todoArray = new ArrayList<TodoDTO>();
-		System.out.println("todoArray ===> ");
+		System.out.println("statusArray ===> ");
 		for(int i = 0; i < statusArray.size(); i++) {
-			TodoDTO todo = todoDAO.todoDetail(statusArray.get(i).getTodoNo());
-			todoArray.add(todo);
+			StatusDTO status = statusArray.get(i);
+			System.out.println(status);
+			TodoDTO todo = todoDAO.todoDetail(status.getTodoNo());
+			ChapterDTO chapter = chapterDAO.chapterDetail(todo.getChapterNo());
+			StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
+			System.out.println(id);
 			System.out.println(todo);
+			List<String> memberIdList = memberStudyDAO.memberIdList(study.getNo());
+			boolean myStudy = false;
+			System.out.println("memberIdList ===> ");
+			for(int j = 0; j < memberIdList.size(); j++) {
+				System.out.println(memberIdList.get(j));
+				if(memberIdList.get(j).equals(id)) {
+					myStudy = true;
+					break;
+				}
+			}
+			if(myStudy) {
+				todoArray.add(todo);
+			}
 		}
 		
 		
