@@ -37,15 +37,15 @@
 					<td>마감 날짜 :</td>
 					<td><input type="date" name="endDate" /></td>
 
-					<input type="hidden" name="studyNo" value="${studyNo }" />
 
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit"
-						name="insertChpater" value="등록" onclick="confirmRegister()" /> <input
-						type="button" name="cancelUpdate" value="취소"
-						onclick="location.href='${contextPath}/study/studyDetailServlet?no=${studyNo}'" />
-
+					<td colspan="2" align="center">
+						<input type="hidden" name="studyNo" value="${studyNo}" />
+						<input type="submit" name="insertChpater" value="등록" 
+							onclick="confirmRegister()" /> 
+						<input type="button" name="cancelUpdate" value="취소"
+							onclick="location.href='${contextPath}/study/studyDetailServlet?no=${studyNo}'" />
 					</td>
 				</tr>
 			</table>

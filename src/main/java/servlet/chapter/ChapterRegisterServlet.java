@@ -1,4 +1,4 @@
-package controller.chapter;
+package servlet.chapter;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -35,6 +35,8 @@ public class ChapterRegisterServlet extends HttpServlet {
 	/** chapterRegister.jsp로 이동 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String studyNo = request.getParameter("studyNo");
+		request.setAttribute("studyNo", studyNo);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/chapterRegister.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -46,8 +48,8 @@ public class ChapterRegisterServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// 파라미터
-		String studyNoParam ="1";
-//		String studyNoParam = request.getParameter("studyNo");
+//		String studyNoParam ="1";
+		String studyNoParam = request.getParameter("studyNo");
 		int studyNo = 0;
 		if (studyNoParam != null && !studyNoParam.isEmpty()) {
 		    studyNo = Integer.parseInt(studyNoParam);
@@ -80,7 +82,7 @@ public class ChapterRegisterServlet extends HttpServlet {
 		chapter.setEndDate((java.sql.Date) endDate);
 		
 		// session에 챕터 정보 저장
-		request.getSession().setAttribute("chapterToUpdate", chapter);
+		request.getSession().setAttribute("chapter", chapter);
 
 		// chapterNo도 hidden input으로 추가
 		request.setAttribute("chapterNo", chapter.getNo());

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import db.MySQLConnector;
@@ -91,8 +92,10 @@ public class StudyDAO {
 		ArrayList<StudyDTO> myStudyList = new ArrayList<StudyDTO>();
 		try {
 			connect = dataFactory.connection();
-			String query = "SELECT * FROM study INNER JOIN member_study ON study.no = member_study.study_no ORDER BY study.no DESC";
-			System.out.println(query);
+			String query = "SELECT * FROM study";
+			query += " INNER JOIN member_study ON study.no = member_study.study_no";
+			query += " WHERE member_study.member_id=?";
+			query += " ORDER BY member_study.join_date DESC";
 			
 			pstmt = connect.prepareStatement(query);
 			pstmt.setString(1, id);
@@ -116,7 +119,7 @@ public class StudyDAO {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("myStudyList() ERR: " + e.getMessage());
 		}
 		finally {
 			dataFactory.close(connect, pstmt, rs);
@@ -224,10 +227,10 @@ public class StudyDAO {
 	 * 스터디 등록
 	 * 
 	 * @param  StudyDTO
-	 * @return boolean
+	 * @return int
 	 * **/
-	public boolean insertStudy(StudyDTO s) {
-		boolean state = false;
+	public int insertStudy(StudyDTO s) {
+		int studyNo = -1;
 		try {
 			connect = dataFactory.connection();
 
@@ -241,7 +244,7 @@ public class StudyDAO {
 			String category = s.getCategory();
 //			System.out.println(query);
 			
-			pstmt = connect.prepareStatement(query);
+			pstmt = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, name);
 			pstmt.setString(2, detail);
 			pstmt.setString(3, studyPwd);
@@ -249,18 +252,19 @@ public class StudyDAO {
 			pstmt.setString(5, category);
 			pstmt.setString(6, s.getCreateUserId());
 //			System.out.println(pstmt);
-			int rowsAffected = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			
-			if(rowsAffected == 1) {
-				state = true;
-			}
+			rs = pstmt.getGeneratedKeys();  
+	        if (rs.next()) {
+	        	studyNo = rs.getInt(1);  // 첫 번째 칼럼의 값을 가져옴 (보통 자동 증가된 값)
+	        }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
 			dataFactory.close(connect, pstmt, null);
 		} 
-		return state;
+		return studyNo;
 	}	
 	
 	/**

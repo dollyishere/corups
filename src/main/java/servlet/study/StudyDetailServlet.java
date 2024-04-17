@@ -1,4 +1,4 @@
-package controller.study;
+package servlet.study;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,14 +88,20 @@ public class StudyDetailServlet extends HttpServlet {
 			memberList.add(memberDAO.detail(memberIdList.get(i)));
 		}
 		request.setAttribute("memberStudyList", memberList);
-
+		int studyMemberCount = memberIdList.size();
+		request.setAttribute("studyMemberCount", studyMemberCount);
+		
 		HttpSession session = request.getSession();
-//		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
-		boolean isAdmin = false; // << 이 코드 나중에 삭제(관리자 로그인 연결되면)
+		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
+//		boolean isAdmin = false; // << 이 코드 나중에 삭제(관리자 로그인 연결되면)
 		if (isAdmin) {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/studyDetail.jsp");
 			requestDispatcher.forward(request, response);
 		} else {
+			System.out.println("===================");
+			System.out.println(study.getCreateUserId());
+			System.out.println(id);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/studyDetail.jsp");
 			requestDispatcher.forward(request, response);
 		}
