@@ -258,6 +258,38 @@
                 }
             });
         } // deleteFile
-        
+        // 시작일(input 태그)이 변경될 때 실행되는 함수
+        document.getElementById('startDate').addEventListener('change', function() {
+            var startDate = new Date(this.value); // 시작일 값
+            var endDateInput = document.getElementById('endDate');
+
+            // 종료일(input 태그)의 최소값 설정
+            // 시작일보다 이전의 날짜를 선택하지 못하도록 함
+            endDateInput.min = this.value;
+
+            // 종료일(input 태그)의 값을 변경
+            // 만약 종료일이 시작일보다 이전으로 설정되어 있다면, 시작일과 동일한 값으로 설정
+            var endDate = new Date(endDateInput.value);
+            if (endDate < startDate) {
+                endDateInput.value = this.value;
+            }
+        });
+
+        // 종료일(input 태그)이 변경될 때 실행되는 함수
+        document.getElementById('endDate').addEventListener('change', function() {
+            var endDate = new Date(this.value); // 종료일 값
+            var startDateInput = document.getElementById('startDate');
+
+            // 시작일(input 태그)의 최대값 설정
+            // 종료일보다 이후의 날짜를 선택하지 못하도록 함
+            startDateInput.max = this.value;
+
+            // 시작일(input 태그)의 값을 변경
+            // 만약 시작일이 종료일보다 이후로 설정되어 있다면, 종료일과 동일한 값으로 설정
+            var startDate = new Date(startDateInput.value);
+            if (startDate > endDate) {
+                startDateInput.value = this.value;
+            }
+        });
     </script>
 </html>
