@@ -84,9 +84,10 @@ function gotoUpdate(todoNo){
         </tfoot>
     </table>
     <input type="hidden" id="todoNo" value="${todo.no}">
-    <input type="button" id="okBtn" value="확인">
+    
     <c:choose>
     	<c:when test="${mgr}">
+    		<input type="button" id="okBtn" value="확인">
     		<input type="button" value="수정" onclick="gotoUpdate(${todo.no})">
     	</c:when>
     </c:choose>

@@ -65,14 +65,18 @@ public class ChapterRegisterServlet extends HttpServlet {
 		}
 		//int studyNo = Integer.parseInt(request.getParameter("studyNo"));
 		String name = request.getParameter("chapterName");
-		Date startDate = Date.valueOf(request.getParameter("startDate")); // 사용자가 입력한 시작일
+		String startDateStr = request.getParameter("startDate");
+		Date startDate = null;
+		if(startDateStr != null && !startDateStr.isEmpty())
+			startDate = Date.valueOf(startDateStr); // 사용자가 입력한 시작일
 		Date endDate = Date.valueOf(request.getParameter("endDate")); // 사용자가 입력한 시작일
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date startUtilDate = new Date(System.currentTimeMillis());
         java.util.Date endUtilDate = new Date(System.currentTimeMillis());
         try {
-        	startUtilDate = format.parse(request.getParameter("startDate"));
+        	if(startDateStr != null)
+        		startUtilDate = format.parse(startDateStr);
         	endUtilDate = format.parse(request.getParameter("endDate"));
         } catch (ParseException e) {
            System.out.println(e.getMessage());

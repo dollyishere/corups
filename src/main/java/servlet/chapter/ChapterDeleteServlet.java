@@ -58,7 +58,7 @@ public class ChapterDeleteServlet extends HttpServlet {
         for(int i = 0; i < todoList.size(); i++) {
         	TodoDTO todo = todoList.get(i);
         	success = statusDAO.deleteStatus(todo.getNo());
-        	success = fileDAO.deleteFiles(todo.getNo());
+        	fileDAO.deleteFiles(todo.getNo());
         	
         	// todoDAO.deleteTodo();
         	if(success) {			
