@@ -124,7 +124,7 @@
 								 <c:when test="${empty memberStudyList}">
 									<%-- if() 부분 --%>
 									<tr>
-										<td class="my-5" valign="middle" align="center" colspan="7">진행 중인 study가 없습니다.</td>
+										<td class="my-5" valign="middle" align="center" colspan="7">참가자가 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -132,7 +132,7 @@
 									<div class="row justify-content-evenly">
 									<c:forEach var="member" items="${memberStudyList}">
 						                  <div class="m-2">
-									       	<button type="button" class="rounded-circle d-inline-block overflow-hidden p-0 mb-2" style="width: 40px; height: 40px; border: none; background-color: ${profile_img == '0_p_img.jpg' ? '#292929' : 'transparent'};" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									       	<button type="button" class="rounded-circle d-inline-block overflow-hidden p-0 mb-2" style="width: 40px; height: 40px; border: none; background-color: ${member.image == '0_p_img.jpg' ? '#292929' : 'transparent'};" data-bs-toggle="modal" data-bs-target="#exampleModal">
 									  			<img src="${pageContext.request.contextPath}/uploads/profile_img/${ member.image }" alt="" class="img-fluid">
 											</button>
 											<b>${ member.id }</b>
