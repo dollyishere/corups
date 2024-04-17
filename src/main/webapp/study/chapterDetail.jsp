@@ -51,15 +51,14 @@
 			<colgroup>
 				<col width="50" />
 				<col width="300" />
-				<col width="200" />
-				<col width="200" />
+				<col width="250" />
+				
 			</colgroup>
 			<thead>
 				<tr>
-					<th>순번</th>
-					<th>todo 이름</th>
-					<th>시작일</th>
-					<th>마감일</th>
+					<th>번호</th>
+					<th>할일 이름</th>
+					<th>기간</th>					
 					<c:if test="${userid == 1}">
 						<th>관리</th>
 					</c:if>
@@ -83,14 +82,13 @@
 								<td align="center">${status.index + 1}</td>
 
 								<!-- 할 일 이름 -->
-								<td><a
+								<td align="center"><a
 									href="<c:url value='/todoDetailServlet?no=${todo.no}' />">
 										<c:out value="${todo.name}" />
 								</a></td>
 
 								<!-- 할 일 기간 -->
-								<td align="center">${todo.startDate}</td>
-								<td align="center">${todo.endDate}</td>
+								<td align="center">${todo.startDate} ~ ${todo.endDate}</td>
 
 								<!-- 상태 -->
 								<!-- 삭제 버튼 -->

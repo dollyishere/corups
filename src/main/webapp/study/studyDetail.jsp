@@ -17,7 +17,7 @@
 		<h1>${study.name}</h1>
 		<h3>${study.detail}</h3>
 		<input type="button"
-		onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyno=${studyNo}'"
+		onclick="window.location.href='${contextPath}/study/studyUpdateServlet?studyNo=${study.no}'"
 		value="스터디 수정하기">
 	</div>
 
@@ -44,22 +44,21 @@
 
 	<div id="chapter" align="center" style="border: 0.5px solid black;">
 
-		<h4>${study.name}의 챕터</h4>
+		<h3>${study.name}의 챕터</h3>
 		<div align="center">
 			<table border="1" summary="챕터 상세 - 목록">
 
 				<colgroup>
 					<col width="50" />
 					<col width="300" />
-					<col width="200" />
-					<col width="200" />
+					<col width="250" />
+					
 				</colgroup>
 				<thead>
 					<tr>
-						<th>순번</th>
+						<th>번호</th>
 						<th>챕터 이름</th>
-						<th>StartDate</th>
-						<th>EndDate</th>
+						<th>기간</th>
 						<c:if test="${userid == 1}">
 						<th>관리</th>
 					</c:if>
@@ -85,13 +84,13 @@
 									<td align="center">${status.index +1}</td>
 									<input type="hidden" name="chapterNo" value="${chapter.no}" />
 									<!-- 챕터 제목 -->
-									<td><a
+									<td align="center"><a
 										href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />">
 											<c:out value="${chapter.name}" />
 									</a></td>
 									<!-- 챕터 기간 -->
-									<td align="center"><c:out value="${chapter.startDate}" /></td>
-									<td align="center"><c:out value="${chapter.endDate}" /></td>
+									<td align="center"><c:out value="${chapter.startDate}" /> ~ <c:out value="${chapter.endDate}" /></td>
+									
 								
 								<!-- 삭제 버튼 -->
 								<td align="center">
