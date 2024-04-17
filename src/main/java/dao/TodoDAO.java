@@ -135,7 +135,7 @@ public class TodoDAO extends MySQLConnector{
 	 * @return int
 	 */
 	public int insertTodo(TodoDTO todo) {
-		int todo_no = -1;
+		int todo_no = 0;
 		conn = connection();
 		  System.out.println(todo);
 		try {

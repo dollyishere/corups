@@ -57,6 +57,7 @@ public class TodoDetailServlet extends HttpServlet {
 		// 2. todo_no으로 todo 상세정보 조회
 		TodoDAO todoDAO = new TodoDAO();
 		TodoDTO todo = todoDAO.todoDetail(todoNo);
+		System.out.println("todo ==> ");
 		System.out.println(todo);
 
 		// 3. 세션에 id 가져오기
@@ -81,10 +82,9 @@ public class TodoDetailServlet extends HttpServlet {
 		String myTodoPage = request.getParameter("myTodoPage");
 
 		boolean mgr = false;
-		if (id.equals(study.getCreateUserId())) {
-			if (myTodoPage == null)
-				mgr = true;
-		}
+
+		if(id.equals(study.getCreateUserId()) && myTodoPage == null)
+			mgr = true;
 
 		request.setAttribute("study", study);
 		request.setAttribute("chapter", chapter);

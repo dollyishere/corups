@@ -9,28 +9,37 @@
 <head>
 <meta charset="UTF-8">
 <title>챕터 상세 페이지 - 스터디 방장</title>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   <!-- 챕터 삭제 함수 -->
-  function deleteTodo(TodoNo) {
+  function deleteTodo(todoNo) {
       // 삭제 여부를 확인하는 알림 창 표시
-      var result = confirm("챕터를 삭제하시겠습니까?");
+      var result = confirm("할일을 삭제하시겠습니까?");
       // 사용자가 확인 버튼을 클릭했을 때
       if (result) {
-          // form 엘리먼트 동적으로 생성
-          var form = document.createElement('form');
-          form.setAttribute('method', 'post');
-          form.setAttribute('action', '<c:url value="/todoDeleteServlet"/>');
-
-          // 챕터 번호를 전송하는 hidden input 추가
-          var inputTodoNo = document.createElement('input');
-          inputTodoNo.setAttribute('type', 'hidden');
-          inputTodoNo.setAttribute('name', 'TodoNo');
-          inputTodoNo.setAttribute('value', TodoNo);
-          form.appendChild(inputTodoNo);
-
-          // form을 body에 추가하고 자동으로 전송
-          document.body.appendChild(form);
-          form.submit();
+            $.ajax({
+                url: "todoDeleteServlet",
+                type: "POST",
+                async: true,
+                data: { 
+                	todoNo: todoNo
+                },
+                dataType: "text",
+                success: function(response) {
+                	if(response == "성공"){
+	                   	alert("삭제되었습니다.");
+	                   	document.location = "${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
+                	}
+                	else
+                	{
+                		alert("삭제 실패.");
+                	}
+                	
+                },
+                error: function() {
+                    alert("Error occurred while processing data");
+                }
+            });
       }
   }
 </script>
@@ -47,8 +56,12 @@
 			<tr>
 				<div style="display: inline-block;">
 					<h3 align="center">${chapter.name}</h3>
-					<input type="button" value="todo 추가"
+					<c:choose>
+						<c:when test="${userid == study.createUserId}">
+						<input type="button" value="todo 추가"
 						onclick="location.href='${contextPath}/todoRegisterServlet?chapterNo=${chapter.no}'" />
+						</c:when>
+					</c:choose>
 				</div>
 			</tr>
 
@@ -101,8 +114,8 @@
 								<td align="center">
 									<c:if test="${userid == study.createUserId}">
 									 <button onclick="location.href='${contextPath}/todoUpdateServlet?todoNo=${todo.no}'" />수정</button>
-                                            
-										<button onclick="deleteChapter(${Todo.no})">삭제</button>
+                                           
+										<button onclick="deleteTodo(${todo.no})">삭제</button>
 										
 									</c:if>
 								</td>

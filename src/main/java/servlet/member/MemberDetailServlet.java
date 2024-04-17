@@ -54,7 +54,8 @@ public class MemberDetailServlet extends HttpServlet {
 		
 		studyDAO = new StudyDAO();
 		todoDAO = new TodoDAO();
-		
+		chapterDAO = new ChapterDAO();
+		statusDAO = new StatusDAO();
 		// 내 스터디 목록 가져오기
 		List<StudyDTO> myStudyList = studyDAO.myStudyList(id);
 		
@@ -66,20 +67,36 @@ public class MemberDetailServlet extends HttpServlet {
 			myStudyMemberNumList.add(myStudyMemberNum);
 		}
 		
-		// 내가 참여하는 todo 상태 리스트 가져오기
-		statusDAO = new StatusDAO();
-		List<StatusDTO> statusList = statusDAO.todoNoList(id);
 		
+		// 2. id로 나의 status 조회
+		ArrayList<StatusDTO> statusArray = statusDAO.todoNoList(id);
+				
 		// 내가 참여하는 todo 리스트 가져오기
 		todoDAO = new TodoDAO();
+		// 3. 나의 status의 todo_no 으로 나의 todo 리스트 만들기
 		List<TodoDTO> todoList = new ArrayList<TodoDTO>();
-		for(int i = 0; i < statusList.size(); i++) {
-			TodoDTO todo = todoDAO.todoDetail(statusList.get(i).getTodoNo());
-			todoList.add(todo);
+		for(int i = 0; i < statusArray.size(); i++) {
+			StatusDTO status = statusArray.get(i);
+			TodoDTO todo = todoDAO.todoDetail(status.getTodoNo());
+			ChapterDTO chapter = chapterDAO.chapterDetail(todo.getChapterNo());
+			StudyDTO study = studyDAO.studyDetail(chapter.getStudyNo());
+			List<String> memberIdList = memberStudyDAO.memberIdList(study.getNo());
+			boolean myStudy = false;
+
+			for(int j = 0; j < memberIdList.size(); j++) {
+
+				if(memberIdList.get(j).equals(id)) {
+					myStudy = true;
+					break;
+				}
+			}
+			if(myStudy) {
+				todoList.add(todo);
+//						System.out.println(todo);				
+			}
 		}
 		
 		// 해당하는 todo의 chapter 가져오기
-		chapterDAO = new ChapterDAO();
 		List<ChapterDTO> chapterList = new ArrayList<ChapterDTO>();
 		for(int i = 0; i < todoList.size(); i++) {
 			ChapterDTO chapter =chapterDAO.chapterDetail(todoList.get(i).getChapterNo());
@@ -95,7 +112,7 @@ public class MemberDetailServlet extends HttpServlet {
 		
 		request.setAttribute("myStudyList", myStudyList);
 		request.setAttribute("myStudyMemberNumList", myStudyMemberNumList);
-		request.setAttribute("statusList", statusList);
+		request.setAttribute("statusList", statusArray);
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("todoStudyList", todoStudyList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mem/main.jsp");
