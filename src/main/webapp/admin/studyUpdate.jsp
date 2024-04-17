@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="container-fluid m-5">
-		<c:import url="/components/defaultHeader.jsp" />
+		<c:import url="/components/adminHeader.jsp" />
 		<div class="container-fluid m-5">
 		<div class="row justify-content-center align-items-center">
 	    	<div class="col-md-auto">
