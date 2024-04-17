@@ -18,11 +18,6 @@
 </style>
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script type="text/javascript">
-	
-		
-    </script>
-
 <script type="text/javascript" src="<c:url value="/ckeditor5/build/ckeditor.js" />"></script>
 </head>
 <body>    
@@ -137,7 +132,7 @@
 	</div>
 </body>
     <script type="text/javascript">
-	let editor;
+		let editor;
 		
 		ClassicEditor
 	    .create( document.querySelector( '#editor' ) )
@@ -156,6 +151,8 @@
         	
             $("#updateBtn").click(function(e) {
                 e.preventDefault();
+                
+                console.log("할 일 수정");
 
                 var name = $("#name").val();
                 var startDate = $("#startDate").val();
@@ -180,7 +177,7 @@
                             fileUpload(todoNo);
                         }
                         else{
-                        	alert("실패");
+                        	alert("값을 모두 입력해주세요.");
                         }
                     },
                     error: function() {
@@ -219,29 +216,29 @@
        
 	        $("#deleteBtn").click(function(e) {
 	            e.preventDefault();
+	            var result = confirm("할일을 삭제하시겠습니까?");
+	            if(result){
+		            var todoNo = $("#todoNo").val();
+		            $.ajax({
+		                url: "todoDeleteServlet",
+		                type: "POST",
+		                async: true,
+		                data: { 
+		                	todoNo: todoNo
+		                },
+		                dataType: "text",
+		                success: function(response) {
+		                   	alert("삭제되었습니다.");
+		                 	document.location = "${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
+		                },
+		                error: function() {
+		                    alert("Error occurred while processing data");
+		                }
+		            });	            	
+	            }
 	            
-	            var todoNo = $("#todoNo").val();
-	            var myTodoPage = ${sessionScope.myTodoPage};
-	            $.ajax({
-	                url: "todoDeleteServlet",
-	                type: "POST",
-	                async: true,
-	                data: { 
-	                	todoNo: todoNo
-	                },
-	                dataType: "text",
-	                success: function(response) {
-	                   	alert("삭제되었습니다.");
-	                   	if(myTodoPage == true)
-	                       	document.location = "todoListServlet";
-	                       else
-	                       	document.location = "todoListServlet";
-	                },
-	                error: function() {
-	                    alert("Error occurred while processing data");
-	                }
-	            });
 	        }); // deleteBtn  
+	        
         }); // $(document).ready
         
         function deleteFile(btn, fileNo){
@@ -266,6 +263,7 @@
                 }
             });
         } // deleteFile
+        
         // 시작일(input 태그)이 변경될 때 실행되는 함수
         document.getElementById('startDate').addEventListener('change', function() {
             var startDate = new Date(this.value); // 시작일 값

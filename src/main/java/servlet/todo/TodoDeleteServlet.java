@@ -42,7 +42,7 @@ public class TodoDeleteServlet extends HttpServlet {
 
 		// 인코딩
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text; charset=UTF-8");
 		
 		// todoNo 가져오기
 		String todoNoStr = request.getParameter("todoNo");
@@ -53,7 +53,7 @@ public class TodoDeleteServlet extends HttpServlet {
 		boolean success = statusDAO.deleteStatus(todoNo);
 		
 		FileDAO fileDAO = new FileDAO();
-		success = fileDAO.deleteFiles(todoNo);
+		fileDAO.deleteFiles(todoNo);
 		
 		// todoDAO.deleteTodo();
 		if(success) {			
@@ -66,7 +66,6 @@ public class TodoDeleteServlet extends HttpServlet {
 		if(success)
 			result = "성공";
 		response.getWriter().write(result);
-		
 	}
 
 }
