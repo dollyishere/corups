@@ -90,7 +90,15 @@ public class SignupServlet extends HttpServlet {
 	     
 	     // 이미지 파일 업로드 위한 파일 객체 설정
 	     ServletContext context = getServletContext();
+	     // 폴더 생성
+	     
 	     String realPath = context.getRealPath("/uploads/profile_img/");
+	     File folder = new File(realPath);
+
+	     if (!folder.exists()) {
+	         folder.mkdirs();  // 폴더 생성
+	     }
+	     
 	     System.out.println("실제 경로: " + realPath);
 	     
 	     // 서블릿 파일 업로드 객체
