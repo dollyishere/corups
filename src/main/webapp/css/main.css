@@ -32,3 +32,11 @@ body, p, b, h1, h2, h3, h4, h5, h6 {
 input[type="button"] {
     color:white;
 }
+
+.ck.ck-editor{
+ 	width:440px;
+ }
+ .ck-editor__editable {
+     max-height: 200px;
+     min-height: 200px;
+ }
