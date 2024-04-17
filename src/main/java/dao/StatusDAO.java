@@ -107,7 +107,7 @@ public class StatusDAO extends MySQLConnector{
 		conn = connection();
 		
 		try {
-			String query = "INSERT INTO status (member_id, todo_no, status) VALUES (?, ?, ?)";
+			String query = "INSERT IGNORE INTO status (member_id, todo_no, status) VALUES (?, ?, ?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, status.getMemberId());
 			pstmt.setInt(2, status.getTodoNo());

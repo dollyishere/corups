@@ -30,7 +30,9 @@ public class ChapterDeleteServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        
+        System.out.println("==== 챕터 삭제하기 서블릿 ====");
+        
         // 삭제할 챕터 번호 파라미터 가져오기
         int chapterNo = Integer.parseInt(request.getParameter("chapterNo"));
         

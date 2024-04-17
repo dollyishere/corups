@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
+<c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +16,16 @@
 		border: 1px solid black;
 	}
 </style>
+
+<script type="text/javascript">
+    function gotoDetail(no) {
+    	// 세션 변수 설정
+<%--    		<% session.setAttribute("myTodoPage", "true"); %> --%>
+        document.location.href = "${contextPath}/study/studyDetailServlet?studyNo=" + no;
+    }
+    
+</script>
+
 </head>
 <body>
 	<form action="" method="get">
@@ -37,7 +49,9 @@
 	<c:when test="${!empty myStudyList }">
 		<c:forEach var="myStudy" items="${myStudyList }">
 			<div align="center" class="rect">
-				<p><a>${myStudy.name}</a></p>
+				<p><button type="button" onclick="gotoDetail(${myStudy.no})">
+				    	${myStudy.name}
+				    </button></p>
 				<p>${myStudy.category}</p>
 			</div>
 		</c:forEach>

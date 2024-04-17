@@ -60,7 +60,7 @@ public class ChapterDAO {
 	    } catch (SQLException e) {
 	        System.err.println("chapterList():" + e.getMessage());
 	    } finally {
-	        close(rs, pstmt, conn);
+	        datasource.close(conn, pstmt, rs);
 	    }
 	    return chapterList;
 	    
@@ -103,7 +103,7 @@ public class ChapterDAO {
 	    } catch (SQLException e) {
 	        System.err.println("chapterListWithStudyName():" + e.getMessage());
 	    } finally {
-	        close(rs, pstmt, conn);
+	        datasource.close(conn, pstmt, rs);
 	    }
 	    return chapterList;
 	}
@@ -131,7 +131,7 @@ public class ChapterDAO {
 	    } catch (SQLException e) {
 	        System.err.println("chapterCount():" + e.getMessage());
 	    } finally {
-	        close(rs, pstmt, conn);
+	        datasource.close(conn, pstmt, rs);
 	    }
 	    return chapterCount; //결과 값 반환 (chapterListServlet의 doGet()에게	
 	}
@@ -165,7 +165,9 @@ public class ChapterDAO {
 
 		} catch (SQLException e) {
 			System.err.println("chapterDetail():" + e.getMessage());
-		}
+		} finally {
+	        datasource.close(conn, pstmt, rs);
+	    }
 		return chapter;
 	}
 
@@ -194,7 +196,9 @@ public class ChapterDAO {
 			}
 		} catch (Exception e) {
 			System.err.println("insertChapter():" + e.getMessage());
-		}
+		} finally {
+	        datasource.close(conn, pstmt, null);
+	    }
 		return state;
 	}
 
@@ -208,23 +212,24 @@ public class ChapterDAO {
 		boolean state = false;
 		try {
 			conn = datasource.connection();
-			String query = "update chapter set name=?, start_date=?, end_date=? update_date=now() where no=?";
+			String query = "update chapter set name=?, start_date=?, end_date=?, update_date=now() where no=?";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, chapter.getName());
 			pstmt.setDate(2, chapter.getStartDate());
 			pstmt.setDate(3, chapter.getEndDate());
+			pstmt.setInt(4, chapter.getNo());
 
 
 			int n = pstmt.executeUpdate();
-			if (n > 1) {
+			if (n > 0) {
 				state = true;
 			}
 		} catch (Exception e) {
-			System.err.println("updateChapter():" + e.getMessage());
+			System.err.println("updateChapter() ERR :" + e.getMessage());
 		} finally {
-			close(rs, pstmt, conn);
-		}
+	        datasource.close(conn, pstmt, null);
+	    }
 		return state;
 
 	}
@@ -240,7 +245,7 @@ public class ChapterDAO {
 		try {
 			conn = datasource.connection();
 			String query = "delete from chapter where no=?";
-
+			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, no);
 
@@ -252,29 +257,10 @@ public class ChapterDAO {
 		} catch (Exception e) {
 			System.err.println("deleteChapter():" + e.getMessage());
 		} finally {
-			
-		}
+	        datasource.close(conn, pstmt, null);
+	    }
 		return state;
 
-	}
-	/**
-	 * 사용한 객체 닫음
-	 * @param rs, pstmt, conn
-	 */
-	public void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
-	    try {
-	        if (rs != null) {
-	            rs.close();
-	        }
-	        if (pstmt != null) {
-	            pstmt.close();
-	        }
-	        if (conn != null) {
-	            conn.close();
-	        }
-	    } catch (SQLException e) {
-	        System.err.println("close():" + e.getMessage());
-	    }
 	}
 
 

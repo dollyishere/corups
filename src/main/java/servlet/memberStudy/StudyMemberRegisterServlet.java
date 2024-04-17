@@ -1,6 +1,8 @@
 package servlet.memberStudy;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ChapterDAO;
 import dao.MemberStudyDAO;
+import dao.StatusDAO;
+import dao.TodoDAO;
+import dto.ChapterDTO;
 import dto.MemberStudyDTO;
+import dto.StatusDTO;
+import dto.TodoDTO;
 import utils.SessionUtil;
 
 @WebServlet("/studyMemberRegisterServlet")
 public class StudyMemberRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private TodoDAO todoDAO = null;
+	private StatusDAO statusDAO = null;
+	private ChapterDAO chapterDAO = null;
        
     public StudyMemberRegisterServlet() {
         super();
@@ -53,6 +64,39 @@ public class StudyMemberRegisterServlet extends HttpServlet {
 		// studyDAO.insertStudy()
 		MemberStudyDAO memStudyDAO = new MemberStudyDAO();
 		boolean success = memStudyDAO.insertMemberStudy(memberStudyDTO);
+		
+		// studyNo 으로 챕터 챕터 리스트 가져오리
+		this.chapterDAO = new ChapterDAO();
+		ArrayList<ChapterDTO> chapterList = chapterDAO.chapterList(studyNo);
+		// 반복문
+		for(int i = 0; i < chapterList.size(); i++) {
+			//todo List 가져오기
+			this.todoDAO = new TodoDAO();
+			ArrayList<TodoDTO> todoList = this.todoDAO.chapter_todoList(chapterList.get(i).getNo());
+				for(int j = 0; j < todoList.size(); j++) {
+					TodoDTO todo = todoList.get(j);
+					// StatusDTO
+					StatusDTO status = new StatusDTO();
+					status.setMemberId(id);
+					status.setTodoNo(todo.getNo());
+					// 마감기한이 지났으면 상태 D로 저장
+					Date endDate = todo.getEndDate();
+					// 현재 시간
+					java.sql.Date now = new java.sql.Date(System.currentTimeMillis());  
+					if (endDate.before(now))
+						status.setStatus("D");
+					// 아니라면 P로 저장
+					else
+						status.setStatus("P");
+					
+					// Insert status
+					StatusDAO statusDAO = new StatusDAO();
+					success = statusDAO.insertStatus(status);
+					
+				}
+			
+		}
+				
 		
 		if(success) {
 			request.setAttribute("join", true);
