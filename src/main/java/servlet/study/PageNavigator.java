@@ -1,4 +1,4 @@
-package controller.study;
+package servlet.study;
 
 /**
  * 페이징 네비게이터 함수

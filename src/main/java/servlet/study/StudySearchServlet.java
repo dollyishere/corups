@@ -1,4 +1,4 @@
-package controller.study;
+package servlet.study;
 
 import java.io.IOException;
 import java.util.ArrayList;
