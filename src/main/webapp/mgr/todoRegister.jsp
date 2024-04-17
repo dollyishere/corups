@@ -231,10 +231,8 @@
 			processData: false,
             contentType: false,
             success: function(fileCount) {
-// 				if(${sessionScope.myTodoPage} == true)
-// 	            	document.location = "${contextPath}/todoListServlet";
-// 	            else
-	            	document.location = "${contextPath}/todoListServlet";
+            	alert("등록되었습니다.");
+             	document.location = "${contextPath}/todoDetailServlet?todoNo=" + todoNo;
             },
             error: function() {
                 alert("Error occurred while processing data");
