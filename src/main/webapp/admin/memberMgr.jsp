@@ -16,24 +16,23 @@
 		<div class="container mt-5">
 			<div class="row justify-content-center align-items-flex-center mt-5">
 				<div class="col-md-auto mb-3">
-					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
+					<h2 class="mb-3" style="color:#F0EAEA;">User Management</h2>
+					<div class="custom-form text-center" style="width: 42rem; min-height: 30rem;">
 						<table summary="회원목록" class="table-light">
 							<colgroup>
 								<col width="40" />
 								<col width="80" />
 								<col width="100" />
-								<col width="80" />
 								<col width="150" />
 								<col width="150" />
 								<col width="80" />
 							</colgroup>
-							<thead>
+							<thead class="my-5">
 								<!-- 회원목록제목 -->
 								<tr>
 									<th>#</th>
 									<th>회원이름</th>
 									<th>회원아이디</th>
-									<th>패스워드</th>
 									<th>생년월일</th>
 									<th>이메일</th>
 									<th>수정</th>
@@ -51,15 +50,13 @@
 									<c:otherwise>
 										<%-- else 부분 --%>
 										<c:forEach var="member" items="${ memberList }" varStatus="status">
-											<tr class="mt-5">
+											<tr class="my-5">
 												<!-- 인덱스 번호 -->
-												<td align="center" scope="row"><c:out value="${ status.index }" /></td>
+												<td align="center"><b><c:out value="${ status.index }" /></b></td>
 												<!-- 회원 이름 -->
 												<td align="center"><c:out value="${ member.name }" /></td>
 												<!-- 회원아이디 -->
 												<td align="center"><c:out value="${ member.id }" /></td>
-												<!-- 패스워드 -->
-												<td align="center"><c:out value="${ member.pwd }" /></td>
 												<!-- 생년월일 -->
 												<td align="center"><c:out value="${ member.birthday }" /></td>
 												<!-- 이메일 -->
