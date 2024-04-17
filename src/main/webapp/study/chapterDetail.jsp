@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<h2 align="center">study.name${study.name}</h2>
+	<h2 align="center">${study.name}</h2>
 
 	<div align="center">
 		<table align="center" border="1" summary="챕터 상세">
@@ -44,7 +44,7 @@
 				<div style="display: inline-block;">
 					<h3 align="center">${chapter.name}</h3>
 					<input type="button" value="todo 추가"
-						onclick="location.href='${contextPath}/todoRegisterServlet?chpaterNo=${chapter.no}'" />
+						onclick="location.href='${contextPath}/todoRegisterServlet?chapterNo=${chapter.no}'" />
 				</div>
 			</tr>
 
@@ -60,7 +60,7 @@
 					<th>todo 이름</th>
 					<th>시작일</th>
 					<th>마감일</th>
-					<c:if test="${userid == 1}">
+					<c:if test="${userid == study.createUserId}">
 						<th>관리</th>
 					</c:if>
 
@@ -84,7 +84,7 @@
 
 								<!-- 할 일 이름 -->
 								<td><a
-									href="<c:url value='/todoDetailServlet?no=${todo.no}' />">
+									href="<c:url value='/todoDetailServlet?todoNo=${todo.no}' />">
 										<c:out value="${todo.name}" />
 								</a></td>
 
@@ -95,7 +95,7 @@
 								<!-- 상태 -->
 								<!-- 삭제 버튼 -->
 								<td align="center">
-									<!-- userid가 1인 경우에만 삭제 버튼 표시 --> <c:if test="${userid == 1}">
+									<c:if test="${userid == study.createUserId}">
 									 <button onclick="location.href='${contextPath}/todoUpdateServlet?todoNo=${todo.no}'" />수정</button>
                                             
 										<button onclick="deleteChapter(${Todo.no})">삭제</button>
@@ -112,9 +112,9 @@
 
 			<tfoot>
 				<tr>
-					<!-- userid가 1인 경우에만 삭제 버튼 표시 - colspan5 -->
+					<!-- userid가 study.createUserId인 경우에만 삭제 버튼 표시 - colspan5 -->
 					<c:choose>
-						<c:when test="${userid == 1}">
+						<c:when test="${userid == study.createUserId}">
 							<td colspan="5" align="center"><input type="button"
 								value="목록(뒤로가기)"
 								onclick="location.href='<c:url value='/study/studyDetailServlet?studyNo=${chapter.studyNo}' />'" />

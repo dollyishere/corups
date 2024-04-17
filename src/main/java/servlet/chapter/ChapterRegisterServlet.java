@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
+import dao.StudyDAO;
 import dto.ChapterDTO;
+import dto.StudyDTO;
 
 /**
  * /chapter/ChapterRegisterServlet
@@ -35,8 +37,10 @@ public class ChapterRegisterServlet extends HttpServlet {
 	/** chapterRegister.jsp로 이동 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String studyNo = request.getParameter("studyNo");
-		request.setAttribute("studyNo", studyNo);
+		int studyNo = Integer.parseInt(request.getParameter("studyNo"));
+        StudyDAO studyDAO = new StudyDAO();
+        StudyDTO study = studyDAO.studyDetail(studyNo);
+        request.setAttribute("study", study);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mgr/chapterRegister.jsp");
 		requestDispatcher.forward(request, response);
 	}
@@ -91,6 +95,7 @@ public class ChapterRegisterServlet extends HttpServlet {
 		chapterDAO = new ChapterDAO();
 		boolean complete = chapterDAO.insertChapter(chapter);
 		request.setAttribute("bool", complete);
+		
 
 		// 챕터 등록 성공 시 챕터 목록 페이지로 이동
 //		response.setContentType("text/plain");

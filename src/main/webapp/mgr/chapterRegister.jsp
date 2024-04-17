@@ -17,7 +17,7 @@
 <title>챕터 추가 화면 - 스터디 방장</title>
 </head>
 <body>
-	<h2 align="center">study.name${study.name}</h2>
+	<h2 align="center">${study.name}</h2>
 	<div align="center" border="1">
 		<form action="${pageContext.request.contextPath}/chapter/chapterRegisterServlet" method="post">
 			<table align="center" border="1" summary="챕터 추가">
@@ -41,11 +41,11 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-						<input type="hidden" name="studyNo" value="${studyNo}" />
+						<input type="hidden" name="studyNo" value="${study.no}" />
 						<input type="submit" name="insertChpater" value="등록" 
 							onclick="confirmRegister()" /> 
 						<input type="button" name="cancelUpdate" value="취소"
-							onclick="location.href='${contextPath}/study/studyDetailServlet?no=${studyNo}'" />
+							onclick="location.href='${contextPath}/study/studyDetailServlet?no=${study.no}'" />
 					</td>
 				</tr>
 			</table>

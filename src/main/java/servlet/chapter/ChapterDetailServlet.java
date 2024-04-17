@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
+import dao.StudyDAO;
 import dao.TodoDAO;
 import dto.ChapterDTO;
+import dto.StudyDTO;
 import dto.TodoDTO;
+import utils.SessionUtil;
 
 /**
  * /chapter/ChapterDetailServlet
@@ -59,20 +62,27 @@ public class ChapterDetailServlet extends HttpServlet {
         TodoDAO todoDAO = new TodoDAO();
         todo.addAll(todoDAO.chapter_todoList(no));
         
+
+		// 1. 세션에서 아이디 받기
+		String id = SessionUtil.getID(request, response);
         
-        request.setAttribute("userid", 1); // 여기서 1은 테스트용 사용자 ID
+        request.setAttribute("userid", id); // 여기서 1은 테스트용 사용자 ID
         // 챕터 상세 조회 - todoList
         ChapterDTO chapter = new ChapterDTO();
         chapterDAO = new ChapterDAO();
         chapter = chapterDAO.chapterDetail(no); 
 
+        // chapter.getStudyNo() 
+        int studyNo = chapter.getStudyNo();
+        StudyDAO studyDAO = new StudyDAO();
+        StudyDTO study = studyDAO.studyDetail(studyNo);
+        
         // 챕터 정보를 JSP 페이지에 전달하고 포워딩
+        request.setAttribute("study", study);
         request.setAttribute("chapter", chapter);
         request.setAttribute("todoArray", todo);
-     // 서블릿에서 사용자 ID 설정 및 JSP 페이지로 전달
-        
-        
 
+     // 서블릿에서 사용자 ID 설정 및 JSP 페이지로 전달
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/chapterDetail.jsp");
         requestDispatcher.forward(request, response);
     }
