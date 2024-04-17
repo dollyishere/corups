@@ -21,7 +21,7 @@
 		<div class="container-fluid m-5">
 		<div class="row justify-content-center align-items-center">
 	    	<div class="col-md-auto">
-		    		<img alt="logo.png" src="../resources/imgs/logo.png" class="mb-2">
+		    		<img alt="logo.png" src="<c:url value="/resources/imgs/logo.png" />" class="mb-2">
 		   		</div>
 			   <div class="col-md-1">
 		       </div>
