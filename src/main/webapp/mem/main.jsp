@@ -53,7 +53,7 @@
 					  </thead>
 						  <tbody class="table-group-divider">
 						  	<c:choose>
-								<c:when test="${ empty memberList }">
+								<c:when test="${ empty todoList }">
 									<%-- if() 부분 --%>
 									<tr>
 										<td class="m-5" valign="middle" align="center" colspan="7">진행 중인 todo가 없습니다.</td>

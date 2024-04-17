@@ -36,8 +36,8 @@
 	    </div>
 	    <div class="col-md-4 column justify-content-center align-items-center">
 	    	<b>${ name }</b>
-	       	<button type="button" class="rounded-circle d-inline-block overflow-hidden p-0 mb-2" style="width: 40px; height: 40px; border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-	  			<img src="${pageContext.request.contextPath}/uploads/profile_img/${profile_img}" alt="Image" class="img-fluid">
+	       	<button type="button" class="rounded-circle d-inline-block overflow-hidden p-0 mb-2" style="width: 40px; height: 40px; border: none; background-color: ${profile_img == '0_p_img.jpg' ? '#292929' : 'transparent'};" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	  			<img src="${pageContext.request.contextPath}/uploads/profile_img/${profile_img}" alt="" class="img-fluid">
 			</button>
 			&nbsp;
 			<c:if test="${ not empty sessionScope.id }">

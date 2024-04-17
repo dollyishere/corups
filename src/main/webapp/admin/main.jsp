@@ -5,88 +5,57 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <meta charset="UTF-8">
 <title>Corups 관리자 메인 화면 : admin/main.jsp</title>
-</head>
 <style>
-	body {
-	    background-image: url('../resources/imgs/milky-way.jpg');
-	}
+.material-symbols-outlined {
+  font-size: 100px; /* 아이콘의 크기를 48px로 설정합니다 */
+  color: white; /* 아이콘의 색상을 파란색으로 설정합니다 */
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
 </style>
+</head>
 <body>
 	<div class="container-fluid m-5">
 		<c:import url="/components/adminHeader.jsp" />
-		<h1>${ session.adminID } 관리자님, 접속을 환영합니다.</h1>
-		<div class="container-fluid m-5">
-			<div class="row justify-content-evenly align-items-flex-start">
+		<h3><b style="color:#F0EAEA;">관리자님, 접속을 환영합니다.</b></h3>
+		<h5 style="color:#E7DFDD;" class="mb-5">원하시는 작업을 선택해주세요.</h5>
+		<div class="container mt-5">
+			<div class="row justify-content-center align-items-flex-center mt-5">
 				<div class="col-md-auto mb-3">
-					<h2 class="mb-3">My Study</h2>
-					<div class="custom-form text-center" style="width: 30rem;  min-height: 30rem;">
-						<form action="<c:url value="/study/studyListServlet" />" method="get">
-						    <button type="submit" style="background-color: #B9A4BF; color:white;" class="btn">
-						        <b style="color:white;">스터디 참여</b>
-						    </button>
-						</form>
-					</div>
+				    <div class="custom-form d-flex justify-content-center align-items-center" style="width: 20rem; height: 20rem;">
+				    	<div class="col-md-auto m-3">
+					    	<div class="material-symbols-outlined">
+								manage_accounts
+							</div>
+				    	</div>
+				    	<div class="col-md-auto m-3">
+				    		<input type="button" value="회원관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" class="btn btn-outline-light" style="font-weight: bold;" />
+				    	</div>
+				    </div>
 				</div>
-				<div class="col-md-auto  mb-3">
-					<h2 class="mb-3">My Todo</h2>
-					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
-					<table class="m-3" style="width: 40rem;">
-					  <thead>
-					    <tr>
-					    <th scope="col">#</th>
-					      <th scope="col">Todo명</th>
-					      <th scope="col">Study명</th>
-					      <th scope="col">시작일</th>
-					      <th scope="col">종료일</th>
-					      <th scope="col">상태</th>
-					      <th scope="col">상세보기</th>
-					    </tr>
-					  </thead>
-						  <tbody class="table-group-divider">
-						  	<c:choose>
-								<c:when test="${ empty memberList }">
-									<%-- if() 부분 --%>
-									<tr>
-										<td class="m-5" valign="middle" align="center" colspan="7">진행 중인 todo가 없습니다.</td>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<%-- else 부분 --%>
-									<c:forEach var="todo" items="${ todoList }" varStatus="status">
-										<tr>
-											<!-- 인덱스 번호 -->
-											<td align="center"><c:out value="${ todo.index + 1 }" /></td>
-											<!-- todo 이름 -->
-											<td align="center"><c:out value="${ todo.name }" /></td>
-											<!-- study 이름 -->
-											<td align="center"><c:out value="${ todoStudyList.get(todo.index).getName() }" /></td>
-											<!-- 시작일 -->
-											<td align="center"><c:out value="${ todo.startDate }" /></td>
-											<!-- 종료일 -->
-											<td align="center"><c:out value="${ todo.endDate }" /></td>
-											<!-- 상태 -->
-											<td align="center"><c:out value="${ statusList.get(todo.index).getStatus() }" /></td>
-											<td>
-												<a href="<c:url value="/member/updateServlet?id=${ member.id }&amp;nowPath=a" /> ">
-													상세보기
-												</a>
-											</td>
-										</tr>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						  </tbody>
-						</table>
-					</div>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-auto mb-3">
+				    <div class="custom-form d-flex justify-content-center align-items-center" style="width: 20rem; height: 20rem;">
+				    	<div class="col-md-auto m-3">
+					    	<div class="material-symbols-outlined">
+					            crowdsource
+					        </div>
+					        <br>
+				    	</div>
+				    	<div class="col-md-auto m-3">
+				    		<input type="button" value="스터디관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" class="btn btn-outline-light" style="font-weight: bold;" />
+				    	</div>
+				    </div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-
-	<input type="button" value="회원관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" />
-	<input type="button" value="스터디관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" />
 </body>
 </html>
