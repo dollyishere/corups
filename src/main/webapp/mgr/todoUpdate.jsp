@@ -17,11 +17,12 @@
     }
 </style>
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	function gotoBefore(){
-		 window.history.back();
-	}
-</script>
+
+<script type="text/javascript">
+	
+		
+    </script>
+
 <script type="text/javascript" src="<c:url value="/ckeditor5/build/ckeditor.js" />"></script>
 </head>
 <body>    
@@ -105,9 +106,15 @@
 	                        </div>
 	                    </div>
 	                    <!-- 파일 -->
-	                    <c:forEach var="file" items="${files}">
-				             ${file.name} <input type="button" value="삭제" onclick="deleteFile(this, ${file.no})">
-				        </c:forEach>
+	                    	<table>
+			                    <c:forEach var="file" items="${files}">
+			                    	<tr>
+			                    	<td>
+						             ${file.name} <input type="button" value="삭제" onclick="deleteFile(this, ${file.no})">
+						             </td>
+						             </tr>
+						        </c:forEach>
+				             </table>
 	                    <div class="mb-2 row  justify-content-start align-items-center">
 	                        <div class="col-md-auto">
 	                        	<input  class="form-control" type="file" id="file" name="file" multiple>
@@ -116,11 +123,11 @@
 	                    <!-- 제출 버튼 or 리셋 버튼 -->
 	                    <div class="mb-2 d-flex justify-content-end">
 	                    	<input type="hidden" id="todoNo" name="todoNo" value="${todo.no}">
-	                        <input type="button" id="updateBtn" value="추가" class="btn" style="background-color:#B9A4BF; color:white;"/>
+	                        <input type="button" id="updateBtn" value="수정" class="btn" style="background-color:#B9A4BF; color:white;"/>
 	                        &nbsp;
 	                        <input type="button" id="deleteBtn" value="삭제" class="btn btn-danger" >
 	                        &nbsp;
-	                        <input type="button" value="취소" onclick="gotoBefore()" class="btn btn-secondary" />
+	                        <input type="button" value="취소" onclick="goBack()" class="btn btn-secondary" />
 	                    </div>
 	                </form>
                 </div>
@@ -140,10 +147,11 @@
 	    .catch( error => {
 	        console.error( error );
 	    } );
-	
+		
 		function goBack() {
-	        window.history.back();
+			document.location ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
 	    }
+		
         $(document).ready(function() {
         	
             $("#updateBtn").click(function(e) {
@@ -291,5 +299,6 @@
                 startDateInput.value = this.value;
             }
         });
+	
     </script>
 </html>

@@ -1,6 +1,7 @@
 package servlet.chapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ChapterDAO;
+import dao.FileDAO;
+import dao.StatusDAO;
+import dao.TodoDAO;
 import dto.ChapterDTO;
+import dto.TodoDTO;
 
 /**
  * /chapter/chapterDeleteServlet
@@ -43,6 +48,25 @@ public class ChapterDeleteServlet extends HttpServlet {
         // 챕터 삭제
         boolean success = chapterDAO.deleteChapter(chapterNo);
         System.out.println(success);
+        
+        
+        TodoDAO todoDAO = new TodoDAO();
+        ArrayList<TodoDTO> todoList = todoDAO.chapter_todoList(chapterNo);
+        
+        StatusDAO statusDAO = new StatusDAO();
+        FileDAO fileDAO = new FileDAO();
+        for(int i = 0; i < todoList.size(); i++) {
+        	TodoDTO todo = todoList.get(i);
+        	success = statusDAO.deleteStatus(todo.getNo());
+        	success = fileDAO.deleteFiles(todo.getNo());
+        	
+        	// todoDAO.deleteTodo();
+        	if(success) {			
+        		success = todoDAO.deleteTodo(todo.getNo());
+        	}
+        	
+        }
+        
 
         if (success) {
             // 챕터 삭제 성공 시 해당 스터디의 상세 페이지로 이동

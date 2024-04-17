@@ -36,7 +36,11 @@
 </script>
 </head>
 <body>
-	<h2 align="center">${study.name}</h2>
+	<h2 align="center">
+	<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
+	${study.name}
+	</a>
+	</h2>
 
 	<div align="center">
 		<table align="center" border="1" summary="챕터 상세">

@@ -14,7 +14,6 @@ $(document).ready(function(){
     $("#okBtn").click(function(){
         var status = $("input[name='status']:checked").val();
         var todoNo = $("#todoNo").val();
-        var myTodoPage = ${sessionScope.myTodoPage};
         var datas = {
             status: status,
             todoNo: todoNo
@@ -26,10 +25,7 @@ $(document).ready(function(){
             data: datas,
             dataType: "text",  // 응답 데이터 타입 지정
             success: function(response){
-            	if(myTodoPage == true)
-                	document.location = "todoListServlet";
-                else
-                	document.location = "todoListServlet";
+            	document.location ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
             },
             error: function(error){
                 alert("Error: " + error);  // 에러 처리
@@ -45,8 +41,16 @@ function gotoUpdate(todoNo){
 </head>
 <body>
     <table border="1">
-        <caption><b>${study.name}</b></caption>
-        <caption>${chapter.name}</caption>
+        <caption><b>
+	        <a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
+		    	${study.name}
+	    	</a>    
+		</b></caption>
+        <caption>
+        <a href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />" style="text-decoration: none;">
+        ${chapter.name}
+        </a>
+        </caption>
         <tbody>
             <tr>
                 <th>할 일 </th>
@@ -74,7 +78,7 @@ function gotoUpdate(todoNo){
         <tfoot>
             <c:forEach var="file" items="${files}">
             <tr>
-                <td colspan="2"><a href="${contextPath }/fileDownloadServlet?fileName=${file.name}">${file.name} 내려받기</a></td>
+                <td colspan="2"><a href="${contextPath }/fileDownloadServlet?fileName=${file.name}&todoNo=${todo.no}">${file.name} 내려받기</a></td>
             </tr>
             </c:forEach>
         </tfoot>

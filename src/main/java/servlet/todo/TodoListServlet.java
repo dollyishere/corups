@@ -69,11 +69,14 @@ public class TodoListServlet extends HttpServlet {
 			System.out.println(todo);
 		}
 		
+		
 		// 4. 나의 statusTodo, 나의 todo 리스트 보내기 -> myTodoList.jsp
 		request.setAttribute("statusArray", statusArray);
 		request.setAttribute("todoArray", todoArray);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/myTodoList.jsp");
 		requestDispatcher.forward(request, response);
+		
+		
 	}
 	
 	
