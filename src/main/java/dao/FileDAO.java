@@ -70,6 +70,10 @@ public class FileDAO extends MySQLConnector{
 	 * @return boolean
 	 */
 	public boolean insertFiles(String fileName, int todoNo) {
+		
+		System.out.println("파일 업로드");
+		System.out.println(fileName);
+		System.out.println(todoNo);
 		boolean success = false;
 		conn = connection();
 		String query = "INSERT INTO files (todo_no, name) VALUES (?, ?)";

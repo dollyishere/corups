@@ -15,9 +15,7 @@
 <title>나의 모든 할 일 화면</title>
 <script type="text/javascript">
     function gotoDetail(todoNo) {
-    	// 세션 변수 설정
-        <% session.setAttribute("myTodoPage", "true"); %>
-        document.location = "${contextPath}/todoDetailServlet?todoNo="+todoNo;
+        document.location = "${contextPath}/todoDetailServlet?todoNo="+todoNo + "&myTodoPage=true";
     }
     
 </script>
