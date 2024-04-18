@@ -56,8 +56,8 @@ public class StudyDeleteServlet extends HttpServlet {
 	        FileDAO fileDAO = new FileDAO();
 	        for(int i = 0; i < todoList.size(); i++) {
 	        	TodoDTO todo = todoList.get(i);
-	        	state = statusDAO.deleteStatus(todo.getNo());
-	        	state = fileDAO.deleteFiles(todo.getNo());
+	        	statusDAO.deleteStatus(todo.getNo());
+	        	fileDAO.deleteFiles(todo.getNo());
 	        	
 	        	// todoDAO.deleteTodo();
 	        	if(state) {			
