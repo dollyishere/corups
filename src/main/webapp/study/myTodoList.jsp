@@ -21,69 +21,86 @@
 </script>
 </head>
 <body>
-
-	<form action="todoSearchServlet" method="post">
-    <select name="searchStatus" id="searchStatus">
-    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
-        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
-        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
-        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
-        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
-    </select>
-    <input type="text" id="searchText" name="searchText" placeholder="검색어를 입력하세요" value="${searchText}">
-    <input type="submit" value="검색">
-    </form>
-    <br>
-    
-    <table border="1">
-    	<tbody>
-    		<c:choose>
-    		<c:when test="${empty todoArray}">
-    			<tr><td>할 일이 없습니다.</td></tr>
-    		</c:when>
-    		<c:otherwise>
-	    	<!-- todo -->
-	    	<c:forEach var="todo" items="${todoArray}">
-			    <tr>
-				    <td>
-				    <button type="button" onclick="gotoDetail(${todo.no})">
-				    	${todo.name}
-				    </button>
-				    </td>
-				    <td>
-				    설명 : ${todo.detail}<br>
-					상태 : 
-				    <c:forEach var="statusItem" items="${statusArray}">
-					    <c:choose>
-					        <c:when test="${todo.no eq statusItem.todoNo}">
-					            <c:if test="${statusItem.status eq 'D'}">완료</c:if>
-					            <c:if test="${statusItem.status eq 'P'}">진행중</c:if>
-					            <c:if test="${statusItem.status eq 'H'}">보류</c:if>
-					            <c:if test="${statusItem.status eq 'C'}">취소</c:if>
-					        </c:when>
-					    </c:choose>
-					</c:forEach>
-					<br>
-					
-				    기간 : ${todo.startDate} ~ ${todo.endDate}<br>
-					<!-- 스터디 : 스터디1<br> -->
-					<!-- 챕터 : 챕터1<br> -->
-				    </td>
-			    </tr>
-		    </c:forEach>
-    		</c:otherwise>
-		    </c:choose>
-	    </tbody>
-	    
-	    <tfoot>
-		
-		<!-- 페이지 번호 -->
-			<tr>
-<%-- 				<td align="center" colspan="5"><c:out value="${pageNavigator}" escapeXml="false" /></td> --%>
-			</tr>
-		</tfoot>
-    </table>
-
-
+	<div class="container-fluid m-5">
+		<c:import url="/components/defaultHeader.jsp" />
+			<form action="todoSearchServlet" method="post" class="row justify-content-center align-items-center">
+			    <div class="col-md-auto">
+			    	<select class="form-select" name="searchStatus" id="searchStatus">
+				    	<option value="ALL" ${searchStatus == 'ALL' ? 'checked' : ''}>전체</option>
+				        <option value="D" ${searchStatus == 'D' ? 'checked' : ''}>완료</option>
+				        <option value="P" ${searchStatus == 'P' ? 'checked' : ''}>진행중</option>
+				        <option value="H" ${searchStatus == 'H' ? 'checked' : ''}>보류</option>
+				        <option value="C" ${searchStatus == 'C' ? 'checked' : ''}>취소</option>
+				    </select>
+			    </div>
+			    <div class="col-md-auto">
+			    	  <input type="text" id="searchText" name="searchText" max="100" size="20" placeholder="검색어를 입력하세요" class="form-control" value="${searchText}">
+			    </div>
+			    <div class="col-md-auto">
+			    	<input type="submit" value="검색"  style="background-color: #D996B5; color:white;"  class="btn btn-sm">
+			    </div>
+			 </form>
+		<div class="container-fluid m-5">
+			<div class="row justify-content-center align-items-center">
+		    	<div class="col-md-auto">
+				<div class="row justify-content-evenly align-items-flex-start">
+					<!-- 내 todo 리스트 -->
+				<div class="col-md-auto  mb-3">
+					<h2 class="mb-3">My Todo</h2>
+					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
+					<table class="m-3" style="width: 40rem;">
+					  <thead>
+					    <tr>
+					    <th scope="col">#</th>
+					      <th scope="col">Todo명</th>
+					      <th scope="col">Study명</th>
+					      <th scope="col">시작일</th>
+					      <th scope="col">종료일</th>
+					      <th scope="col">상태</th>
+					      <th scope="col">상세보기</th>
+					    </tr>
+					  </thead>
+						  <tbody class="table-group-divider">
+						  	<c:choose>
+								<c:when test="${ empty todoArray }">
+									<%-- if() 부분 --%>
+									<tr>
+										<td class="my-5" valign="middle" align="center" colspan="7">진행 중인 todo가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<%-- else 부분 --%>
+									<c:forEach var="todo" items="${ todoArray }" varStatus="status">
+										<tr>
+											<!-- 인덱스 번호 -->
+											<td align="center"><b><c:out value="${ status.index + 1 }" /></b></td>
+											<!-- todo 이름 -->
+											<td align="center"><c:out value="${ todo.name }" /></td>
+											<!-- study 이름 -->
+											<td align="center"><c:out value="${ todoStudyList.get(status.index).getName() }" /></td>
+											<!-- 시작일 -->
+											<td align="center"><c:out value="${ todo.startDate }" /></td>
+											<!-- 종료일 -->
+											<td align="center"><c:out value="${ todo.endDate }" /></td>
+											<!-- 상태 -->
+											<td align="center"><c:out value="${ statusArray.get(status.index).getStatus() }" /></td>
+											<td>
+												<a href="<c:url value="/todoDetailServlet?todoNo=${ todo.no }&amp;" /> ">
+													상세보기
+												</a>
+											</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+		    	</div>
+		  	</div>
+		  	</div>
+	  </div>
+	</div>
 </body>
 </html>

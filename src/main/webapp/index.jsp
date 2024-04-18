@@ -23,7 +23,7 @@
  <div class="container-fluid h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-md-auto">
-                <img alt="logo.png" src="resources/imgs/logo.png" class="mb-2">
+                <img alt="logo.png" src="resources/imgs/logos/logo.png" class="mb-2">
             </div>
             <div class="col-md-2">
             </div>
