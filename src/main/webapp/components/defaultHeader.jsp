@@ -32,7 +32,7 @@
 	    <div class="col-md-4">
 	    	<!-- 로고(메인 화면으로 이동) -->
 	    	<a href="<c:url value="/member/memberDetailServlet" /> ">
-	    		<img alt="logo.png" src="<c:url value="/resources/imgs/logo.png" />" style="width:10rem" class="mb-2">
+	    		<img alt="logo.png" src="<c:url value="/resources/imgs/logos/logo.png" />" style="width:10rem" class="mb-2">
 	    	</a>
 	    </div>
 	    <div class="col-md-4 column justify-content-center align-items-center">

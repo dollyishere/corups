@@ -31,7 +31,7 @@ body {
 		<!-- 로고(메인 화면으로 이동) -->
 	    <div class="col-md-4">
 	    	<a href="<c:url value="/admin/main.jsp"/>">
-	    		<img alt="logo_dark.png" src="<c:url value="/resources/imgs/logo_dark.png"/>" style="width:10rem" class="mb-2">
+	    		<img alt="logo_dark.png" src="<c:url value="/resources/imgs/logos/logo_dark.png"/>" style="width:10rem" class="mb-2">
 	    	</a>
 	    </div>
 	    <!-- 우측 버튼 -->
