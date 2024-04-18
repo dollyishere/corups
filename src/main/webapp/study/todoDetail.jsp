@@ -25,7 +25,7 @@ $(document).ready(function(){
             data: datas,
             dataType: "text",  // 응답 데이터 타입 지정
             success: function(response){
-            	document.location.replace ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
+            	document.location ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
             },
             error: function(error){
                 alert("Error: " + error);  // 에러 처리
@@ -42,7 +42,8 @@ function gotoUpdate(todoNo){
 <body>
 	<div class="container-fluid m-5">
 		<c:import url="/components/defaultHeader.jsp" />
-		<div class="container-fluid">
+		<img alt="logo.png" src='<c:url value="/resources/imgs/logos/logo_detail_t.png"/>' class="mb-2" style="height:60px;">
+		<div class="container-fluid mt-3">
 			<div class="row justify-content-center align-items-center">
 				<div class="col-md-auto">
 					<div class="">
@@ -110,16 +111,18 @@ function gotoUpdate(todoNo){
 							</div>
 						</div>
 					</div>
-					<c:choose>
-				    	<c:when test="${mgr}">
+					
 				    		<div class="btn-group mt-3">
 								<input type="hidden" id="todoNo" value="${todo.no}">
-								<input type="button" value="수정" onclick="gotoUpdate(${todo.no})"  style="background-color: #B9A4BF; color:white;" class="btn btn-sm">
+								<c:choose>
+				    				<c:when test="${mgr}">
+										<input type="button" value="수정" onclick="gotoUpdate(${todo.no})"  style="background-color: #B9A4BF; color:white;" class="btn btn-sm">
+								   	</c:when>
+				    			</c:choose>
 								<input type="button" id="okBtn"
 									value="확인" class="btn btn-sm btn-secondary">
 							</div>
-				    	</c:when>
-				    </c:choose>
+				 
 				</div>
 			</div>
 		</div>

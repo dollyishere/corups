@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <title>스터디 상세 - 챕터부분</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 <script type="text/javascript">
 	function gotoStudyRegister(studyNo){
 		var result = confirm("참여하시겠습니까?");
@@ -74,12 +73,13 @@
 <body>
 	<div class="container-fluid m-5">
 			<c:import url="/components/defaultHeader.jsp" />
-			<div class="container-fluid">
+			<img alt="logo.png" src="../resources/imgs/logos/logo_detail_s.png" class="mb-2" style="height:60px;">
+			<div class="container-fluid mt-3">
 			<div class="row justify-content-center align-items-center">
 		    	<div class="col-md-auto">
 		    		    <div class="">
-					     <h1><b>${study.name}</b></h1>
-					      <h3>${study.detail}</h3>
+					     <h3><b>${study.name}</b></h3>
+					      <h5>${study.detail}</h5>
 					       <c:if test="${userid == study.createUserId}">
 					       		<div class="btn-group">
 					       			<input type="button"
@@ -94,7 +94,7 @@
 				<div class="row justify-content-evenly align-items-flex-start mt-3">
 				<!-- study 참가자 리스트 -->
 				<div class="col-md-auto mb-3">
-					<h3 class="mb-3"><b>참여자</b></h3>
+					<h5 class="mb-3"><b>참여자</b></h5>
 					<div class="custom-form text-center" style="width: 10rem;  min-height: 30rem;">
 						<b style="font-size: 12px;">참여자(${studyMemberCount}/${study.maxNum})</b>
 						<c:choose>
@@ -136,6 +136,14 @@
 									  			<img src="${pageContext.request.contextPath}/uploads/profile_img/${ member.image }" alt="" class="img-fluid">
 											</button>
 											<b>${ member.id }</b>
+											<c:choose>
+						              			<c:when test="${member.id == study.createUserId}">
+						              				⭐
+						              			</c:when>
+						              			<c:otherwise>
+						              				📛
+						              			</c:otherwise>
+						              		</c:choose>
 						                  </div>
 						               </c:forEach>
 									 </div>
@@ -146,7 +154,7 @@
 				</div>
 				<!-- 스터디 챕터 리스트 -->
 				<div class="col-md-auto text-center  mb-3">
-					<h3 class="mb-3"><b>${study.name}의 챕터</b></h3>
+					<h5 class="mb-3"><b>${study.name}의 챕터</b></h5>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
 					<table class="m-3" style="width: 40rem;">
 					  <thead>

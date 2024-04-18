@@ -47,14 +47,15 @@
 <body>
 	<div class="container-fluid m-5">
 			<c:import url="/components/defaultHeader.jsp" />
-			<div class="container-fluid">
+			<img alt="logo.png" src="../resources/imgs/logos/logo_detail_c.png" class="mb-2" style="height:60px;">
+			<div class="container-fluid mt-3">
 			<div class="row justify-content-center align-items-center">
 		    	<div class="col-md-auto">
 		    		    <div class="">
-		    		     <h1><b>${chapter.name}</b></h1>
+		    		     <h3><b>${chapter.name}</b></h3>
 					     <h5 align="center">
 							<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
-								<b>study: ${study.name}</b>
+								<b>${study.name}의 챕터</b>
 								</a>
 							</h5>
 					     
@@ -70,7 +71,7 @@
 					   </div>
 				<!-- 스터디 챕터 리스트 -->
 				<div class="col-md-auto text-center my-3">
-					<h3 class="mb-3"><b>${chapter.name}의 Todo</b></h3>
+					<h5 class="mb-3"><b>${chapter.name}의 Todo</b></h5>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
 					<table class="m-3" style="width: 40rem;">
 					  <thead>

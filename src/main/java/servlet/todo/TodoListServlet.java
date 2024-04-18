@@ -58,7 +58,7 @@ public class TodoListServlet extends HttpServlet {
 		// 2. id로 나의 status 조회
 		StatusDAO statusDAO = new StatusDAO();
 		ArrayList<StatusDTO> statusArray = statusDAO.todoNoList(id);
-		
+		ArrayList<StatusDTO> statusArrayTmp = new ArrayList<StatusDTO>();
 		
 		// 3. 나의 status의 todo_no 으로 나의 todo 리스트 만들기
 		StudyDAO studyDAO = new StudyDAO();
@@ -86,14 +86,29 @@ public class TodoListServlet extends HttpServlet {
 				}
 			}
 			if(myStudy) {
+				statusArrayTmp.add(statusArray.get(i));
 				todoArray.add(todo);
 			}
 		}
 		
+		// 해당하는 todo의 chapter 가져오기
+		List<ChapterDTO> chapterList = new ArrayList<ChapterDTO>();
+		for(int i = 0; i < todoArray.size(); i++) {
+			ChapterDTO chapter =chapterDAO.chapterDetail(todoArray.get(i).getChapterNo());
+			chapterList.add(chapter);
+		}
+		
+		// 해당하는 todo의 study 가져오기
+		List<StudyDTO> todoStudyList = new ArrayList<StudyDTO>();
+		for(int i = 0; i < chapterList.size(); i++) {
+			StudyDTO study = studyDAO.studyDetail(chapterList.get(i).getStudyNo());
+			todoStudyList.add(study);
+		}
 		
 		// 4. 나의 statusTodo, 나의 todo 리스트 보내기 -> myTodoList.jsp
-		request.setAttribute("statusArray", statusArray);
+		request.setAttribute("statusArray", statusArrayTmp);
 		request.setAttribute("todoArray", todoArray);
+		request.setAttribute("todoStudyList", todoStudyList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/study/myTodoList.jsp");
 		requestDispatcher.forward(request, response);
 		

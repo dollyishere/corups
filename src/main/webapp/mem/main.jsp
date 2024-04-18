@@ -23,12 +23,13 @@
 	<div class="container-fluid m-5">
 	<!-- 헤터 -->
 		<c:import url="/components/defaultHeader.jsp" />
-		<div class="container-fluid m-5">
+		<img alt="logo.png" src="../resources/imgs/logos/logo_main_u.png" class="mb-2" style="height:80px;">
+		<div class="container-fluid m-3">
 			<div class="row justify-content-evenly align-items-flex-start">
 				<!-- 내 study 리스트 -->
 				<div class="col-md-auto mb-3">
 					<a href="<c:url value="/study/myStudyServlet" />" style="text-decoration: none;">
-						<h2 class="mb-3">My Study</h2>
+						<h3 class="mb-3"><b>My Study</b></h3>
 					</a>
 					<div class="custom-form text-center" style="width: 30rem;  min-height: 30rem;">
 						<form action="<c:url value="/study/studyListServlet" />" method="get">
@@ -50,8 +51,9 @@
 									<c:forEach var="study" items="${ myStudyList }" varStatus="status">
 										    <div class="col-auto">
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
-												  <div class="card-header"><b>${ study.name }</b></div>
+												  <div class="card-header"><b>⭐</b></div>
 												  <div class="card-body">
+												  <div class="card-text"><b style="font-size: 14px;">${ study.name }</b></div>
 												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
@@ -70,7 +72,7 @@
 													        <p class="card-text"><span class="badge text-bg-info">운동</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'c'}">
-													        <p class="card-text"><span class="adge text-bg-danger">요리</span></p>
+													        <p class="card-text"><span class="badge text-bg-danger">요리</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'p'}">
 													        <p class="card-text"><span class="badge text-bg-dark">프로그래밍</span></p>
@@ -90,7 +92,7 @@
 													    <button type="submit" style="background-color: #D996B5; color:white;" class="btn btn-sm">
 													        <b style="color:white;">상세보기</b>
 													    </button>
-													</form><br>
+													</form>
 												  </div>
 												</div>
 										    </div>
@@ -105,7 +107,7 @@
 				<!-- 내 todo 리스트 -->
 				<div class="col-md-auto  mb-3">
 					<a href="<c:url value="../todoListServlet" />" style="text-decoration: none;">
-					<h2 class="mb-3">My Todo</h2>
+					<h2 class="mb-3"><b>My Todo</b></h2>
 					</a>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
 					<table class="m-3" style="width: 40rem;">
@@ -145,7 +147,7 @@
 											<!-- 상태 -->
 											<td align="center"><c:out value="${ statusList.get(status.index).getStatus() }" /></td>
 											<td>
-												<a href="<c:url value="/todoDetailServlet?todoNo=${ todo.no }&amp;" /> ">
+												<a href="<c:url value="/todoDetailServlet?todoNo=${ todo.no }&amp;myTodoPage=true;" /> ">
 													상세보기
 												</a>
 											</td>
