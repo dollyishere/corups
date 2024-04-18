@@ -20,38 +20,72 @@
 </script>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${empty studyList}">
-			<p>등록된 스터디가 없습니다.</p>
-		</c:when>
-		
-		<c:when test="${!empty studyList }">
-			<div>
-				스터디 목록
-				<table border="1">
-					<thead>
-						<tr>
-							<th>no</th>
-							<th>name</th>
-							<th>id</th>
-							<th>생성 날짜</th>
-							<th>관리</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="study" items="${studyList}">
-							<tr id="margin">
-								<td>${study.no}</td>
-								<td>${study.name}</td>
-								<td>${study.createUserId}</td>
-								<td>${study.createdDate}</td>
-								<td><input type="button" onclick="gotoUpdate(${study.no})" value="상세보기"></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+<div class="container-fluid m-5">
+	<c:import url="/components/adminHeader.jsp" />
+		<div class="container mt-5">
+			<div class="row justify-content-center align-items-flex-center mt-5">
+				<div class="col-md-auto mb-3">
+					<h2 class="mb-3" style="color:#F0EAEA;">Study Management</h2>
+					<div class="custom-form text-center" style="width: 42rem; min-height: 30rem;">
+						<table summary="스터디목록" class="table-light">
+							<colgroup>
+								<col width="40" />
+								<col width="180" />
+								<col width="100" />
+								<col width="150" />
+								<col width="80" />
+								<col width="80" />
+							</colgroup>
+							<thead class="my-5">
+								<!-- 회원목록제목 -->
+								<tr>
+									<th>#</th>
+									<th>스터디이름</th>
+									<th>생성한회원</th>
+									<th>생성날짜</th>
+									<th>참여자수</th>
+									<th>수정</th>
+								</tr>
+							</thead>
+								<!-- 회원목록의 데이터부분 시작 -->
+							<tbody class="table-group-divider">
+								<c:choose>
+									<c:when test="${ empty studyList }">
+										<%-- if() 부분 --%>
+										<tr>
+											<td align="center" colspan="6">등록된 스터디가 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<%-- else 부분 --%>
+										<c:forEach var="study" items="${ studyList }" varStatus="status">
+											<tr class="my-5">
+												<!-- 인덱스 번호 -->
+												<td align="center"><b><c:out value="${ status.index }" /></b></td>
+												<!-- 스터디 이름 -->
+												<td align="center"><c:out value="${ study.name }" /></td>
+												<!-- 생성자 아이디 -->
+												<td align="center"><c:out value="${ study.createUserId }" /></td>
+												<!-- 생성일 -->
+												<td align="center"><c:out value="${ study.createdDate }" /></td>
+												<!-- 참여자 수 -->
+												<td align="center"><b style="font-size: 14px;">(${ studyMemberNumList.get(status.index) }/${ study.maxNum })</b></td>
+												<!-- 수정 -->
+												<td>
+													<a href="<c:url value="/study/studyUpdateServlet?studyNo=${study.no}" /> "  class="btn" style="background-color:#D996B5; color:white;">
+														수정
+													</a>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
-		</c:when>
-	</c:choose>
+		</div>
+</div>
 </body>
 </html>

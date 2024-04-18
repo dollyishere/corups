@@ -21,7 +21,7 @@
 		<div class="container-fluid m-5">
 		<div class="row justify-content-center align-items-center">
 	    	<div class="col-md-auto">
-		    		<img alt="logo.png" src="<c:url value="/resources/imgs/logo.png" />" class="mb-2">
+		    		<img alt="logo_dark.png" src="<c:url value="/resources/imgs/logo_dark.png" />" class="mb-2">
 		   		</div>
 			   <div class="col-md-1">
 		       </div>
@@ -99,9 +99,9 @@
 	                    </div>
 	                    <!-- 제출 버튼 or 리셋 버튼 -->
 	                    <div class="mb-2 d-flex justify-content-end">
-	                    	<input type="button" id="updateBtn" value="수정하기" class="btn" style="background-color:#B9A4BF; color:white;">
+	                    	<input type="button" id="updateBtn" value="수정" class="btn" style="background-color:#B9A4BF; color:white;">
 	                    	&nbsp;
-							<input type="button" id="deleteBtn" value="삭제하기" class="btn btn-danger" >
+							<input type="button" id="deleteBtn" value="삭제" class="btn btn-danger" >
 							&nbsp;
 							<input type="button" value="취소" class="btn btn-secondary" onclick="window.location.href='"studyDetailServlet?studyNo="+no'">	
 	                    </div>
@@ -154,7 +154,7 @@
 					success: function(response) {
 						if(response == "성공"){
 							alert("수정 성공");
-							document.location = "studyDetailServlet?studyNo="+no;						
+							window.location.replace("http://localhost:9000/corups/study/studyListServlet");							
 						}
 						else
 							alert("수정 실패");	
@@ -183,7 +183,7 @@
 					success: function(response) {
 						if(response == "성공"){
 							alert("삭제 성공");
-							document.location = "studyListServlet";							
+							window.location.replace("http://localhost:9000/corups/study/studyListServlet");							
 						}
 						else
 							alert("삭제 실패");	
