@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 <c:set var="userId" value="${sessionScope.id}" />
 <!DOCTYPE html>
@@ -73,6 +74,9 @@
 								              			<c:when test="${userId == study.createUserId}">
 								              				⭐
 								              			</c:when>
+								              			<c:when test="${fn:contains(studyMemberList[status.index], userId)}">
+								              				📛
+								              			</c:when>
 								              			<c:otherwise>
 								              				🔰
 								              			</c:otherwise>
@@ -80,7 +84,7 @@
 												</div>
 												  <div class="card-body">
 												  <div class="card-text"><b style="font-size: 14px;">${ study.name }</b></div>
-												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
+												    <p class="card-text"><b style="font-size: 12px;">(${ studyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
 													        <p class="card-text"><span class="badge text-bg-success">독서</span></p>
