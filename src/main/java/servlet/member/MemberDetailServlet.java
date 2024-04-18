@@ -70,7 +70,8 @@ public class MemberDetailServlet extends HttpServlet {
 		
 		// 2. id로 나의 status 조회
 		ArrayList<StatusDTO> statusArray = statusDAO.todoNoList(id);
-				
+
+		ArrayList<StatusDTO> statusArrayTmp = new ArrayList<StatusDTO>();
 		// 내가 참여하는 todo 리스트 가져오기
 		todoDAO = new TodoDAO();
 		// 3. 나의 status의 todo_no 으로 나의 todo 리스트 만들기
@@ -92,6 +93,7 @@ public class MemberDetailServlet extends HttpServlet {
 			}
 			if(myStudy) {
 				todoList.add(todo);
+				statusArrayTmp.add(statusArray.get(i));
 //						System.out.println(todo);				
 			}
 		}
@@ -112,7 +114,7 @@ public class MemberDetailServlet extends HttpServlet {
 		
 		request.setAttribute("myStudyList", myStudyList);
 		request.setAttribute("myStudyMemberNumList", myStudyMemberNumList);
-		request.setAttribute("statusList", statusArray);
+		request.setAttribute("statusList", statusArrayTmp);
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("todoStudyList", todoStudyList);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mem/main.jsp");
