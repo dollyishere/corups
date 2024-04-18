@@ -54,7 +54,7 @@
 		    		     <h1><b>${chapter.name}</b></h1>
 					     <h5 align="center">
 							<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
-								<b>${study.name}</b>
+								<b>study: ${study.name}</b>
 								</a>
 							</h5>
 					     
