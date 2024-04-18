@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="userId" value="${sessionScope.id}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,14 @@
 									<c:forEach var="study" items="${ myStudyList }" varStatus="status">
 										    <div class="col-auto">
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
-												  <div class="card-header"><b>⭐</b></div>
+												  <div class="card-header"><c:choose>
+								              			<c:when test="${userId == study.createUserId}">
+								              				⭐
+								              			</c:when>
+								              			<c:otherwise>
+								              				📛
+								              			</c:otherwise>
+								              		</c:choose></div>
 												  <div class="card-body">
 												  <div class="card-text"><b style="font-size: 14px;">${ study.name }</b></div>
 												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
