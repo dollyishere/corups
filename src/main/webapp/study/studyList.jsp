@@ -68,9 +68,19 @@
 									<c:forEach var="study" items="${ studyList }" varStatus="status">
 										    <div class="col-auto">
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
-												  <div class="card-header"><b>${ study.name }</b></div>
+												<div class="card-header">
+													<c:choose>
+								              			<c:when test="${userId == study.createUserId}">
+								              				⭐
+								              			</c:when>
+								              			<c:otherwise>
+								              				🔰
+								              			</c:otherwise>
+								              		</c:choose>
+												</div>
 												  <div class="card-body">
-												    <p class="card-text"><b style="font-size: 12px;">(${ studyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
+												  <div class="card-text"><b style="font-size: 14px;">${ study.name }</b></div>
+												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
 													        <p class="card-text"><span class="badge text-bg-success">독서</span></p>
@@ -88,7 +98,7 @@
 													        <p class="card-text"><span class="badge text-bg-info">운동</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'c'}">
-													        <p class="card-text"><span class="adge text-bg-danger">요리</span></p>
+													        <p class="card-text"><span class="badge text-bg-danger">요리</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'p'}">
 													        <p class="card-text"><span class="badge text-bg-dark">프로그래밍</span></p>
@@ -108,7 +118,7 @@
 													    <button type="submit" style="background-color: #D996B5; color:white;" class="btn btn-sm">
 													        <b style="color:white;">상세보기</b>
 													    </button>
-													</form><br>
+													</form>
 												  </div>
 												</div>
 										    </div>
