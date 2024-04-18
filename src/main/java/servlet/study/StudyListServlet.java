@@ -40,10 +40,16 @@ public class StudyListServlet extends HttpServlet {
 		// 스터디에 몇 명 참여하는지 가져오기
 		MemberStudyDAO memberStudyDAO = new MemberStudyDAO();
 		List<Integer> studyMemberNumList = new ArrayList<Integer>();
+		List<ArrayList<String>> studyMemberList = new ArrayList<ArrayList<String>>();
 		for (int i = 0; i < studyList.size(); i++) {
+			ArrayList<String> miniList = new ArrayList<String>();
+			miniList = (ArrayList<String>) memberStudyDAO.memberIdList(studyList.get(i).getNo());
 			int myStudyMemberNum = memberStudyDAO.memberIdList(studyList.get(i).getNo()).size();
+			studyMemberList.add(miniList);
 			studyMemberNumList.add(myStudyMemberNum);
 		}
+	
+		request.setAttribute("studyMemberList", studyMemberList);
 		request.setAttribute("studyMemberNumList", studyMemberNumList);
 		// View 보내기
 		HttpSession session = request.getSession();
