@@ -87,7 +87,7 @@
 	            if (data === "update complete!") {
 	            	console.log(textStatus, data);
 	                alert("수정이 정상적으로 완료되었습니다.");
-	                window.location.replace("<%= request.getContextPath() %>/mem/main.jsp")
+	                window.location.replace("http://localhost:9000/corups/member/memberDetailServlet");
 	            } else if (data == "update complete admin!") {
 	            	alert("수정이 정상적으로 완료되었습니다.");
 	            	window.location.replace("http://localhost:9000/corups/member/memberListServlet");
