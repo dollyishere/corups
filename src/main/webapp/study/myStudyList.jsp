@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <c:set var="contextPath" value="${pageContext.request.contextPath}"></c:set>
-
+<c:set var="userId" value="${sessionScope.id}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +37,7 @@
 				<!-- 내 study 리스트 -->
 				<div class="col-md-auto mb-3">
 					<a href="<c:url value="/study/myStudyServlet" />" style="text-decoration: none;">
-						<h2 class="mb-3">My Study</h2>
+						<h3 class="mb-3"><b>My Study</b></h3>
 					</a>
 					<div class="custom-form text-center" style="width: 60rem;  min-height: 36rem;">
 						<div class="btn-group m-3" role="group">
@@ -62,8 +62,18 @@
 									<c:forEach var="study" items="${ myStudyList }" varStatus="status">
 										    <div class="col-auto">
 												<div class="card border-light text-center mb-3" style="width: 10rem;">
-												  <div class="card-header"><b>${ study.name }</b></div>
+												<div class="card-header">
+													<c:choose>
+								              			<c:when test="${userId == study.createUserId}">
+								              				⭐
+								              			</c:when>
+								              			<c:otherwise>
+								              				📛
+								              			</c:otherwise>
+								              		</c:choose>
+												</div>
 												  <div class="card-body">
+												  <div class="card-text"><b style="font-size: 14px;">${ study.name }</b></div>
 												    <p class="card-text"><b style="font-size: 12px;">(${ myStudyMemberNumList.get(status.index) }/${ study.maxNum })</b></p>
 												    <c:choose>
 													    <c:when test="${study.category eq 'r'}">
@@ -82,7 +92,7 @@
 													        <p class="card-text"><span class="badge text-bg-info">운동</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'c'}">
-													        <p class="card-text"><span class="adge text-bg-danger">요리</span></p>
+													        <p class="card-text"><span class="badge text-bg-danger">요리</span></p>
 													    </c:when>
 													    <c:when test="${study.category eq 'p'}">
 													        <p class="card-text"><span class="badge text-bg-dark">프로그래밍</span></p>
@@ -102,7 +112,7 @@
 													    <button type="submit" style="background-color: #D996B5; color:white;" class="btn btn-sm">
 													        <b style="color:white;">상세보기</b>
 													    </button>
-													</form><br>
+													</form>
 												  </div>
 												</div>
 										    </div>

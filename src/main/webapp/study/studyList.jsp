@@ -48,7 +48,7 @@
 				<!-- 내 study 리스트 -->
 				<div class="col-md-auto mb-3">
 					<a href="<c:url value="/study/studyListServlet" />" style="text-decoration: none;">
-						<h2 class="mb-3">Study</h2>
+						<h3 class="mb-3"><b>Study</b></h3>
 					</a>
 					<div class="custom-form text-center" style="width: 60rem;  min-height: 36rem;">
 						<a href="studyRegister.jsp" class="btn m-3" style="background-color: #D996B5; color:white;">

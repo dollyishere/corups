@@ -46,7 +46,7 @@
 				<div class="row justify-content-evenly align-items-flex-start">
 					<!-- 내 todo 리스트 -->
 				<div class="col-md-auto  mb-3">
-					<h2 class="mb-3">My Todo</h2>
+					<h3 class="mb-3"><b>My Todo</b></h3>
 					<div class="custom-form text-center" style="width: 46rem; min-height: 30rem;">
 					<table class="m-3" style="width: 40rem;">
 					  <thead>
