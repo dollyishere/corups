@@ -47,8 +47,8 @@ public class StudyListServlet extends HttpServlet {
 		request.setAttribute("studyMemberNumList", studyMemberNumList);
 		// View 보내기
 		HttpSession session = request.getSession();
-//		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
-		boolean  isAdmin = false; // << 이 코드 나중에 삭제(관리자 로그인 연결되면)
+		boolean isAdmin = (boolean)session.getAttribute("isAdmin");
+
 	if( isAdmin ) {	
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/studyMgr.jsp");
 		requestDispatcher.forward(request, response);

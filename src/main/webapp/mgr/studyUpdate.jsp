@@ -99,9 +99,9 @@
 	                    </div>
 	                    <!-- 제출 버튼 or 리셋 버튼 -->
 	                    <div class="mb-2 d-flex justify-content-end">
-	                    	<input type="button" id="updateBtn" value="수정하기" class="btn" style="background-color:#B9A4BF; color:white;">
+	                    	<input type="button" id="updateBtn" value="수정" class="btn" style="background-color:#B9A4BF; color:white;">
 	                    	&nbsp;
-							<input type="button" id="deleteBtn" value="삭제하기" class="btn btn-danger" >
+							<input type="button" id="deleteBtn" value="삭제" class="btn btn-danger" >
 							&nbsp;
 							<input type="button" value="취소" class="btn btn-secondary" onclick="window.location.href='"studyDetailServlet?studyNo="+no'">	
 	                    </div>

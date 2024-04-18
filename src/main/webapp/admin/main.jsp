@@ -53,7 +53,7 @@
 					        <br>
 				    	</div>
 				    	<div class="col-md-auto m-3">
-				    		<input type="button" value="스터디관리" onclick="location.href='<c:url value="/member/memberListServlet"/>'" class="btn btn-outline-light" style="font-weight: bold;" />
+				    		<input type="button" value="스터디관리" onclick="location.href='<c:url value="/study/studyListServlet"/>'" class="btn btn-outline-light" style="font-weight: bold;" />
 				    	</div>
 				    </div>
 				</div>

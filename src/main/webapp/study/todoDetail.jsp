@@ -25,7 +25,7 @@ $(document).ready(function(){
             data: datas,
             dataType: "text",  // 응답 데이터 타입 지정
             success: function(response){
-            	document.location ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
+            	document.location.replace ="${contextPath}/chapter/chapterDetailServlet?chapterNo=${chapter.no}";
             },
             error: function(error){
                 alert("Error: " + error);  // 에러 처리
@@ -40,56 +40,90 @@ function gotoUpdate(todoNo){
 </script>
 </head>
 <body>
-    <table border="1">
-        <caption><b>
-	        <a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
-		    	${study.name}
-	    	</a>    
-		</b></caption>
-        <caption>
-        <a href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />" style="text-decoration: none;">
-        ${chapter.name}
-        </a>
-        </caption>
-        <tbody>
-            <tr>
-                <th>할 일 </th>
-                <td>${todo.name}</td>
-            </tr>
-            <tr>
-                <th>상태
-                ${status}</th>
-                <td>
-                <input type="radio" id="status" name="status" value="D" ${status == 'D' ? 'checked' : ''}>완료
-                <input type="radio" id="status" name="status" value="P" ${status == 'P' ? 'checked' : ''}>진행중
-                <input type="radio" id="status" name="status" value="H" ${status == 'H' ? 'checked' : ''}>보류
-                <input type="radio" id="status" name="status" value="C" ${status == 'C' ? 'checked' : ''}>취소
-                </td>
-            </tr>
-            <tr>
-                <th>기간</th>
-                <td>${todo.startDate} ~ ${todo.endDate}</td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td>${todo.detail}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <c:forEach var="file" items="${files}">
-            <tr>
-                <td colspan="2"><a href="${contextPath }/fileDownloadServlet?fileName=${file.name}&todoNo=${todo.no}">${file.name} 내려받기</a></td>
-            </tr>
-            </c:forEach>
-        </tfoot>
-    </table>
-    <input type="hidden" id="todoNo" value="${todo.no}">
-    
-    <c:choose>
-    	<c:when test="${mgr}">
-    		<input type="button" id="okBtn" value="확인">
-    		<input type="button" value="수정" onclick="gotoUpdate(${todo.no})">
-    	</c:when>
-    </c:choose>
+	<div class="container-fluid m-5">
+		<c:import url="/components/defaultHeader.jsp" />
+		<div class="container-fluid">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-auto">
+					<div class="">
+						<h1><b>${todo.name}</b></h1>
+						<div>
+							<a href="<c:url value="/study/studyDetailServlet?studyNo=${study.no}" />" style="text-decoration: none;">
+								<b>study: ${study.name}</b>
+							</a>
+							<b> / </b>
+							<a href="<c:url value="/chapter/chapterDetailServlet?chapterNo=${chapter.no}" />" style="text-decoration: none;">
+								<b>chapter: ${chapter.name}</b>
+							</a>
+						</div>
+					</div>
+					<!-- todo 상태 -->
+					<div class="col-md-auto text-center my-3">
+						<div class="custom-form text-center" style="width: 30rem; min-height: 20rem;">
+							<div class="row justify-content-center align-items-center">
+								<div class="row justify-content-center align-items-cente">
+									<%-- <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off"  id="status" name="status" value="D" ${status == 'D' ? 'checked' : ''}>
+									<label class="btn btn-outline-success" for="success-outlined"  style="font-weight: bold;">완료</label>
+					                <input type="radio" class="btn-check" name="options-outlined" id="primary-outlined" autocomplete="off"  id="status" name="status" value="P" ${status == 'P' ? 'checked' : ''}>
+					                <label class="btn btn-outline-primary" for="primary-outlined"  style="font-weight: bold;">진행중</label>
+					                <input type="radio" class="btn-check" name="options-outlined" id="warning-outlined" autocomplete="off"  id="status" name="status" value="H" ${status == 'H' ? 'checked' : ''}>
+					                <label class="btn btn-outline-warning" for="warning-outlined"  style="font-weight: bold;">보류</label>
+					                <input  type="radio" class="btn-check" name="options-outlined" id="dark-outlined" autocomplete="off"  id="status" name="status" value="C" ${status == 'C' ? 'checked' : ''}>
+					                <label class="btn btn-outline-dark" for="dark-outlined"  style="font-weight: bold;">취소</label> --%>
+					                <div class="col-md-auto form-check">
+					                	 <input class="form-check-input" type="radio" id="status1" name="status" value="D" ${status == 'D' ? 'checked' : ''}>
+						                 <label class="form-check-label" for="status1">
+										   	완료
+										  </label>
+					                </div>
+										
+									  <div class="col-md-auto form-check">
+					                <input class="form-check-input" type="radio" id="status2" name="status" value="P" ${status == 'P' ? 'checked' : ''}>
+					                 	<label class="form-check-label" for="status2">
+										    진행중
+										  </label>
+					                </div>
+					                <div class="col-md-auto form-check">
+						                <input class="form-check-input" type="radio" id="status3" name="status" value="H" ${status == 'H' ? 'checked' : ''}>
+						                <label class="form-check-label" for="status3">
+										    보류
+										  </label>
+					                </div>
+					                <div class="col-md-auto form-check">
+						                <input class="form-check-input" type="radio" id="status4" name="status" value="C" ${status == 'C' ? 'checked' : ''}>
+						                <label class="form-check-label" for="status14">
+										    취소
+										</label>
+					                </div>
+								</div>
+								<div>
+									
+								</div>
+							</div>
+							<div class="my-5">
+								${todo.detail}
+							</div>
+							<div>
+								<c:forEach var="file" items="${files}">
+									<a href="${contextPath }/fileDownloadServlet?fileName=${file.name}&todoNo=${todo.no}">${file.name} 내려받기</a>
+					            </c:forEach>
+							</div>
+						</div>
+					</div>
+					<c:choose>
+				    	<c:when test="${mgr}">
+				    		<div class="btn-group mt-3">
+								<input type="hidden" id="todoNo" value="${todo.no}">
+								<input type="button" value="수정" onclick="gotoUpdate(${todo.no})"  style="background-color: #B9A4BF; color:white;" class="btn btn-sm">
+								<input type="button" id="okBtn"
+									value="확인" class="btn btn-sm btn-secondary">
+							</div>
+				    	</c:when>
+				    </c:choose>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+
