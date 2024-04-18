@@ -124,7 +124,15 @@ public class FileUploadServlet extends HttpServlet {
 	private String getRealPath() {
 		
 		 ServletContext context = getServletContext();
-	     String realPath = context.getRealPath("/sources/files/");
+		 String realPath = context.getRealPath("/uploads/files/");
+	        File folder = new File(realPath);
+
+	        // 폴더 생성
+	        if (!folder.exists()) {
+	            folder.mkdirs();  // 폴더 생성
+	            
+	        }
+	        
 	     System.out.println("실제 경로: " + realPath);
 	 
 	     return realPath;

@@ -89,9 +89,9 @@ public class FileDownloadServlet extends HttpServlet {
 			return "application/vnd.ms-excel";
 		} else if (fileName.endsWith(".zip")) {
 			return "application/zip";
-//		}
-//		else if (fileName.endsWith(".txt")) {
-//			return "text/plain";
+		}
+		else if (fileName.endsWith(".txt")) {
+			return "text/plain";
 		} else {
 			return "application/octet-stream";
 		}
@@ -100,7 +100,7 @@ public class FileDownloadServlet extends HttpServlet {
 	private String getRealPath() {
 		
 		 ServletContext context = getServletContext();
-	     String realPath = context.getRealPath("/sources/files/");
+	     String realPath = context.getRealPath("/uploads/files/");
 	     System.out.println("실제 경로: " + realPath);
 	 
 	     return realPath;
